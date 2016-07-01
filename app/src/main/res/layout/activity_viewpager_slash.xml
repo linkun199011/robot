@@ -1,0 +1,28 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background"
+    android:orientation="vertical" >
+
+    <com.ustclin.startpage.ViewPager
+        android:id="@+id/pager"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" />
+
+    <com.ustclin.startpage.NotouchLayout
+        android:layout_width="220dip"
+        android:layout_height="390dip"
+        android:layout_gravity="center|top"
+        android:layout_marginTop="50dip"
+        android:background="@drawable/perfect_ever" >
+
+        <com.ustclin.startpage.ViewPager
+            android:id="@+id/main_scrolllayout"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_centerInParent="true"
+            android:focusable="false" />
+    </com.ustclin.startpage.NotouchLayout>
+
+</FrameLayout>

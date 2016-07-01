@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bitmap_book_read_chapterlist_repeat" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="45.0dip"
+            android:background="@drawable/title_bar"
+            android:gravity="center_vertical" >
+
+            <TextView
+                android:id="@+id/title_function_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:ellipsize="end"
+                android:gravity="center"
+                android:paddingLeft="75.0dip"
+                android:paddingRight="75.0dip"
+                android:singleLine="true"
+                android:text="小黄鸡"
+                android:textColor="#ffffff"
+                android:textSize="22sp" />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/tv_example1"
+            android:layout_width="fill_parent"
+            android:layout_height="28.0dip"
+            android:background="#ff313131"
+            android:gravity="center_vertical"
+            android:paddingLeft="15.0dip"
+            android:text="example"
+            android:textColor="#ff959595"
+            android:textSize="14.0sp" />
+
+        <ImageView
+            android:id="@+id/iv_example1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center" />
+
+        <TextView
+            android:id="@+id/tv_example2"
+            android:layout_width="fill_parent"
+            android:layout_height="28.0dip"
+            android:background="#ff313131"
+            android:gravity="center_vertical"
+            android:paddingLeft="15.0dip"
+            android:text="example"
+            android:textColor="#ff959595"
+            android:textSize="14.0sp" />
+
+        <ImageView
+            android:id="@+id/iv_example2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center" />
+    </LinearLayout>
+
+</ScrollView>
