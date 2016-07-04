@@ -22,6 +22,45 @@ android {
             jniLibs.srcDirs = ['libs']
         }
     }
+
+    productFlavors {
+        wanpu {
+            manifestPlaceholders = [ CHANNEL_NAME:"default"]
+        }
+        xiaomi {
+            manifestPlaceholders = [ CHANNEL_NAME:"xiaomi" ]
+        }
+        lenovo {
+            manifestPlaceholders = [ CHANNEL_NAME:"lenovo" ]
+        }
+        mumayi {
+            manifestPlaceholders = [ CHANNEL_NAME:"mumayi" ]
+        }
+        // 安卓市场
+        hiapk {
+            manifestPlaceholders = [ CHANNEL_NAME:"hiapk" ]
+        }
+        // 掌上应用汇
+        appChina {
+            manifestPlaceholders = [ CHANNEL_NAME:"appChina" ]
+        }
+        // 安智市场
+        goapk {
+            manifestPlaceholders = [ CHANNEL_NAME:"goapk" ]
+        }
+        baidu {
+            manifestPlaceholders = [ CHANNEL_NAME:"baidu" ]
+        }
+        wandoujia {
+            manifestPlaceholders = [ CHANNEL_NAME:"wandoujia" ]
+        }
+        QQ {
+            manifestPlaceholders = [ CHANNEL_NAME:"QQ" ]
+        }
+        _360 {
+            manifestPlaceholders = [ CHANNEL_NAME:"360" ]
+        }
+    }
 }
 
 dependencies {
@@ -30,10 +69,10 @@ dependencies {
     compile 'com.android.support:appcompat-v7:23.3.0'
     compile 'com.android.support:design:23.3.0'
     //compile files('libs/android-support-v4.jar')
-    compile files('libs/AppOffer_2.3.2_linkun199011.jar')
+    //compile files('libs/AppOffer_2.3.2_linkun199011.jar')
     compile files('libs/gson-2.2.4.jar')
-    compile files('libs/kuzai-com.al.kun-2.1.8.jar')
     compile files('libs/nineoldandroids-2.4.0.jar')
     compile files('libs/tulingmanager.jar')
     compile files('libs/VoiceRecognition.jar')
+    compile files('libs/AppOffer_2.4.6.jar')
 }
