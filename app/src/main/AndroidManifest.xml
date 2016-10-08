@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.ustclin.robot"
-    android:versionCode="5"
-    android:versionName="5.0" >
+    android:versionCode="6"
+    android:versionName="6.0" >
     <supports-screens android:anyDensity="true" />
     <uses-sdk
         android:minSdkVersion="8"
@@ -10,17 +10,15 @@
 
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
-    <!-- 酷仔权限 -->
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.GET_TASKS" />
-    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+
+    <!-- 万普配置信息 start -->
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
-    <uses-permission android:name="android.permission.VIBRATE" />
-    <uses-permission android:name="android.permission.RESTART_PACKAGES" />
-    <!-- 酷仔权限  end -->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.GET_TASKS"/>
+    <!-- 万普配置信息 end -->
 
     <application
         android:allowBackup="true"
@@ -30,7 +28,6 @@
 
         <!-- 使用junit需要添加 -->
         <uses-library android:name="android.test.runner" />
-        <!--  -->
 
         <activity
             android:name="com.ustclin.petchicken.MainActivity"
@@ -54,40 +51,10 @@
         </activity>
         <!-- 万普配置信息 start -->
         <meta-data android:name="APP_ID" android:value="d2241b3659b7bc59e37e1a0c26ee090b" />
-        <meta-data android:name="APP_PID" android:value="default" />
+        <meta-data android:name="APP_PID" android:value="${CHANNEL_NAME}" />
         <!-- 万普配置信息 end -->
 
-        <!-- 酷仔 注册继承酷仔的类 -->
-
-        <!-- MyKAActivity, MyKBActivity, MyKReceiver 由开发者自己定义类名。 -->
-        <meta-data android:name="k" android:value="1f36e3646ef349ec9a8b8049be5ef388" />
-        <meta-data android:name="channelId" android:value="k-appchina" />
-
-        <activity android:name="com.al.kun.kunKAActivity"
-            android:windowSoftInputMode="adjustPan"
-            android:screenOrientation="portrait"/>
-        <activity android:name="com.al.kun.kunKBActivity"
-            android:windowSoftInputMode="adjustPan"
-            android:screenOrientation="portrait"/>
-        <receiver android:name="com.al.kun.kunKReceiver">
-            <intent-filter>
-                <action android:name="android.intent.action.PACKAGE_ADDED" />
-                <data android:scheme="package" />
-            </intent-filter>
-            <intent-filter>
-                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
-            </intent-filter>
-        </receiver>
-
-        <!-- 酷仔 注册继承酷仔的类  end -->
     </application>
 
-    <!-- 使用junit需要添加 -->
-    <instrumentation
-        android:name="android.test.InstrumentationTestRunner"
-        android:label="Test for My app"
-        android:targetPackage="com.example.android_robot_01" >
-    </instrumentation>
-    <!--  -->
 
 </manifest>

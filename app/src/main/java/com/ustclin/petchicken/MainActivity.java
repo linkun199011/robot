@@ -31,7 +31,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.al.kun.kunKAM;
 import com.baidu.voicerecognition.android.ui.DialogRecognitionListener;
 import com.tuling.util.ResultWatcher;
 import com.tuling.util.TulingManager;
@@ -44,8 +43,6 @@ import com.ustclin.petchicken.listview.RefreshListView;
 import com.ustclin.petchicken.slidemenu.SlideMenu;
 import com.ustclin.petchicken.utils.HttpUtils;
 import com.ustclin.petchicken.utils.MyDateUtils;
-import com.ustclin.robot.AppConnect;
-import com.ustclin.robot.AppListener;
 import com.ustclin.robot.R;
 import com.ustclin.startpage.MyPagerAdapter;
 import com.ustclin.startpage.ViewPager;
@@ -57,6 +54,9 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
+
+import cn.waps.AppConnect;
+import cn.waps.AppListener;
 
 
 public class MainActivity extends Activity implements OnClickListener,
@@ -90,7 +90,7 @@ public class MainActivity extends Activity implements OnClickListener,
 	private SharedPreferences sp;
 	long exitTime = 0;
 	static int indexNumber = 0;
-	private boolean isStartPage = false; // 启动引导页
+	private boolean isStartPage = false; // 启动引导 页
 	// private ComposerLayout clayout;
 	private ViewPager mPager;
 	private ArrayList<View> mPageViews;
@@ -238,7 +238,7 @@ public class MainActivity extends Activity implements OnClickListener,
 
 					@Override
 					protected Void doInBackground(Void... params) {
-						SystemClock.sleep(1000);
+						SystemClock.sleep(700);
 						// 找到比第一个记录时间更久的聊天记录，一次刷新取20条
 						getMoreList();
 						return null;
@@ -650,11 +650,6 @@ public class MainActivity extends Activity implements OnClickListener,
 					});
 			// 显示插屏广告
 			AppConnect.getInstance(this).showPopAd(this);
-			// 酷果广告
-			kunKAM.getInstance()
-					.setId(this, "1f36e3646ef349ec9a8b8049be5ef388");
-			// 调用酷仔接口
-			kunKAM.getInstance().showKuguoSprite(this, kunKAM.STYLE_KUZAI);
 		}
 	}
 
