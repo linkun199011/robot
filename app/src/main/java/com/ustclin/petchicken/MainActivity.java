@@ -92,7 +92,6 @@ public class MainActivity extends Activity implements OnClickListener,
     long exitTime = 0;
     static int indexNumber = 0;
     private boolean isStartPage = false; // 启动引导 页
-    // private ComposerLayout clayout;
     private ViewPager mPager;
     private ArrayList<View> mPageViews;
     private MyPagerAdapter mPageAdapter;
