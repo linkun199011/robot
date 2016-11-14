@@ -25,6 +25,7 @@ import android.view.WindowManager;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AbsListView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -35,6 +36,7 @@ import android.widget.Toast;
 import com.baidu.voicerecognition.android.ui.DialogRecognitionListener;
 import com.tuling.util.ResultWatcher;
 import com.tuling.util.TulingManager;
+import com.ustclin.petchicken.about.AboutActivity;
 import com.ustclin.petchicken.bean.ChatMessage;
 import com.ustclin.petchicken.db.ChatDAO;
 import com.ustclin.petchicken.db.ImportDB;
@@ -205,6 +207,7 @@ public class MainActivity extends Activity implements OnClickListener,
         mChatView.setSelection(mDatas.size() - 1);
         // 给listview加载：下拉，异步刷新功能
         setListViewRefresh();
+        setListViewScroll();
         // 广告线程
         Runnable r = new Runnable() {
             @Override
@@ -222,6 +225,23 @@ public class MainActivity extends Activity implements OnClickListener,
         };
         Thread t = new Thread(r);
         t.start();
+    }
+
+    private void setListViewScroll() {
+        mChatView.setOnScrollListener(new AbsListView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+                if (scrollState != 0) {
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(mMsg.getWindowToken(), 0); // 强制隐藏键盘
+                }
+            }
+
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+
+            }
+        });
     }
 
     private void setListViewRefresh() {
@@ -246,7 +266,6 @@ public class MainActivity extends Activity implements OnClickListener,
                 }.execute(new Void[]{});
             }
         });
-
     }
 
     /**
@@ -714,8 +733,7 @@ public class MainActivity extends Activity implements OnClickListener,
                 break;
             case R.id.tv_about:
                 Intent intentAbout = new Intent();
-                intentAbout.setClassName(this,
-                        "com.ustclin.petchicken.about.AboutActivity");
+                intentAbout.setClass(this, AboutActivity.class);
                 startActivity(intentAbout);
                 break;
         }
