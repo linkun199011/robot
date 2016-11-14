@@ -205,8 +205,9 @@ public class MainActivity extends Activity implements OnClickListener,
         mAdapter = new ChatMessageAdapter(this, mDatas);
         mChatView.setAdapter(mAdapter);
         mChatView.setSelection(mDatas.size() - 1);
-        // 给listview加载：下拉，异步刷新功能
+        // 给listView加载：下拉，异步刷新功能
         setListViewRefresh();
+        // listView 滚动时，关闭软键盘
         setListViewScroll();
         // 广告线程
         Runnable r = new Runnable() {
