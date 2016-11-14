@@ -234,7 +234,11 @@ public class MainActivity extends Activity implements OnClickListener,
             public void onScrollStateChanged(AbsListView view, int scrollState) {
                 if (scrollState != 0) {
                     InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                    imm.hideSoftInputFromWindow(mMsg.getWindowToken(), 0); // 强制隐藏键盘
+//                    if (getCurrentFocus() != null)
+//                    imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(‌​), 0);
+                    if (imm.isActive()) {
+                        imm.hideSoftInputFromWindow(mMsg.getWindowToken(), 0); // 强制隐藏键盘
+                    }
                 }
             }
 
