@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.ustclin.petchicken.utils.StatusBarUtils;
 import com.ustclin.robot.R;
 
 import java.util.ArrayList;
@@ -28,7 +29,7 @@ public class AbilitiesActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.abilities);
-
+        StatusBarUtils.setAbilitiesActivityStatusBarColor(this);
         viewList = new ArrayList<>();// 将要分页显示的View装入数组中
         ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
 

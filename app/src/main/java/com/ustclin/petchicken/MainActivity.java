@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -44,6 +45,7 @@ import com.ustclin.petchicken.listview.RefreshListView;
 import com.ustclin.petchicken.slidemenu.SlideMenu;
 import com.ustclin.petchicken.utils.HttpUtils;
 import com.ustclin.petchicken.utils.MyDateUtils;
+import com.ustclin.petchicken.utils.StatusBarUtils;
 import com.ustclin.robot.R;
 import com.ustclin.startpage.MyPagerAdapter;
 import com.ustclin.startpage.ViewPager;
@@ -92,6 +94,7 @@ public class MainActivity extends Activity implements OnClickListener,
     long exitTime = 0;
     static int indexNumber = 0;
     private boolean isStartPage = false; // 启动引导 页
+    // private ComposerLayout clayout;
     private ViewPager mPager;
     private ArrayList<View> mPageViews;
     private MyPagerAdapter mPageAdapter;
@@ -123,7 +126,6 @@ public class MainActivity extends Activity implements OnClickListener,
                     mChatView.setSelection(mDatas.size() - 1);
                     break;
                 case LIST_MESSAGE:
-                    System.out.println(">>>>>This is handleMessage LIST_MESSAGE");
                     List<ChatMessage> tmpList = (List<ChatMessage>) msg.obj;
                     mDatas.addAll(0, tmpList);
                     for (int i = 0; i < mDatas.size(); i++) {
@@ -189,10 +191,10 @@ public class MainActivity extends Activity implements OnClickListener,
         final WindowManager.LayoutParams attrs = getWindow().getAttributes();
         attrs.flags &= (~WindowManager.LayoutParams.FLAG_FULLSCREEN);
         getWindow().setAttributes(attrs);
-        getWindow()
-                .clearFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
 
         setContentView(R.layout.main_chatting);
+        StatusBarUtils.setMainChatActivityStatusBarColor(this);
         setSharedPreferences();
         initView();
         // setListener();

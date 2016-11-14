@@ -12,7 +12,7 @@
         <RelativeLayout
             android:layout_width="fill_parent"
             android:layout_height="45.0dip"
-            android:background="@drawable/title_bar"
+            android:background="#3C3F41"
             android:gravity="center_vertical" >
 
             <TextView
@@ -29,6 +29,12 @@
                 android:textColor="#ffffff"
                 android:textSize="22sp" />
         </RelativeLayout>
+
+        <!--<View-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="1px"-->
+            <!--android:background="#000000"-->
+            <!--/>-->
 
         <TextView
             android:id="@+id/tv_example1"
