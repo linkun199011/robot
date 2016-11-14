@@ -38,6 +38,7 @@ import com.ustclin.petchicken.bean.ChatMessage;
 import com.ustclin.petchicken.db.ChatDAO;
 import com.ustclin.petchicken.db.ImportDB;
 import com.ustclin.petchicken.db.SQLiteDBHelper;
+import com.ustclin.petchicken.functiondisplay.AbilitiesActivity;
 import com.ustclin.petchicken.listview.OnRefreshListener;
 import com.ustclin.petchicken.listview.RefreshListView;
 import com.ustclin.petchicken.slidemenu.SlideMenu;
@@ -101,14 +102,7 @@ public class MainActivity extends Activity implements OnClickListener,
     private SharedPreferences isFisrtSP;
     private SlideMenu slideMenu;
     private ImageView menuImg;
-    private TextView mTextViewJoke;
-    private TextView mTextViewConstellation;
-    private TextView mTextViewPoem;
-    private TextView mTextViewLyrics;
-    private TextView mTextViewWeather;
-    private TextView mTextViewTranslation;
-    private TextView mTextViewBaike;
-    private TextView mTextViewCalculation;
+    private TextView mAbilities;
     private TextView mTextViewSupport;
     private TextView mTextViewContactAuthor;
     private TextView mTextViewAbout;
@@ -302,29 +296,8 @@ public class MainActivity extends Activity implements OnClickListener,
         menuImg = (ImageView) findViewById(R.id.title_bar_menu_btn);
         menuImg.setOnClickListener(this);
 
-        mTextViewJoke = (TextView) findViewById(R.id.tv_joke);
-        mTextViewJoke.setOnClickListener(this);
-
-        mTextViewConstellation = (TextView) findViewById(R.id.tv_constellation);
-        mTextViewConstellation.setOnClickListener(this);
-
-        mTextViewPoem = (TextView) findViewById(R.id.tv_poem);
-        mTextViewPoem.setOnClickListener(this);
-
-        mTextViewLyrics = (TextView) findViewById(R.id.tv_lyrics);
-        mTextViewLyrics.setOnClickListener(this);
-
-        mTextViewWeather = (TextView) findViewById(R.id.tv_weather);
-        mTextViewWeather.setOnClickListener(this);
-
-        mTextViewTranslation = (TextView) findViewById(R.id.tv_translation);
-        mTextViewTranslation.setOnClickListener(this);
-
-        mTextViewBaike = (TextView) findViewById(R.id.tv_baike);
-        mTextViewBaike.setOnClickListener(this);
-
-        mTextViewCalculation = (TextView) findViewById(R.id.tv_calculation);
-        mTextViewCalculation.setOnClickListener(this);
+        mAbilities = (TextView) findViewById(R.id.tv_abilities);
+        mAbilities.setOnClickListener(this);
 
         mTextViewSupport = (TextView) findViewById(R.id.tv_support);
         mTextViewSupport.setOnClickListener(this);
@@ -717,61 +690,10 @@ public class MainActivity extends Activity implements OnClickListener,
                     slideMenu.closeMenu();
                 }
                 break;
-            case R.id.tv_joke:
-                Intent intentJoke = new Intent();
-                intentJoke.setClassName(this,
-                        "com.ustclin.petchicken.functiondisplay.FunctionActivity");
-                intentJoke.putExtra("type", "function_joke");
-                startActivity(intentJoke);
-                break;
-            case R.id.tv_constellation:
-                Intent intentConstellation = new Intent();
-                intentConstellation.setClassName(this,
-                        "com.ustclin.petchicken.functiondisplay.FunctionActivity");
-                intentConstellation.putExtra("type", "function_constellation");
-                startActivity(intentConstellation);
-                break;
-            case R.id.tv_poem:
-                Intent intentPoem = new Intent();
-                intentPoem.setClassName(this,
-                        "com.ustclin.petchicken.functiondisplay.FunctionActivity");
-                intentPoem.putExtra("type", "function_poem");
-                startActivity(intentPoem);
-                break;
-            case R.id.tv_lyrics:
-                Intent intentLyrics = new Intent();
-                intentLyrics.setClassName(this,
-                        "com.ustclin.petchicken.functiondisplay.FunctionActivity");
-                intentLyrics.putExtra("type", "function_lyrics");
-                startActivity(intentLyrics);
-                break;
-            case R.id.tv_weather:
-                Intent intentWeather = new Intent();
-                intentWeather.setClassName(this,
-                        "com.ustclin.petchicken.functiondisplay.FunctionActivity");
-                intentWeather.putExtra("type", "function_weather");
-                startActivity(intentWeather);
-                break;
-            case R.id.tv_translation:
-                Intent intentTranslation = new Intent();
-                intentTranslation.setClassName(this,
-                        "com.ustclin.petchicken.functiondisplay.FunctionActivity");
-                intentTranslation.putExtra("type", "function_translation");
-                startActivity(intentTranslation);
-                break;
-            case R.id.tv_baike:
-                Intent intentBaike = new Intent();
-                intentBaike.setClassName(this,
-                        "com.ustclin.petchicken.functiondisplay.FunctionActivity");
-                intentBaike.putExtra("type", "function_baike");
-                startActivity(intentBaike);
-                break;
-            case R.id.tv_calculation:
-                Intent intentCalculation = new Intent();
-                intentCalculation.setClassName(this,
-                        "com.ustclin.petchicken.functiondisplay.FunctionActivity");
-                intentCalculation.putExtra("type", "function_calculation");
-                startActivity(intentCalculation);
+            case R.id.tv_abilities:
+                Intent intentAbilities = new Intent();
+                intentAbilities.setClass(this, AbilitiesActivity.class);
+                startActivity(intentAbilities);
                 break;
             case R.id.tv_support:
                 Toast.makeText(MainActivity.this, "我来点个赞！", Toast.LENGTH_SHORT)

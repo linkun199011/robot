@@ -8,7 +8,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical" >
-
         <TextView
             android:layout_width="200dip"
             android:layout_height="28.0dip"
@@ -20,7 +19,7 @@
             android:textSize="14.0sp" />
 
         <TextView
-            android:id="@+id/tv_joke"
+            android:id="@+id/tv_abilities"
             android:layout_width="200dip"
             android:layout_height="50.0dip"
             android:background="@drawable/selector_category_item"
@@ -30,147 +29,7 @@
             android:gravity="center_vertical"
             android:paddingLeft="15.0dip"
             android:paddingRight="10.0dip"
-            android:text="讲笑话"
-            android:textColor="#ff959595"
-            android:textSize="16.0sp" />
-
-        <View
-            android:layout_width="200dip"
-            android:layout_height="2.0dip"
-            android:background="@drawable/ic_shelf_category_divider" />
-
-        <TextView
-            android:id="@+id/tv_constellation"
-            android:layout_width="200dip"
-            android:layout_height="50.0dip"
-            android:background="@drawable/selector_category_item"
-            android:clickable="true"
-            android:drawableLeft="@drawable/ic_category_mark"
-            android:drawablePadding="1.0dip"
-            android:gravity="center_vertical"
-            android:paddingLeft="15.0dip"
-            android:paddingRight="10.0dip"
-            android:text="查星座"
-            android:textColor="#ff959595"
-            android:textSize="16.0sp" />
-
-        <View
-            android:layout_width="200dip"
-            android:layout_height="2.0dip"
-            android:background="@drawable/ic_shelf_category_divider" />
-
-        <TextView
-            android:id="@+id/tv_poem"
-            android:layout_width="200dip"
-            android:layout_height="50.0dip"
-            android:background="@drawable/selector_category_item"
-            android:clickable="true"
-            android:drawableLeft="@drawable/ic_category_mark"
-            android:drawablePadding="1.0dip"
-            android:gravity="center_vertical"
-            android:paddingLeft="15.0dip"
-            android:paddingRight="10.0dip"
-            android:text="背诗词"
-            android:textColor="#ff959595"
-            android:textSize="16.0sp" />
-
-        <View
-            android:layout_width="200dip"
-            android:layout_height="2.0dip"
-            android:background="@drawable/ic_shelf_category_divider" />
-
-        <TextView
-            android:id="@+id/tv_lyrics"
-            android:layout_width="200dip"
-            android:layout_height="50.0dip"
-            android:background="@drawable/selector_category_item"
-            android:clickable="true"
-            android:drawableLeft="@drawable/ic_category_mark"
-            android:drawablePadding="1.0dip"
-            android:gravity="center_vertical"
-            android:paddingLeft="15.0dip"
-            android:paddingRight="10.0dip"
-            android:text="查歌词"
-            android:textColor="#ff959595"
-            android:textSize="16.0sp" />
-
-        <View
-            android:layout_width="200dip"
-            android:layout_height="2.0dip"
-            android:background="@drawable/ic_shelf_category_divider" />
-
-        <TextView
-            android:id="@+id/tv_weather"
-            android:layout_width="200dip"
-            android:layout_height="50.0dip"
-            android:background="@drawable/selector_category_item"
-            android:clickable="true"
-            android:drawableLeft="@drawable/ic_category_mark"
-            android:drawablePadding="1.0dip"
-            android:gravity="center_vertical"
-            android:paddingLeft="15.0dip"
-            android:paddingRight="10.0dip"
-            android:text="问天气"
-            android:textColor="#ff959595"
-            android:textSize="16.0sp" />
-
-        <View
-            android:layout_width="200dip"
-            android:layout_height="2.0dip"
-            android:background="@drawable/ic_shelf_category_divider" />
-
-        <TextView
-            android:id="@+id/tv_translation"
-            android:layout_width="200dip"
-            android:layout_height="50.0dip"
-            android:background="@drawable/selector_category_item"
-            android:clickable="true"
-            android:drawableLeft="@drawable/ic_category_mark"
-            android:drawablePadding="1.0dip"
-            android:gravity="center_vertical"
-            android:paddingLeft="15.0dip"
-            android:paddingRight="10.0dip"
-            android:text="让翻译"
-            android:textColor="#ff959595"
-            android:textSize="16.0sp" />
-
-        <View
-            android:layout_width="200dip"
-            android:layout_height="2.0dip"
-            android:background="@drawable/ic_shelf_category_divider" />
-
-        <TextView
-            android:id="@+id/tv_baike"
-            android:layout_width="200dip"
-            android:layout_height="50.0dip"
-            android:background="@drawable/selector_category_item"
-            android:clickable="true"
-            android:drawableLeft="@drawable/ic_category_mark"
-            android:drawablePadding="1.0dip"
-            android:gravity="center_vertical"
-            android:paddingLeft="15.0dip"
-            android:paddingRight="10.0dip"
-            android:text="查百科"
-            android:textColor="#ff959595"
-            android:textSize="16.0sp" />
-
-        <View
-            android:layout_width="200dip"
-            android:layout_height="2.0dip"
-            android:background="@drawable/ic_shelf_category_divider" />
-
-        <TextView
-            android:id="@+id/tv_calculation"
-            android:layout_width="200dip"
-            android:layout_height="50.0dip"
-            android:background="@drawable/selector_category_item"
-            android:clickable="true"
-            android:drawableLeft="@drawable/ic_category_mark"
-            android:drawablePadding="1.0dip"
-            android:gravity="center_vertical"
-            android:paddingLeft="15.0dip"
-            android:paddingRight="10.0dip"
-            android:text="计算器"
+            android:text="小黄鸡的能力"
             android:textColor="#ff959595"
             android:textSize="16.0sp" />
 
