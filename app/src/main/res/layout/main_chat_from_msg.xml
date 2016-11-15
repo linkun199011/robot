@@ -28,6 +28,7 @@
                 android:id="@+id/chat_from_icon"
                 android:layout_width="45dp"
                 android:layout_height="45dp"
+                android:clickable="true"
                 android:src="@drawable/icon" />
 
             <TextView

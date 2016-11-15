@@ -1,13 +1,16 @@
 package com.ustclin.petchicken;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.ustclin.petchicken.bean.ChatMessage;
+import com.ustclin.petchicken.detail.DetailActivity;
 import com.ustclin.petchicken.utils.MyDateUtils;
 import com.ustclin.robot.R;
 
@@ -37,9 +40,12 @@ public class ChatMessageAdapter extends BaseAdapter
 	 * out : without date 
 	 */
 	private final static int TYPE_4 = 3; //
+
+	private Context mContext;
 	
 	public ChatMessageAdapter(Context context, List<ChatMessage> datas)
 	{
+		mContext = context;
 		mInflater = LayoutInflater.from(context);
 		mDatas = datas;
 	}
@@ -137,6 +143,15 @@ public class ChatMessageAdapter extends BaseAdapter
 				viewHolder.createDate.setText(chatMessage.getDate());
 				viewHolder.content = (TextView) convertView
 						.findViewById(R.id.chat_from_content);
+				viewHolder.icon = (ImageView) convertView.findViewById(R.id.chat_from_icon);
+				viewHolder.icon.setOnClickListener(new View.OnClickListener() {
+					@Override
+					public void onClick(View v) {
+						Intent intent = new Intent();
+						intent.setClass(mContext, DetailActivity.class);
+						mContext.startActivity(intent);
+					}
+				});
 				convertView.setTag(viewHolder);
 				break;
 			case TYPE_2:
@@ -145,6 +160,15 @@ public class ChatMessageAdapter extends BaseAdapter
 						parent, false);
 				viewHolder.content = (TextView) convertView
 						.findViewById(R.id.chat_from_content);
+				viewHolder.icon = (ImageView) convertView.findViewById(R.id.chat_from_icon);
+				viewHolder.icon.setOnClickListener(new View.OnClickListener() {
+					@Override
+					public void onClick(View v) {
+						Intent intent = new Intent();
+						intent.setClass(mContext, DetailActivity.class);
+						mContext.startActivity(intent);
+					}
+				});
 				convertView.setTag(viewHolder);
 				break;
 			case TYPE_3:
@@ -156,6 +180,15 @@ public class ChatMessageAdapter extends BaseAdapter
 				viewHolder.createDate.setText(chatMessage.getDate());
 				viewHolder.content = (TextView) convertView
 						.findViewById(R.id.chat_send_content);
+				viewHolder.icon = (ImageView) convertView.findViewById(R.id.chat_send_icon);
+				viewHolder.icon.setOnClickListener(new View.OnClickListener() {
+					@Override
+					public void onClick(View v) {
+						Intent intent = new Intent();
+						intent.setClass(mContext, DetailActivity.class);
+						mContext.startActivity(intent);
+					}
+				});
 				convertView.setTag(viewHolder);
 				break;
 			case TYPE_4:
@@ -164,6 +197,15 @@ public class ChatMessageAdapter extends BaseAdapter
 						null);
 				viewHolder.content = (TextView) convertView
 						.findViewById(R.id.chat_send_content);
+				viewHolder.icon = (ImageView) convertView.findViewById(R.id.chat_send_icon);
+				viewHolder.icon.setOnClickListener(new View.OnClickListener() {
+					@Override
+					public void onClick(View v) {
+						Intent intent = new Intent();
+						intent.setClass(mContext, DetailActivity.class);
+						mContext.startActivity(intent);
+					}
+				});
 				convertView.setTag(viewHolder);
 				break;
 			}
@@ -202,6 +244,7 @@ public class ChatMessageAdapter extends BaseAdapter
 		public TextView createDate;
 		public TextView name;
 		public TextView content;
+		public ImageView icon;
 	}
 
 }
