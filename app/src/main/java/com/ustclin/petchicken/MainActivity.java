@@ -208,7 +208,7 @@ public class MainActivity extends Activity implements OnClickListener,
         // 给listView加载：下拉，异步刷新功能
         setListViewRefresh();
         // listView 滚动时，关闭软键盘
-        setListViewScroll();
+//        setListViewScroll();
         // 广告线程
         Runnable r = new Runnable() {
             @Override
@@ -232,14 +232,14 @@ public class MainActivity extends Activity implements OnClickListener,
         mChatView.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(AbsListView view, int scrollState) {
-                if (scrollState != 0) {
-                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-//                    if (getCurrentFocus() != null)
-//                    imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(‌​), 0);
-                    if (imm.isActive()) {
-                        imm.hideSoftInputFromWindow(mMsg.getWindowToken(), 0); // 强制隐藏键盘
-                    }
-                }
+//                if (scrollState != 0) {
+//                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+////                    if (getCurrentFocus() != null)
+////                    imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(‌​), 0);
+//                    if (imm.isActive()) {
+//                        imm.hideSoftInputFromWindow(mMsg.getWindowToken(), 0); // 强制隐藏键盘
+//                    }
+//                }
             }
 
             @Override

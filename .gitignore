@@ -2,6 +2,7 @@
 # Built application files
 *.apk
 *.ap_
+app/build/
 
 # Files for the Dalvik VM
 *.dex
@@ -61,6 +62,8 @@ gradlew
 gradlew.bat
 local.properties
 /.idea
+.idea/*
+gen/
 
 .DS_store
 
