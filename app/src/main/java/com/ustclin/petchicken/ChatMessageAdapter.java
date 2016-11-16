@@ -148,6 +148,7 @@ public class ChatMessageAdapter extends BaseAdapter
 					@Override
 					public void onClick(View v) {
 						Intent intent = new Intent();
+						intent.putExtra("type", "pet");
 						intent.setClass(mContext, DetailActivity.class);
 						mContext.startActivity(intent);
 					}
@@ -165,6 +166,7 @@ public class ChatMessageAdapter extends BaseAdapter
 					@Override
 					public void onClick(View v) {
 						Intent intent = new Intent();
+						intent.putExtra("type", "pet");
 						intent.setClass(mContext, DetailActivity.class);
 						mContext.startActivity(intent);
 					}
@@ -185,6 +187,7 @@ public class ChatMessageAdapter extends BaseAdapter
 					@Override
 					public void onClick(View v) {
 						Intent intent = new Intent();
+                        intent.putExtra("type", "master");
 						intent.setClass(mContext, DetailActivity.class);
 						mContext.startActivity(intent);
 					}
@@ -202,6 +205,7 @@ public class ChatMessageAdapter extends BaseAdapter
 					@Override
 					public void onClick(View v) {
 						Intent intent = new Intent();
+                        intent.putExtra("type", "master");
 						intent.setClass(mContext, DetailActivity.class);
 						mContext.startActivity(intent);
 					}

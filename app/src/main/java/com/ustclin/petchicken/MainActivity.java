@@ -319,6 +319,7 @@ public class MainActivity extends Activity implements OnClickListener,
         slideMenu = (SlideMenu) findViewById(R.id.slide_menu);
 
         menuImg = (ImageView) findViewById(R.id.title_bar_menu_btn);
+        menuImg.setImageResource(R.drawable.ic_top_bar_category);
         menuImg.setOnClickListener(this);
 
         mAbilities = (TextView) findViewById(R.id.tv_abilities);

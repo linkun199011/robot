@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:background="@drawable/bitmap_book_read_chapterlist_repeat"
+    android:background="#555A5C"
     android:layout_width="150dip"
     android:layout_height="fill_parent" >
 
@@ -22,7 +22,7 @@
             android:id="@+id/tv_abilities"
             android:layout_width="200dip"
             android:layout_height="50.0dip"
-            android:background="@drawable/selector_category_item"
+            android:background="#555A5C"
             android:clickable="true"
             android:drawableLeft="@drawable/ic_category_mark"
             android:drawablePadding="1.0dip"
@@ -30,7 +30,7 @@
             android:paddingLeft="15.0dip"
             android:paddingRight="10.0dip"
             android:text="小黄鸡的能力"
-            android:textColor="#ff959595"
+            android:textColor="@color/layout_menu_color"
             android:textSize="16.0sp" />
 
 		<TextView
@@ -46,7 +46,7 @@
 		    android:id="@+id/tv_support"
             android:layout_width="200dip"
             android:layout_height="50.0dip"
-            android:background="@drawable/selector_category_item"
+            android:background="#555A5C"
             android:clickable="true"
             android:drawableLeft="@drawable/ic_category_mark"
             android:drawablePadding="1.0dip"
@@ -54,7 +54,7 @@
             android:paddingLeft="15.0dip"
             android:paddingRight="10.0dip"
             android:text="我要点赞"
-            android:textColor="#ff959595"
+            android:textColor="@color/layout_menu_color"
             android:textSize="16.0sp" />
 		<TextView
             android:layout_width="200dip"
@@ -69,7 +69,7 @@
 		    android:id="@+id/tv_contact_author"
             android:layout_width="200dip"
             android:layout_height="50.0dip"
-            android:background="@drawable/selector_category_item"
+            android:background="#555A5C"
             android:clickable="true"
             android:drawableLeft="@drawable/ic_category_mark"
             android:drawablePadding="1.0dip"
@@ -77,7 +77,7 @@
             android:paddingLeft="15.0dip"
             android:paddingRight="10.0dip"
             android:text="联系作者"
-            android:textColor="#ff959595"
+            android:textColor="@color/layout_menu_color"
             android:textSize="16.0sp" />
 		<TextView
             android:layout_width="200dip"
@@ -92,7 +92,7 @@
 		    android:id="@+id/tv_about"
             android:layout_width="200dip"
             android:layout_height="50.0dip"
-            android:background="@drawable/selector_category_item"
+            android:background="#555A5C"
             android:clickable="true"
             android:drawableLeft="@drawable/ic_category_mark"
             android:drawablePadding="1.0dip"
@@ -100,7 +100,7 @@
             android:paddingLeft="15.0dip"
             android:paddingRight="10.0dip"
             android:text="小黄鸡的由来"
-            android:textColor="#ff959595"
+            android:textColor="@color/layout_menu_color"
             android:textSize="16.0sp" />
 		
         
