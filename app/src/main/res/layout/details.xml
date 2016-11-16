@@ -124,6 +124,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginLeft="20dp"
+            android:numeric="integer"
             android:text="年龄:"
             android:textSize="18dp" />
 

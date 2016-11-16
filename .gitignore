@@ -64,6 +64,7 @@ local.properties
 /.idea
 .idea/*
 gen/
+.idea/modules.xml
 
 .DS_store
 
