@@ -11,13 +11,17 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.IBinder;
 import android.os.Message;
 import android.os.SystemClock;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
@@ -45,8 +49,10 @@ import com.ustclin.petchicken.functiondisplay.AbilitiesActivity;
 import com.ustclin.petchicken.listview.OnRefreshListener;
 import com.ustclin.petchicken.listview.RefreshListView;
 import com.ustclin.petchicken.slidemenu.SlideMenu;
+import com.ustclin.petchicken.utils.AdUtils;
 import com.ustclin.petchicken.utils.HttpUtils;
 import com.ustclin.petchicken.utils.MyDateUtils;
+import com.ustclin.petchicken.utils.SharedPreferencesUtils;
 import com.ustclin.petchicken.utils.StatusBarUtils;
 import com.ustclin.robot.R;
 import com.ustclin.startpage.MyPagerAdapter;
@@ -67,6 +73,7 @@ import cn.waps.AppListener;
 public class MainActivity extends Activity implements OnClickListener,
         ResultWatcher {
 
+    private Context mContext;
     private RefreshListView mChatView;
     /**
      * 文本域
@@ -110,12 +117,18 @@ public class MainActivity extends Activity implements OnClickListener,
     private TextView mTextViewSupport;
     private TextView mTextViewContactAuthor;
     private TextView mTextViewAbout;
+
+    private Button mSend;
     // add voice
     private RelativeLayout relativeLayoutText;
     private RelativeLayout relativeLayoutVoice;
     private Button btnChangeInput;
     private Button btnPressToSpeek;
     private TulingManager manager;
+
+    InputMethodManager imm;
+    // 记录手势动作
+    float mPosX = 0, mPosY = 0, mCurPosX = 0, mCurPosY = 0;
 
     private Handler mHandler = new Handler() {
         @SuppressWarnings("unchecked")
@@ -130,16 +143,12 @@ public class MainActivity extends Activity implements OnClickListener,
                 case LIST_MESSAGE:
                     List<ChatMessage> tmpList = (List<ChatMessage>) msg.obj;
                     mDatas.addAll(0, tmpList);
-                    for (int i = 0; i < mDatas.size(); i++) {
-                        System.out.println(mDatas.get(i).getId() + ":"
-                                + mDatas.get(i).getMsg());
-                    }
                     mAdapter.notifyDataSetChanged();
                     // 焦点放在第一个item上
                     mChatView.setSelection(tmpList.size());
                     break;
                 case SHOW_AD:
-                    showAd();
+                    isHaveAD = AdUtils.showAd(mContext);
                     break;
                 case MESSAGE_RECOGNIZE:
                     Bundle result = (Bundle) msg.obj;
@@ -165,7 +174,7 @@ public class MainActivity extends Activity implements OnClickListener,
         if (!isFisrtSP.contains("isFisrt")) {
             getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                     WindowManager.LayoutParams.FLAG_FULLSCREEN);// 全屏
-            setFisrtSharedPreferences();
+            SharedPreferencesUtils.setFisrtSharedPreferences(mContext, sp);
             setContentView(R.layout.activity_viewpager_slash);
             initViewPager();
         } else {
@@ -196,18 +205,14 @@ public class MainActivity extends Activity implements OnClickListener,
         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
 
         setContentView(R.layout.main_chatting);
+        mContext = this;
         StatusBarUtils.setMainChatActivityStatusBarColor(this);
         setSharedPreferences();
         initView();
         // setListener();
         setAnimation();
-
-        mAdapter = new ChatMessageAdapter(this, mDatas);
-        mChatView.setAdapter(mAdapter);
-        mChatView.setSelection(mDatas.size() - 1);
         // 给listView加载：下拉，异步刷新功能
         setListViewRefresh();
-        // listView 滚动时，关闭软键盘
 //        setListViewScroll();
         // 广告线程
         Runnable r = new Runnable() {
@@ -228,26 +233,9 @@ public class MainActivity extends Activity implements OnClickListener,
         t.start();
     }
 
-    private void setListViewScroll() {
-        mChatView.setOnScrollListener(new AbsListView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(AbsListView view, int scrollState) {
-//                if (scrollState != 0) {
-//                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-////                    if (getCurrentFocus() != null)
-////                    imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(‌​), 0);
-//                    if (imm.isActive()) {
-//                        imm.hideSoftInputFromWindow(mMsg.getWindowToken(), 0); // 强制隐藏键盘
-//                    }
-//                }
-            }
-
-            @Override
-            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-
-            }
-        });
-    }
+    int lastVisibleItemPosition = 0;// 标记上次滑动位置，初始化默认为0
+    boolean scrollFlag = false;// 标记是否滑动
+    public static boolean isSoftInputActive = false;
 
     private void setListViewRefresh() {
         mChatView.setOnRefreshListener(new OnRefreshListener() {
@@ -285,12 +273,6 @@ public class MainActivity extends Activity implements OnClickListener,
             message.what = LIST_MESSAGE;
             message.obj = list20;
             mHandler.sendMessage(message);
-        } else {
-            // Toast.makeText(this, "已经到头啦！", Toast.LENGTH_SHORT).show();;
-        }
-        for (int i = 0; i < list20.size(); i++) {
-            System.out.println(list20.get(i).getId() + ":"
-                    + list20.get(i).getMsg());
         }
     }
 
@@ -308,14 +290,46 @@ public class MainActivity extends Activity implements OnClickListener,
         relativeLayoutVoice = (RelativeLayout) findViewById(R.id.ly_voice);
         btnChangeInput = (Button) findViewById(R.id.btn_changeInput);
         btnPressToSpeek = (Button) findViewById(R.id.btn_pts);
-        // btnSend = (Button) findViewById(R.id.btn_send);
         relativeLayoutText.setVisibility(View.VISIBLE);
         relativeLayoutVoice.setVisibility(View.GONE);
         manager = new TulingManager(this);
 
         tvHint = (TextView) this.findViewById(R.id.tv_hint);
         mChatView = (RefreshListView) findViewById(R.id.refresh_listview);
+        // send button
+        mSend = (Button) findViewById(R.id.id_chat_send);
+        mSend.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final String msg = mMsg.getText().toString();
+                sendMessageString(msg);
+            }
+        });
+        mSend.setEnabled(false);
+
         mMsg = (EditText) findViewById(R.id.id_chat_msg);
+        mMsg.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                // 判断输入不为空，按钮可点击
+                if (mMsg.length() != 0) {
+                    mSend.setEnabled(true);
+                } else {
+                    mSend.setEnabled(false);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
         slideMenu = (SlideMenu) findViewById(R.id.slide_menu);
 
         menuImg = (ImageView) findViewById(R.id.title_bar_menu_btn);
@@ -336,11 +350,12 @@ public class MainActivity extends Activity implements OnClickListener,
 
         mDatas.add(new ChatMessage(ChatMessage.MESSAGE_IN, MyDateUtils
                 .getDate(), "我是小黄鸡，很高兴为主人服务"));
-    }
 
-    public void sendMessage(View view) {
-        final String msg = mMsg.getText().toString();
-        sendMessageString(msg);
+        mAdapter = new ChatMessageAdapter(this, mDatas);
+        mChatView.setAdapter(mAdapter);
+        mChatView.setSelection(mDatas.size() - 1);
+
+        imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
     }
 
     public void sendMessageString(final String msg) {
@@ -414,7 +429,6 @@ public class MainActivity extends Activity implements OnClickListener,
         editor.putString("API_NUMBER", API_NUMBER + "");
         editor.commit();
 
-        System.out.println("the API_NUMBER is " + API_NUMBER);
         // 顺序递增查询没有用到的API_KEY ， 但是，更好的做法应该是随机数（去掉已经知道调用完的那些数）
         String usedApiIndex = sp.getString("usedApiIndex", "0");
         String strArr[] = usedApiIndex.split("_");
@@ -423,7 +437,6 @@ public class MainActivity extends Activity implements OnClickListener,
         // 正好输出：“哎，今天生病了，先睡了，明天和你聊吧，拜拜”
         int arr[] = new int[API_NUMBER];
         for (int i = 0; i < strArr.length; i++) {
-            System.out.println("arr = " + strArr[i]);
             arr[i] = Integer.parseInt(strArr[i]);
         }
         // 随机生成一个在 1~API_NUMBER 之间的数
@@ -457,7 +470,6 @@ public class MainActivity extends Activity implements OnClickListener,
         editor1.putString("API_KEY", apiKey);
         editor1.commit();
         HttpUtils.API_KEY = apiKey;
-        System.out.println("api has changed into " + apiKey);
 
     }
 
@@ -546,17 +558,6 @@ public class MainActivity extends Activity implements OnClickListener,
         textView1.setText(text);
     }
 
-    // 用户第一次使用
-    private void setFisrtSharedPreferences() {
-        // 创建SharedPreferences文件
-        sp = this.getSharedPreferences("isFirst", Context.MODE_PRIVATE);
-        if (!sp.contains("isFisrt")) {
-            // 用户第一次启动该运用
-            Editor editor = sp.edit();
-            editor.putBoolean("isFisrt", false);
-            editor.commit();
-        }
-    }
 
     // 设置Sp
     private void setSharedPreferences() {
@@ -567,7 +568,6 @@ public class MainActivity extends Activity implements OnClickListener,
         if (!sp.contains("lastExit")) {
             // 不包括lastExit字段，用户第一次启动该运用
             Editor editor = sp.edit();
-            System.out.println(df.format(new Date()));// new Date()为获取当前系统时间
             editor.putString("lastExit", df.format(new Date()).toString());
             editor.putString("API_KEY", HttpUtils.API_KEY);
             editor.putString("usedApiIndex", "0");
@@ -583,7 +583,6 @@ public class MainActivity extends Activity implements OnClickListener,
             HttpUtils.API_KEY = API_KEY;
             String apiNumber = sp.getString("API_NUMBER", "3");
             API_NUMBER = Integer.parseInt(apiNumber);
-            System.out.println("同一天启动，API_NUMBER:" + API_NUMBER);
         }
         // 隔天启动 ， 则删除sp中的所有字段
         else {
@@ -604,8 +603,7 @@ public class MainActivity extends Activity implements OnClickListener,
             btnChangeInput.setBackground(this.getResources().getDrawable(
                     R.drawable.text3));
             // close soft input
-            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.hideSoftInputFromWindow(mMsg.getWindowToken(), 0); // 强制隐藏键盘
+            activeSoftInput(false);
             relativeLayoutText.setVisibility(View.GONE);
             relativeLayoutVoice.setVisibility(View.VISIBLE);
             return;
@@ -614,11 +612,28 @@ public class MainActivity extends Activity implements OnClickListener,
                     R.drawable.voice3));
             // open soft input
             mMsg.requestFocus();
-            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.showSoftInput(mMsg, InputMethodManager.SHOW_FORCED);
+            activeSoftInput(true);
             relativeLayoutText.setVisibility(View.VISIBLE);
             relativeLayoutVoice.setVisibility(View.GONE);
             return;
+        }
+    }
+
+    /**
+     * 开启 、 关闭 软键盘
+     * @param isActive true : 开启软件盘； false： 关闭软键盘
+     */
+    public void activeSoftInput(boolean isActive) {
+        if (isActive) {
+            // open
+
+            imm.showSoftInput(mMsg, InputMethodManager.SHOW_FORCED);
+            isSoftInputActive = true;
+        } else {
+            // close
+//            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(mMsg.getWindowToken(), 0); // 强制隐藏键盘
+            isSoftInputActive = false;
         }
     }
 
@@ -629,29 +644,6 @@ public class MainActivity extends Activity implements OnClickListener,
                 mHandler.obtainMessage(MESSAGE_RECOGNIZE, result).sendToTarget();
             }
         });
-    }
-
-    // 万普配置信息，设置“yes”后，接受广告
-    private void showAd() {
-        String showad = AppConnect.getInstance(this).getConfig("showAd", "no");
-        Log.e("fffffff", showad);
-        if (showad.equals("yes")) {
-            isHaveAD = true;
-            // 万普广告
-            AppConnect.getInstance(this);
-            // 预加载插屏广告内容（仅在使用到插屏广告的情况，才需要添加）
-            AppConnect.getInstance(this).initPopAd(this);
-            //
-            AppConnect.getInstance(this).setPopAdNoDataListener(
-                    new AppListener() {
-                        @Override
-                        public void onPopNoData() {
-                            Log.i("debug", "插屏广告暂无可用数据");
-                        }
-                    });
-            // 显示插屏广告
-            AppConnect.getInstance(this).showPopAd(this);
-        }
     }
 
     @Override
@@ -715,6 +707,7 @@ public class MainActivity extends Activity implements OnClickListener,
                 } else {
                     slideMenu.closeMenu();
                 }
+                activeSoftInput(false);
                 break;
             case R.id.tv_abilities:
                 Intent intentAbilities = new Intent();
@@ -749,6 +742,35 @@ public class MainActivity extends Activity implements OnClickListener,
     public void onResults(String arg0) {
         // TODO Auto-generated method stub
 
+    }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent event) {
+        switch (event.getAction()) {
+
+            case MotionEvent.ACTION_DOWN:
+                mPosX = event.getX();
+                mPosY = event.getY();
+                break;
+            case MotionEvent.ACTION_MOVE:
+                mCurPosX = event.getX();
+                mCurPosY = event.getY();
+                break;
+            case MotionEvent.ACTION_UP:
+                if (mCurPosY - mPosY > 0
+                        && (Math.abs(mCurPosY - mPosY) > 25)) {
+                    //向下滑動
+                    activeSoftInput(false);
+
+                } else if (mCurPosY - mPosY < 0
+                        && (Math.abs(mCurPosY - mPosY) > 25)) {
+                    //向上滑动
+                    // do nothing
+                }
+
+                break;
+        }
+        return super.dispatchTouchEvent(event);
     }
 
 }

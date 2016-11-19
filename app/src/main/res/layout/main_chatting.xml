@@ -85,12 +85,11 @@
                         <Button
                             android:id="@+id/id_chat_send"
                             android:layout_width="60dp"
-                            android:layout_height="43dp"
+                            android:layout_height="41dp"
                             android:layout_alignParentRight="true"
                             android:layout_centerVertical="true"
                             android:layout_marginRight="3dp"
-                            android:background="@drawable/chat_send_btn"
-                            android:onClick="sendMessage"
+                            android:background="@drawable/send_button"
                             android:text="发 送" />
 
                         <EditText

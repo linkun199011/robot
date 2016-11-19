@@ -91,26 +91,20 @@ public class ChatMessageAdapter extends BaseAdapter
 			return TYPE_3;
 		}
 		int duration = 5*60; // 5分钟
-		System.out.println("current.getDate() "+ msg_current.getDate());
-		System.out.println("before.getDate() "+ msg_before.getDate());
 		if (MyDateUtils.isLarger(msg_current.getDate(), msg_before.getDate(),duration)
 				&& msg_current.getType().equals(ChatMessage.MESSAGE_IN)) {
-			System.out.println("this is getItemViewType : TYPE_1");
 			return TYPE_1;
 		}
 		else if (!MyDateUtils.isLarger(msg_current.getDate(),msg_before.getDate(), duration)
 				&& msg_current.getType().equals(ChatMessage.MESSAGE_IN)) {
-			System.out.println("this is getItemViewType : TYPE_2");
 			return TYPE_2;
 		}
 		if (MyDateUtils.isLarger(msg_current.getDate(), msg_before.getDate(),duration)
 				&& msg_current.getType().equals(ChatMessage.MESSAGE_OUT)) {
-			System.out.println("this is getItemViewType : TYPE_3");
 			return TYPE_3;
 		}
 		else if (!MyDateUtils.isLarger(msg_current.getDate(),msg_before.getDate(), duration)
 				&& msg_current.getType().equals(ChatMessage.MESSAGE_OUT)) {
-			System.out.println("this is getItemViewType : TYPE_4");
 			return TYPE_4;
 		}
 		// 上面的例子已经都cover到，这个return是默认的
@@ -239,7 +233,6 @@ public class ChatMessageAdapter extends BaseAdapter
 		if(position == 0){
 			viewHolder.createDate.setVisibility(View.VISIBLE);
 		}
-		System.out.println("get view : "+position);
 		return convertView;
 	}
 
