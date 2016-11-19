@@ -626,12 +626,10 @@ public class MainActivity extends Activity implements OnClickListener,
     public void activeSoftInput(boolean isActive) {
         if (isActive) {
             // open
-
             imm.showSoftInput(mMsg, InputMethodManager.SHOW_FORCED);
             isSoftInputActive = true;
         } else {
             // close
-//            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(mMsg.getWindowToken(), 0); // 强制隐藏键盘
             isSoftInputActive = false;
         }

@@ -1,8 +1,11 @@
 package com.ustclin.petchicken.detail;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioGroup;
@@ -26,11 +29,9 @@ public class DetailActivity extends Activity {
 
     // header
     private ImageView mImageViewHeader;
+    private Button mBtnChangeHeader;
     // nickName
     private EditText mNickName;
-    // sex relative layout
-    private RelativeLayout mRelativeLayoutMasterSex;
-    private RelativeLayout mRelativeLayoutPetSex;
     //
     private RadioGroup mRadioGroupMasterSex;
     // sex
@@ -41,9 +42,13 @@ public class DetailActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.details);
-        StatusBarUtils.setMainChatActivityStatusBarColor(this);
         mType = getIntent().getStringExtra("type");
+        if (mType!=null && mType.equals("pet")) {
+            setContentView(R.layout.details_pet);
+        } else {
+            setContentView(R.layout.details_master);
+        }
+        StatusBarUtils.setMainChatActivityStatusBarColor(this);
         initView();
     }
 
@@ -52,6 +57,11 @@ public class DetailActivity extends Activity {
         mTitleBarBtn = (ImageView) findViewById(R.id.title_bar_menu_btn);
         mTitleBarBtn.setBackgroundResource(R.drawable.ic_actionbar_back_normal);
         mTitleName = (TextView) findViewById(R.id.title_bar_name);
+        if (mType.equals("pet")) {
+            mTitleName.setText(R.string.pet_name);
+        } else {
+            mTitleName.setText(R.string.master_name);
+        }
         mTitleBarBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -59,33 +69,22 @@ public class DetailActivity extends Activity {
             }
         });
 
+
         // init by type
-        mRelativeLayoutMasterSex = (RelativeLayout) findViewById(R.id.rl_master_sex);
-        mRelativeLayoutPetSex = (RelativeLayout) findViewById(R.id.rl_pet_sex);
         mImageViewHeader = (ImageView) findViewById(R.id.header);
+        mBtnChangeHeader = (Button) findViewById(R.id.change_header);
+//        mBtnChangeHeader.setFocusable(true);
+//        mBtnChangeHeader.requestFocus();
         mNickName = (EditText) findViewById(R.id.et_nick_name);
-        mSex = (EditText) findViewById(R.id.et_pet_sex);
-        mRadioGroupMasterSex = (RadioGroup) findViewById(R.id.rg_master_sex);
-        mAge = (EditText) findViewById(R.id.et_age);
+        // close soft input
 
-        if (mType.equals("pet")) {
-            mTitleName.setText("萌宠");
-            mRelativeLayoutPetSex.setVisibility(View.VISIBLE);
-            mRelativeLayoutMasterSex.setVisibility(View.GONE);
-            mImageViewHeader.setImageResource(R.drawable.icon);
-            mNickName.setText("小黄鸡");
-            mSex.setText("女");
-            mSex.setEnabled(false);
-            mAge.setText("3");
-            mAge.setEnabled(false);
-        } else {
-            mTitleName.setText("主人");
-            mRelativeLayoutMasterSex.setVisibility(View.VISIBLE);
-            mRelativeLayoutPetSex.setVisibility(View.GONE);
-            mImageViewHeader.setImageResource(R.drawable.my);
-            mNickName.setText("主人");
-            mAge.setText("18");
-        }
 
+    }
+
+    @Override
+    protected void onResume() {
+//        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+//        imm.hideSoftInputFromWindow(mNickName.getWindowToken(), 0); // 强制隐藏键盘
+        super.onResume();
     }
 }
