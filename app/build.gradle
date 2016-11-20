@@ -68,8 +68,6 @@ dependencies {
     compile 'com.android.support:design:23.3.0'
     compile files('libs/gson-2.2.4.jar')
     compile files('libs/nineoldandroids-2.4.0.jar')
-    compile files('libs/tulingmanager.jar')
-    compile files('libs/VoiceRecognition.jar')
     compile files('libs/AppOffer_2.4.6.jar')
     compile files('libs/Msc.jar')
     compile files('libs/Sunflower.jar')

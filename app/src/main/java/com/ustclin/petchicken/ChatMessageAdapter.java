@@ -14,7 +14,8 @@ import android.widget.TextView;
 import com.ustclin.petchicken.bean.ChatMessage;
 import com.ustclin.petchicken.detail.DetailActivity;
 import com.ustclin.petchicken.utils.MyDateUtils;
-import com.ustclin.petchicken.voice.VoiceUtils;
+import com.ustclin.petchicken.voice.VoiceSpeakUtils;
+import com.ustclin.petchicken.voice.VoiceSpeakUtils;
 import com.ustclin.robot.R;
 
 import java.util.List;
@@ -45,13 +46,24 @@ public class ChatMessageAdapter extends BaseAdapter
 	private final static int TYPE_4 = 3; //
 
 	private Context mContext;
-	
+
+    VoiceSpeakUtils voicePet ;
+    VoiceSpeakUtils voiceMaster ;
+
 	public ChatMessageAdapter(Context context, List<ChatMessage> datas)
 	{
 		mContext = context;
 		mInflater = LayoutInflater.from(context);
 		mDatas = datas;
 	}
+
+    public void setPetVoice(VoiceSpeakUtils voicePet) {
+        this.voicePet = voicePet;
+    }
+
+    public void setMasterVoice(VoiceSpeakUtils voiceMaster) {
+        this.voiceMaster = voiceMaster;
+    }
 
 	@Override
 	public int getCount()
@@ -254,12 +266,10 @@ public class ChatMessageAdapter extends BaseAdapter
 			public void onClick(View v) {
 				if (viewHolder.type == Type.PET) {
                     Log.i("ChatMessageAdapter", "type = " + Type.PET.toString());
-                    VoiceUtils voiceUtils = new VoiceUtils(mContext);
-                    voiceUtils.play(viewHolder.content.getText().toString());
+                    voicePet.play(viewHolder.content.getText().toString());
 				} else {
                     Log.i("ChatMessageAdapter", "type = " + Type.MASTER.toString());
-                    VoiceUtils voiceUtils = new VoiceUtils(mContext);
-                    voiceUtils.play(viewHolder.content.getText().toString());
+                    voiceMaster.play(viewHolder.content.getText().toString());
                 }
 			}
 		});

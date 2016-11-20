@@ -19,15 +19,16 @@ import com.iflytek.sunflower.FlowerCollector;
 import com.ustclin.robot.R;
 
 /**
+ * 发音 工具栏
  * author: LinKun
  * email: linkun199011@163.com
  * created on: 2016/11/20:02:13
  * description
  */
-public class VoiceUtils {
+public class VoiceSpeakUtils {
     private Context mContext;
 
-    private static String TAG = VoiceUtils.class.getSimpleName();
+    private static String TAG = VoiceSpeakUtils.class.getSimpleName();
     // 语音合成对象
     private SpeechSynthesizer mTts;
 
@@ -51,11 +52,15 @@ public class VoiceUtils {
 
     private Toast mToast;
 
-    public VoiceUtils(Context context) {
+    public VoiceSpeakUtils(Context context) {
         mContext = context;
         mTts = SpeechSynthesizer.createSynthesizer(mContext, mTtsInitListener);
         mInstaller = new  ApkInstaller((Activity)mContext);
         mToast = Toast.makeText(mContext,"",Toast.LENGTH_SHORT);
+    }
+
+    public void setVoicer(String voicer) {
+        this.voicer = voicer;
     }
     /**
      * 合成回调监听。
@@ -64,17 +69,17 @@ public class VoiceUtils {
 
         @Override
         public void onSpeakBegin() {
-            showTip("开始播放");
+//            showTip("开始播放");
         }
 
         @Override
         public void onSpeakPaused() {
-            showTip("暂停播放");
+//            showTip("暂停播放");
         }
 
         @Override
         public void onSpeakResumed() {
-            showTip("继续播放");
+//            showTip("继续播放");
         }
 
         @Override
@@ -97,7 +102,7 @@ public class VoiceUtils {
         @Override
         public void onCompleted(SpeechError error) {
             if (error == null) {
-                showTip("播放完成");
+//                showTip("播放完成");
             } else if (error != null) {
                 showTip(error.getPlainDescription(true));
             }
@@ -172,7 +177,7 @@ public class VoiceUtils {
             mTts.setParameter(SpeechConstant.VOICE_NAME, voicer);
             //设置合成语速
 //            mTts.setParameter(SpeechConstant.SPEED, mSharedPreferences.getString("speed_preference", "50"));
-            mTts.setParameter(SpeechConstant.SPEED, "50");
+            mTts.setParameter(SpeechConstant.SPEED, "70");
             //设置合成音调
 //            mTts.setParameter(SpeechConstant.PITCH, mSharedPreferences.getString("pitch_preference", "50"));
             mTts.setParameter(SpeechConstant.PITCH, "50");

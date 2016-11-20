@@ -8,16 +8,13 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.IBinder;
 import android.os.Message;
 import android.os.SystemClock;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -29,7 +26,6 @@ import android.view.WindowManager;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.AbsListView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -37,9 +33,9 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.baidu.voicerecognition.android.ui.DialogRecognitionListener;
-import com.tuling.util.ResultWatcher;
-import com.tuling.util.TulingManager;
+import com.iflytek.cloud.RecognizerResult;
+import com.iflytek.cloud.SpeechError;
+import com.iflytek.cloud.ui.RecognizerDialogListener;
 import com.ustclin.petchicken.about.AboutActivity;
 import com.ustclin.petchicken.bean.ChatMessage;
 import com.ustclin.petchicken.db.ChatDAO;
@@ -54,27 +50,37 @@ import com.ustclin.petchicken.utils.HttpUtils;
 import com.ustclin.petchicken.utils.MyDateUtils;
 import com.ustclin.petchicken.utils.SharedPreferencesUtils;
 import com.ustclin.petchicken.utils.StatusBarUtils;
+import com.ustclin.petchicken.voice.JsonParser;
+import com.ustclin.petchicken.voice.VoiceListenUtils;
+import com.ustclin.petchicken.voice.VoiceSpeakUtils;
 import com.ustclin.robot.R;
 import com.ustclin.startpage.MyPagerAdapter;
 import com.ustclin.startpage.ViewPager;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Random;
 
 import cn.waps.AppConnect;
-import cn.waps.AppListener;
 
 
-public class MainActivity extends Activity implements OnClickListener,
-        ResultWatcher {
+public class MainActivity extends Activity implements OnClickListener {
 
     private Context mContext;
     private RefreshListView mChatView;
+    /**
+     * 适配器
+     */
+    private ChatMessageAdapter mAdapter;
     /**
      * 文本域
      */
@@ -83,10 +89,7 @@ public class MainActivity extends Activity implements OnClickListener,
      * 存储聊天消息
      */
     private List<ChatMessage> mDatas = new ArrayList<ChatMessage>();
-    /**
-     * 适配器
-     */
-    private ChatMessageAdapter mAdapter;
+
     private TextView tvHint;
     private ChatDAO mChatDAO = null;
     //
@@ -123,10 +126,15 @@ public class MainActivity extends Activity implements OnClickListener,
     private RelativeLayout relativeLayoutText;
     private RelativeLayout relativeLayoutVoice;
     private Button btnChangeInput;
-    private Button btnPressToSpeek;
-    private TulingManager manager;
+    // XUN FEI voice
+    private static String XUN_FEI = "XunFei";
+    VoiceSpeakUtils voicePet ;
+    VoiceSpeakUtils voiceMaster ;
 
+    // soft input
     InputMethodManager imm;
+    public static boolean isSoftInputActive = false;
+
     // 记录手势动作
     float mPosX = 0, mPosY = 0, mCurPosX = 0, mCurPosY = 0;
 
@@ -152,6 +160,15 @@ public class MainActivity extends Activity implements OnClickListener,
                     break;
                 case MESSAGE_RECOGNIZE:
                     Bundle result = (Bundle) msg.obj;
+                    if (result == null) {
+                        return;
+                    }
+                    String type = result.getString("type");
+                    if (type != null && type.equals(XUN_FEI)) {
+                        String content = result.getString("result");
+                        sendMessageString(content);
+                        return;
+                    }
                     if (result != null) {
                         ArrayList<String> list = result
                                 .getStringArrayList("results_recognition");
@@ -208,6 +225,8 @@ public class MainActivity extends Activity implements OnClickListener,
         setContentView(R.layout.main_chatting);
         StatusBarUtils.setMainChatActivityStatusBarColor(this);
         setSharedPreferences();
+        // 设置发音人
+        initVoice();
         initView();
         // setListener();
         setAnimation();
@@ -233,9 +252,13 @@ public class MainActivity extends Activity implements OnClickListener,
         t.start();
     }
 
-    int lastVisibleItemPosition = 0;// 标记上次滑动位置，初始化默认为0
-    boolean scrollFlag = false;// 标记是否滑动
-    public static boolean isSoftInputActive = false;
+    private void   initVoice() {
+        voicePet = new VoiceSpeakUtils(mContext);
+        voicePet.setVoicer("xiaowanzi");
+
+        voiceMaster = new VoiceSpeakUtils(mContext);
+        voiceMaster.setVoicer("xiaoxin");
+    }
 
     private void setListViewRefresh() {
         mChatView.setOnRefreshListener(new OnRefreshListener() {
@@ -289,10 +312,8 @@ public class MainActivity extends Activity implements OnClickListener,
         relativeLayoutText = (RelativeLayout) findViewById(R.id.ly_text);
         relativeLayoutVoice = (RelativeLayout) findViewById(R.id.ly_voice);
         btnChangeInput = (Button) findViewById(R.id.btn_changeInput);
-        btnPressToSpeek = (Button) findViewById(R.id.btn_pts);
         relativeLayoutText.setVisibility(View.VISIBLE);
         relativeLayoutVoice.setVisibility(View.GONE);
-        manager = new TulingManager(this);
 
         tvHint = (TextView) this.findViewById(R.id.tv_hint);
         mChatView = (RefreshListView) findViewById(R.id.refresh_listview);
@@ -352,6 +373,8 @@ public class MainActivity extends Activity implements OnClickListener,
                 .getDate(), "我是小黄鸡，很高兴为主人服务"));
 
         mAdapter = new ChatMessageAdapter(this, mDatas);
+        mAdapter.setPetVoice(voicePet);
+        mAdapter.setMasterVoice(voiceMaster);
         mChatView.setAdapter(mAdapter);
         mChatView.setSelection(mDatas.size() - 1);
 
@@ -410,6 +433,7 @@ public class MainActivity extends Activity implements OnClickListener,
                 Message message = Message.obtain();
                 message.obj = from;
                 mHandler.sendMessage(message);
+                voicePet.play(from.getMsg());
             }
 
             ;
@@ -636,12 +660,14 @@ public class MainActivity extends Activity implements OnClickListener,
     }
 
     public void pressToSpeek(View v) {
-        manager.showRecognizeDialog(new DialogRecognitionListener() {
-            @Override
-            public void onResults(Bundle result) {
-                mHandler.obtainMessage(MESSAGE_RECOGNIZE, result).sendToTarget();
-            }
-        });
+        VoiceListenUtils voiceListenUtils = new VoiceListenUtils(mContext);
+        voiceListenUtils.listen(mRecognizerDialogListener);
+//        manager.showRecognizeDialog(new DialogRecognitionListener() {
+//            @Override
+//            public void onResults(Bundle result) {
+//                mHandler.obtainMessage(MESSAGE_RECOGNIZE, result).sendToTarget();
+//            }
+//        });
     }
 
     @Override
@@ -737,9 +763,9 @@ public class MainActivity extends Activity implements OnClickListener,
     }
 
     @Override
-    public void onResults(String arg0) {
-        // TODO Auto-generated method stub
-
+    protected void onResume() {
+        super.onResume();
+        // reload voice param
     }
 
     @Override
@@ -769,6 +795,54 @@ public class MainActivity extends Activity implements OnClickListener,
                 break;
         }
         return super.dispatchTouchEvent(event);
+    }
+
+    /**
+     * 听写 监听器
+     */
+    private RecognizerDialogListener mRecognizerDialogListener = new RecognizerDialogListener() {
+        public void onResult(RecognizerResult results, boolean isLast) {
+            collectMessage(results);
+            if (isLast) {
+                sendResult();
+            }
+        }
+
+        /**
+         * 识别回调错误.
+         */
+        public void onError(SpeechError error) {
+            Toast.makeText(mContext, error.getPlainDescription(true), Toast.LENGTH_SHORT).show();
+        }
+
+    };
+
+    HashMap<String, String> mIatResults = new LinkedHashMap<String, String>();
+    private void collectMessage(RecognizerResult results) {
+        String text = JsonParser.parseIatResult(results.getResultString());
+
+        String sn = null;
+        // 读取json结果中的sn字段
+        try {
+            JSONObject resultJson = new JSONObject(results.getResultString());
+            sn = resultJson.optString("sn");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        mIatResults.put(sn, text);
+    }
+
+    private void sendResult() {
+        StringBuffer resultBuffer = new StringBuffer();
+        for (String key : mIatResults.keySet()) {
+            resultBuffer.append(mIatResults.get(key));
+        }
+        mIatResults.clear();
+        Bundle bundle = new Bundle();
+        bundle.putString("result", resultBuffer.toString());
+        bundle.putString("type", XUN_FEI);
+        mHandler.obtainMessage(MESSAGE_RECOGNIZE, bundle).sendToTarget();
+
     }
 
 }
