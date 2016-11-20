@@ -44,7 +44,7 @@
                 android:textSize="18sp" />
         </LinearLayout>
 
-        <TextView
+        <Button
             android:id="@+id/chat_send_content"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

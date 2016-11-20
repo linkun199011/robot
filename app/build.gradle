@@ -11,15 +11,13 @@ android {
         versionCode 1
         versionName "1.0"
     }
+    lintOptions {
+        abortOnError false
+    }
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
-    }
-    sourceSets {
-        main {
-            jniLibs.srcDirs = ['libs']
         }
     }
 
@@ -68,11 +66,11 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:23.3.0'
     compile 'com.android.support:design:23.3.0'
-    //compile files('libs/android-support-v4.jar')
-    //compile files('libs/AppOffer_2.3.2_linkun199011.jar')
     compile files('libs/gson-2.2.4.jar')
     compile files('libs/nineoldandroids-2.4.0.jar')
     compile files('libs/tulingmanager.jar')
     compile files('libs/VoiceRecognition.jar')
     compile files('libs/AppOffer_2.4.6.jar')
+    compile files('libs/Msc.jar')
+    compile files('libs/Sunflower.jar')
 }

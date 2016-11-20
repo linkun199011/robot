@@ -168,6 +168,7 @@ public class MainActivity extends Activity implements OnClickListener,
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);// 取消标题栏
+        mContext = this;
         isFisrtSP = this.getSharedPreferences("isFirst", Context.MODE_PRIVATE);
         initDatabase(); // 初始化数据库
         // 第一次启动
@@ -205,7 +206,6 @@ public class MainActivity extends Activity implements OnClickListener,
         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
 
         setContentView(R.layout.main_chatting);
-        mContext = this;
         StatusBarUtils.setMainChatActivityStatusBarColor(this);
         setSharedPreferences();
         initView();

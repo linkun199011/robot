@@ -2,6 +2,9 @@ package com.ustclin.petchicken;
 
 import android.app.Application;
 
+import com.iflytek.cloud.SpeechUtility;
+import com.ustclin.robot.R;
+
 public class RobotApp extends Application {
 
 	@Override
@@ -13,9 +16,8 @@ public class RobotApp extends Application {
 		// 设置你申请的应用appid,请勿在'='与appid之间添加空格及空转义符
 		
 		// 注意： appid 必须和下载的SDK保持一致，否则会出现10407错误
-		
-//		SpeechUtility.createUtility(SpeechApp.this, "appid=" + getString(R.string.app_id));
-			
+
+		SpeechUtility.createUtility(RobotApp.this, "appid=" + getString(R.string.app_id));
 		// 以下语句用于设置日志开关（默认开启），设置成false时关闭语音云SDK日志打印
 		// Setting.setShowLog(false);
 		super.onCreate();

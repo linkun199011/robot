@@ -2,16 +2,19 @@ package com.ustclin.petchicken;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.ustclin.petchicken.bean.ChatMessage;
 import com.ustclin.petchicken.detail.DetailActivity;
 import com.ustclin.petchicken.utils.MyDateUtils;
+import com.ustclin.petchicken.voice.VoiceUtils;
 import com.ustclin.robot.R;
 
 import java.util.List;
@@ -132,11 +135,14 @@ public class ChatMessageAdapter extends BaseAdapter
 				// in : with date
 				convertView = mInflater.inflate(R.layout.main_chat_from_msg,
 						parent, false);
+//				viewHolder.name = (TextView) convertView.findViewById(R.id.name);
+				viewHolder.type = Type.PET;
 				viewHolder.createDate = (TextView) convertView
 						.findViewById(R.id.chat_from_createDate);
 				viewHolder.createDate.setText(chatMessage.getDate());
-				viewHolder.content = (TextView) convertView
+				viewHolder.content = (Button) convertView
 						.findViewById(R.id.chat_from_content);
+				setOnClickListener(viewHolder);
 				viewHolder.icon = (ImageView) convertView.findViewById(R.id.chat_from_icon);
 				viewHolder.icon.setOnClickListener(new View.OnClickListener() {
 					@Override
@@ -153,8 +159,10 @@ public class ChatMessageAdapter extends BaseAdapter
 				// in : without date
 				convertView = mInflater.inflate(R.layout.main_chat_from_msg,
 						parent, false);
-				viewHolder.content = (TextView) convertView
+				viewHolder.type = Type.PET;
+				viewHolder.content = (Button) convertView
 						.findViewById(R.id.chat_from_content);
+				setOnClickListener(viewHolder);
 				viewHolder.icon = (ImageView) convertView.findViewById(R.id.chat_from_icon);
 				viewHolder.icon.setOnClickListener(new View.OnClickListener() {
 					@Override
@@ -171,11 +179,13 @@ public class ChatMessageAdapter extends BaseAdapter
 				// out : with date
 				convertView = mInflater.inflate(R.layout.main_chat_send_msg,
 						null);
+				viewHolder.type = Type.MASTER;
 				viewHolder.createDate = (TextView) convertView
 						.findViewById(R.id.chat_send_createDate);
 				viewHolder.createDate.setText(chatMessage.getDate());
-				viewHolder.content = (TextView) convertView
+				viewHolder.content = (Button) convertView
 						.findViewById(R.id.chat_send_content);
+				setOnClickListener(viewHolder);
 				viewHolder.icon = (ImageView) convertView.findViewById(R.id.chat_send_icon);
 				viewHolder.icon.setOnClickListener(new View.OnClickListener() {
 					@Override
@@ -192,8 +202,10 @@ public class ChatMessageAdapter extends BaseAdapter
 				// out : without date
 				convertView = mInflater.inflate(R.layout.main_chat_send_msg,
 						null);
-				viewHolder.content = (TextView) convertView
+				viewHolder.type = Type.MASTER;
+				viewHolder.content = (Button) convertView
 						.findViewById(R.id.chat_send_content);
+				setOnClickListener(viewHolder);
 				viewHolder.icon = (ImageView) convertView.findViewById(R.id.chat_send_icon);
 				viewHolder.icon.setOnClickListener(new View.OnClickListener() {
 					@Override
@@ -236,12 +248,35 @@ public class ChatMessageAdapter extends BaseAdapter
 		return convertView;
 	}
 
+	private void setOnClickListener(final ViewHolder viewHolder) {
+		viewHolder.content.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				if (viewHolder.type == Type.PET) {
+                    Log.i("ChatMessageAdapter", "type = " + Type.PET.toString());
+                    VoiceUtils voiceUtils = new VoiceUtils(mContext);
+                    voiceUtils.play(viewHolder.content.getText().toString());
+				} else {
+                    Log.i("ChatMessageAdapter", "type = " + Type.MASTER.toString());
+                    VoiceUtils voiceUtils = new VoiceUtils(mContext);
+                    voiceUtils.play(viewHolder.content.getText().toString());
+                }
+			}
+		});
+	}
+
 	private class ViewHolder
 	{
+		Type type = Type.PET;
 		public TextView createDate;
 		public TextView name;
-		public TextView content;
+		public Button content;
 		public ImageView icon;
+	}
+
+	public enum Type {
+		PET,
+		MASTER
 	}
 
 }
