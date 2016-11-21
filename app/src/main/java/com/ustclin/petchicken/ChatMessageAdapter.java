@@ -12,9 +12,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.ustclin.petchicken.bean.ChatMessage;
-import com.ustclin.petchicken.detail.DetailActivity;
+import com.ustclin.petchicken.detail.MasterDetailActivity;
+import com.ustclin.petchicken.detail.PetDetailActivity;
 import com.ustclin.petchicken.utils.MyDateUtils;
-import com.ustclin.petchicken.voice.VoiceSpeakUtils;
 import com.ustclin.petchicken.voice.VoiceSpeakUtils;
 import com.ustclin.robot.R;
 
@@ -160,8 +160,7 @@ public class ChatMessageAdapter extends BaseAdapter
 					@Override
 					public void onClick(View v) {
 						Intent intent = new Intent();
-						intent.putExtra("type", "pet");
-						intent.setClass(mContext, DetailActivity.class);
+						intent.setClass(mContext, PetDetailActivity.class);
 						mContext.startActivity(intent);
 					}
 				});
@@ -180,8 +179,7 @@ public class ChatMessageAdapter extends BaseAdapter
 					@Override
 					public void onClick(View v) {
 						Intent intent = new Intent();
-						intent.putExtra("type", "pet");
-						intent.setClass(mContext, DetailActivity.class);
+						intent.setClass(mContext, PetDetailActivity.class);
 						mContext.startActivity(intent);
 					}
 				});
@@ -203,8 +201,7 @@ public class ChatMessageAdapter extends BaseAdapter
 					@Override
 					public void onClick(View v) {
 						Intent intent = new Intent();
-                        intent.putExtra("type", "master");
-						intent.setClass(mContext, DetailActivity.class);
+						intent.setClass(mContext, MasterDetailActivity.class);
 						mContext.startActivity(intent);
 					}
 				});
@@ -223,8 +220,7 @@ public class ChatMessageAdapter extends BaseAdapter
 					@Override
 					public void onClick(View v) {
 						Intent intent = new Intent();
-                        intent.putExtra("type", "master");
-						intent.setClass(mContext, DetailActivity.class);
+						intent.setClass(mContext, MasterDetailActivity.class);
 						mContext.startActivity(intent);
 					}
 				});

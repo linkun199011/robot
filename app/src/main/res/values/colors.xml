@@ -5,7 +5,7 @@
     <drawable name="layout_backgroud">#000000</drawable>
 
     <!-- 分割线背景色 -->
-    <drawable name="line_background">#161823</drawable>
+    <color name="line_background">#161823</color>
 
     <color name="white">#FFFFFF</color>
 

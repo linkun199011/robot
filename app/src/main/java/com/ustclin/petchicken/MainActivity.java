@@ -41,6 +41,8 @@ import com.ustclin.petchicken.bean.ChatMessage;
 import com.ustclin.petchicken.db.ChatDAO;
 import com.ustclin.petchicken.db.ImportDB;
 import com.ustclin.petchicken.db.SQLiteDBHelper;
+import com.ustclin.petchicken.detail.MasterDetailActivity;
+import com.ustclin.petchicken.detail.PetDetailActivity;
 import com.ustclin.petchicken.functiondisplay.AbilitiesActivity;
 import com.ustclin.petchicken.listview.OnRefreshListener;
 import com.ustclin.petchicken.listview.RefreshListView;
@@ -120,6 +122,8 @@ public class MainActivity extends Activity implements OnClickListener {
     private TextView mTextViewSupport;
     private TextView mTextViewContactAuthor;
     private TextView mTextViewAbout;
+    private TextView mTextViewPetSetting;
+    private TextView mTextViewMasterSetting;
 
     private Button mSend;
     // add voice
@@ -368,6 +372,12 @@ public class MainActivity extends Activity implements OnClickListener {
 
         mTextViewAbout = (TextView) findViewById(R.id.tv_about);
         mTextViewAbout.setOnClickListener(this);
+
+        mTextViewPetSetting = (TextView) findViewById(R.id.tv_pet_setting);
+        mTextViewPetSetting.setOnClickListener(this);
+
+        mTextViewMasterSetting = (TextView) findViewById(R.id.tv_master_setting);
+        mTextViewMasterSetting.setOnClickListener(this);
 
         mDatas.add(new ChatMessage(ChatMessage.MESSAGE_IN, MyDateUtils
                 .getDate(), "我是小黄鸡，很高兴为主人服务"));
@@ -758,6 +768,16 @@ public class MainActivity extends Activity implements OnClickListener {
                 Intent intentAbout = new Intent();
                 intentAbout.setClass(this, AboutActivity.class);
                 startActivity(intentAbout);
+                break;
+            case R.id.tv_pet_setting:
+                Intent intentPetSetting = new Intent();
+                intentPetSetting.setClass(this, PetDetailActivity.class);
+                startActivity(intentPetSetting);
+                break;
+            case R.id.tv_master_setting:
+                Intent intentMasterSetting = new Intent();
+                intentMasterSetting.setClass(this, MasterDetailActivity.class);
+                startActivity(intentMasterSetting);
                 break;
         }
     }

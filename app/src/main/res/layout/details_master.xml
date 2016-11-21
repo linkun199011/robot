@@ -33,7 +33,7 @@
                 android:background="#ffffff">
 
                 <ImageView
-                    android:id="@+id/header"
+                    android:id="@+id/master_header"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
                     android:layout_marginBottom="10dp"
@@ -42,7 +42,7 @@
                     android:background="@drawable/my" />
 
                 <Button
-                    android:id="@+id/change_header"
+                    android:id="@+id/change_master_header"
                     android:layout_width="wrap_content"
                     android:layout_height="40dp"
                     android:layout_alignParentRight="true"
@@ -75,7 +75,7 @@
                     android:textSize="18dp" />
 
                 <EditText
-                    android:id="@+id/et_nick_name"
+                    android:id="@+id/et_master_nick_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
@@ -130,6 +130,7 @@
                         android:layout_marginLeft="30dp"
                         android:layout_marginTop="10dp"
                         android:text="女"
+                        android:checked="true"
                         android:textSize="18dp" />
                 </RadioGroup>
 
@@ -158,16 +159,16 @@
                     android:textSize="18dp" />
 
                 <EditText
-                    android:id="@+id/et_age"
+                    android:id="@+id/et_master_age"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
                     android:layout_marginLeft="30dp"
                     android:layout_marginTop="10dp"
                     android:layout_toRightOf="@+id/age"
+                    android:digits="1234567890"
                     android:inputType="number"
                     android:maxLength="3"
-                    android:digits="1234567890"
                     android:text="18" />
             </RelativeLayout>
 
@@ -182,7 +183,7 @@
                 android:background="#ffffff">
 
                 <TextView
-                    android:id="@+id/tv_pet_voice"
+                    android:id="@+id/tv_voice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
@@ -194,12 +195,14 @@
                     android:textSize="18dp" />
 
                 <Switch
+                    android:id="@+id/master_switch"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="17dp"
                     android:layout_marginLeft="20dp"
                     android:layout_marginTop="17dp"
-                    android:layout_toRightOf="@+id/tv_pet_voice" />
+                    android:checked="true"
+                    android:layout_toRightOf="@+id/tv_voice" />
             </RelativeLayout>
 
             <View
@@ -213,7 +216,7 @@
                 android:background="#ffffff">
 
                 <TextView
-                    android:id="@+id/tv_pet_voicer"
+                    android:id="@+id/tv_master_voicer"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
@@ -225,18 +228,18 @@
                     android:textSize="18dp" />
 
                 <TextView
-                    android:id="@+id/tv_pet_voicer_value"
+                    android:id="@+id/tv_master_voicer_value"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="17dp"
                     android:layout_marginLeft="20dp"
                     android:layout_marginTop="17dp"
-                    android:layout_toRightOf="@+id/tv_pet_voicer"
+                    android:layout_toRightOf="@+id/tv_master_voicer"
                     android:text="小倩-普通话"
                     android:textSize="18sp" />
 
                 <Button
-                    android:id="@+id/change_pet_voicer"
+                    android:id="@+id/change_master_voicer"
                     android:layout_width="wrap_content"
                     android:layout_height="40dp"
                     android:layout_alignParentRight="true"
@@ -267,8 +270,8 @@
                     android:layout_marginTop="17dp"
                     android:text="发音:"
                     android:textSize="18dp" />
-                <TextView
-                    android:id="@+id/tv_voice_pronounce_type_value"
+
+                <RadioButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
@@ -276,8 +279,20 @@
                     android:layout_marginLeft="20dp"
                     android:layout_marginTop="17dp"
                     android:layout_toRightOf="@+id/tv_voice_pronounce_type"
+                    android:checked="true"
                     android:text="点击播放"
                     android:textSize="18dp" />
+                <!--<TextView-->
+                <!--android:id="@+id/tv_voice_pronounce_type_value"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_centerVertical="true"-->
+                <!--android:layout_marginBottom="17dp"-->
+                <!--android:layout_marginLeft="20dp"-->
+                <!--android:layout_marginTop="17dp"-->
+                <!--android:layout_toRightOf="@+id/tv_voice_pronounce_type"-->
+                <!--android:text="点击播放"-->
+                <!--android:textSize="18dp" />-->
 
             </RelativeLayout>
 
@@ -291,7 +306,7 @@
                 android:paddingRight="10dp">
 
                 <Button
-                    android:id="@+id/save_detail"
+                    android:id="@+id/save_master_detail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/send_button"

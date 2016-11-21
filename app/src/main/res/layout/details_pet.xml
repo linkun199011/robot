@@ -33,7 +33,7 @@
                 android:background="#ffffff">
 
                 <ImageView
-                    android:id="@+id/header"
+                    android:id="@+id/pet_header"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
                     android:layout_marginBottom="10dp"
@@ -42,7 +42,7 @@
                     android:background="@drawable/icon" />
 
                 <Button
-                    android:id="@+id/change_header"
+                    android:id="@+id/change_pet_header"
                     android:layout_width="wrap_content"
                     android:layout_height="40dp"
                     android:layout_alignParentRight="true"
@@ -75,7 +75,7 @@
                     android:textSize="18dp" />
 
                 <EditText
-                    android:id="@+id/et_nick_name"
+                    android:id="@+id/et_pet_nick_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
@@ -143,7 +143,7 @@
                     android:textSize="18dp" />
 
                 <EditText
-                    android:id="@+id/et_age"
+                    android:id="@+id/et_pet_age"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
@@ -177,11 +177,13 @@
                     android:textSize="18dp" />
 
                 <Switch
+                    android:id="@+id/pet_switch"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="17dp"
                     android:layout_marginLeft="20dp"
                     android:layout_marginTop="17dp"
+                    android:checked="true"
                     android:layout_toRightOf="@+id/tv_pet_voice" />
             </RelativeLayout>
 
@@ -256,6 +258,7 @@
                     android:id="@+id/rg_pet_voice_type"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:clickable="false"
                     android:layout_toRightOf="@id/tv_voice_pronounce_type"
                     android:orientation="horizontal">
 
@@ -266,6 +269,7 @@
                         android:layout_marginLeft="30dp"
                         android:layout_marginTop="10dp"
                         android:text="点击播放"
+                        android:enabled="false"
                         android:textSize="17dp" />
 
                     <RadioButton
@@ -275,6 +279,7 @@
                         android:layout_marginLeft="30dp"
                         android:layout_marginTop="10dp"
                         android:text="自动播放"
+                        android:enabled="false"
                         android:textSize="17dp" />
                 </RadioGroup>
             </RelativeLayout>
@@ -289,7 +294,7 @@
                 android:paddingRight="10dp">
 
                 <Button
-                    android:id="@+id/save_detail"
+                    android:id="@+id/save_pet_detail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/send_button"

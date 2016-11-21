@@ -1,8 +1,6 @@
 package com.ustclin.petchicken.listview;
 
 import android.content.Context;
-import android.os.IBinder;
-import android.renderscript.ScriptGroup;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -11,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.RotateAnimation;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.AbsListView;
 import android.widget.AbsListView.OnScrollListener;
 import android.widget.ImageView;
@@ -19,12 +16,10 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.ustclin.petchicken.MainActivity;
 import com.ustclin.robot.R;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.logging.Logger;
 
 
 public class RefreshListView extends ListView implements OnScrollListener {

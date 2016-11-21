@@ -33,6 +33,52 @@
             android:textColor="@color/layout_menu_color"
             android:textSize="16.0sp" />
 
+        <TextView
+            android:layout_width="200dip"
+            android:layout_height="28.0dip"
+            android:background="#ff313131"
+            android:gravity="center_vertical"
+            android:paddingLeft="15.0dip"
+            android:text="设置"
+            android:textColor="#ff959595"
+            android:textSize="14.0sp" />
+
+        <TextView
+            android:id="@+id/tv_pet_setting"
+            android:layout_width="200dip"
+            android:layout_height="50.0dip"
+            android:background="#555A5C"
+            android:clickable="true"
+            android:drawableLeft="@drawable/ic_category_mark"
+            android:drawablePadding="1.0dip"
+            android:gravity="center_vertical"
+            android:paddingLeft="15.0dip"
+            android:paddingRight="10.0dip"
+            android:text="萌宠"
+            android:textColor="@color/layout_menu_color"
+            android:textSize="16.0sp" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:background="#ff313131"
+            />
+        <TextView
+            android:id="@+id/tv_master_setting"
+            android:layout_width="200dip"
+            android:layout_height="50.0dip"
+            android:background="#555A5C"
+            android:clickable="true"
+            android:drawableLeft="@drawable/ic_category_mark"
+            android:drawablePadding="1.0dip"
+            android:gravity="center_vertical"
+            android:paddingLeft="15.0dip"
+            android:paddingRight="10.0dip"
+            android:text="主人"
+            android:textColor="@color/layout_menu_color"
+            android:textSize="16.0sp" />
+
 		<TextView
             android:layout_width="200dip"
             android:layout_height="28.0dip"
