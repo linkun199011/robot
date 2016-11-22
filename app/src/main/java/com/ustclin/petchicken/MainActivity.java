@@ -105,6 +105,7 @@ public class MainActivity extends Activity implements OnClickListener {
     private static final int MESSAGE_GET_RESULT = 4;
     //
     private SharedPreferences sp;
+    private SharedPreferences isFirstSP;
     long exitTime = 0;
     static int indexNumber = 0;
     private boolean isStartPage = false; // 启动引导 页
@@ -115,7 +116,6 @@ public class MainActivity extends Activity implements OnClickListener {
     private ViewPager mFramePager;
     private ArrayList<View> mFramePageViews;
     private MyPagerAdapter mFramePageAdapter;
-    private SharedPreferences isFisrtSP;
     private SlideMenu slideMenu;
     private ImageView menuImg;
     private TextView mAbilities;
@@ -190,13 +190,13 @@ public class MainActivity extends Activity implements OnClickListener {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);// 取消标题栏
         mContext = this;
-        isFisrtSP = this.getSharedPreferences("isFirst", Context.MODE_PRIVATE);
+        isFirstSP = this.getSharedPreferences("isFirst", Context.MODE_PRIVATE);
         initDatabase(); // 初始化数据库
         // 第一次启动
-        if (!isFisrtSP.contains("isFisrt")) {
+        if (!isFirstSP.contains("isFirst")) {
             getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                     WindowManager.LayoutParams.FLAG_FULLSCREEN);// 全屏
-            SharedPreferencesUtils.setFisrtSharedPreferences(mContext, sp);
+            SharedPreferencesUtils.setFirstSharedPreferences(isFirstSP);
             setContentView(R.layout.activity_viewpager_slash);
             initViewPager();
         } else {

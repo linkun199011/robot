@@ -1,6 +1,8 @@
 package com.ustclin.petchicken.detail;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -10,6 +12,7 @@ import android.widget.RadioGroup;
 import android.widget.Switch;
 import android.widget.TextView;
 
+import com.ustclin.petchicken.utils.SharedPreferencesUtils;
 import com.ustclin.petchicken.utils.StatusBarUtils;
 import com.ustclin.robot.R;
 
@@ -21,7 +24,9 @@ import com.ustclin.robot.R;
  * description
  */
 public class PetDetailActivity extends Activity {
-
+    private static final String TAG = PetDetailActivity.class.getName();
+    private Context mContext;
+    private SharedPreferences petSP;
     // title 左上角按键
     private ImageView mTitleBarBtn;
     // title name
@@ -43,9 +48,16 @@ public class PetDetailActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mContext = this;
         setContentView(R.layout.details_pet);
         StatusBarUtils.setMainChatActivityStatusBarColor(this);
         initView();
+        initSharedPreference();
+    }
+
+    private void initSharedPreference() {
+        petSP = mContext.getSharedPreferences("petSetting", Context.MODE_PRIVATE);
+        SharedPreferencesUtils.setDefaultPetSharedPreferences(mContext, petSP);
     }
 
     private void initView() {

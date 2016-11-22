@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="layout_menu_color">#FFFFFF</color>
+    <color name="layout_menu_background">#03C893</color>
     <!-- 画面背景色 -->
     <drawable name="layout_backgroud">#000000</drawable>
 

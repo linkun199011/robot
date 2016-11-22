@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:background="#555A5C"
     android:layout_width="150dip"
-    android:layout_height="fill_parent" >
+    android:layout_height="fill_parent"
+    android:background="@color/layout_menu_background">
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical" >
+        android:orientation="vertical">
+
         <TextView
             android:layout_width="200dip"
             android:layout_height="28.0dip"
@@ -18,20 +19,32 @@
             android:textColor="#ff959595"
             android:textSize="14.0sp" />
 
-        <TextView
-            android:id="@+id/tv_abilities"
-            android:layout_width="200dip"
-            android:layout_height="50.0dip"
-            android:background="#555A5C"
-            android:clickable="true"
-            android:drawableLeft="@drawable/ic_category_mark"
-            android:drawablePadding="1.0dip"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
             android:gravity="center_vertical"
-            android:paddingLeft="15.0dip"
-            android:paddingRight="10.0dip"
-            android:text="小黄鸡的能力"
-            android:textColor="@color/layout_menu_color"
-            android:textSize="16.0sp" />
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginLeft="15dp"
+                android:background="@drawable/icon_2px_ability" />
+
+            <TextView
+                android:id="@+id/tv_abilities"
+                android:layout_width="200dip"
+                android:layout_height="50.0dip"
+                android:clickable="true"
+                android:drawablePadding="1.0dip"
+                android:gravity="center_vertical"
+                android:paddingLeft="15.0dip"
+                android:paddingRight="10.0dip"
+                android:text="萌宠能力"
+                android:textColor="@color/layout_menu_color"
+                android:textSize="16.0sp" />
+        </LinearLayout>
+
 
         <TextView
             android:layout_width="200dip"
@@ -43,43 +56,138 @@
             android:textColor="#ff959595"
             android:textSize="14.0sp" />
 
-        <TextView
-            android:id="@+id/tv_pet_setting"
-            android:layout_width="200dip"
-            android:layout_height="50.0dip"
-            android:background="#555A5C"
-            android:clickable="true"
-            android:drawableLeft="@drawable/ic_category_mark"
-            android:drawablePadding="1.0dip"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
             android:gravity="center_vertical"
-            android:paddingLeft="15.0dip"
-            android:paddingRight="10.0dip"
-            android:text="萌宠"
-            android:textColor="@color/layout_menu_color"
-            android:textSize="16.0sp" />
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginLeft="15dp"
+                android:background="@drawable/icon_2px_pet" />
+
+            <TextView
+                android:id="@+id/tv_pet_setting"
+                android:layout_width="200dip"
+                android:layout_height="50.0dip"
+                android:clickable="true"
+                android:drawablePadding="1.0dip"
+                android:gravity="center_vertical"
+                android:paddingLeft="15.0dip"
+                android:paddingRight="10.0dip"
+                android:text="萌宠"
+                android:textColor="@color/layout_menu_color"
+                android:textSize="16.0sp" />
+        </LinearLayout>
+
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:background="#ff313131"
-            />
+            android:background="#ff313131" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginLeft="15dp"
+                android:background="@drawable/icon_2px_master" />
+
+            <TextView
+                android:id="@+id/tv_master_setting"
+                android:layout_width="200dip"
+                android:layout_height="50.0dip"
+                android:clickable="true"
+                android:drawablePadding="1.0dip"
+                android:gravity="center_vertical"
+                android:paddingLeft="15.0dip"
+                android:paddingRight="10.0dip"
+                android:text="主人"
+                android:textColor="@color/layout_menu_color"
+                android:textSize="16.0sp" />
+        </LinearLayout>
+
         <TextView
-            android:id="@+id/tv_master_setting"
             android:layout_width="200dip"
-            android:layout_height="50.0dip"
-            android:background="#555A5C"
-            android:clickable="true"
-            android:drawableLeft="@drawable/ic_category_mark"
-            android:drawablePadding="1.0dip"
+            android:layout_height="28.0dip"
+            android:background="#ff313131"
             android:gravity="center_vertical"
             android:paddingLeft="15.0dip"
-            android:paddingRight="10.0dip"
-            android:text="主人"
-            android:textColor="@color/layout_menu_color"
-            android:textSize="16.0sp" />
+            android:text="删除"
+            android:textColor="#ff959595"
+            android:textSize="14.0sp" />
 
-		<TextView
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginLeft="15dp"
+                android:background="@drawable/icon_2px_delete" />
+
+            <TextView
+                android:id="@+id/tv_delete"
+                android:layout_width="200dip"
+                android:layout_height="50.0dip"
+                android:clickable="true"
+                android:drawablePadding="1.0dip"
+                android:gravity="center_vertical"
+                android:paddingLeft="15.0dip"
+                android:paddingRight="10.0dip"
+                android:text="删除记录"
+                android:textColor="@color/layout_menu_color"
+                android:textSize="16.0sp" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="200dip"
+            android:layout_height="28.0dip"
+            android:background="#ff313131"
+            android:gravity="center_vertical"
+            android:paddingLeft="15.0dip"
+            android:text="自定义"
+            android:textColor="#ff959595"
+            android:textSize="14.0sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginLeft="15dp"
+                android:background="@drawable/icon_2px_custom" />
+
+            <TextView
+                android:id="@+id/tv_custom"
+                android:layout_width="200dip"
+                android:layout_height="50.0dip"
+                android:clickable="true"
+                android:drawablePadding="1.0dip"
+                android:gravity="center_vertical"
+                android:paddingLeft="15.0dip"
+                android:paddingRight="10.0dip"
+                android:text="定制对话"
+                android:textColor="@color/layout_menu_color"
+                android:textSize="16.0sp" />
+        </LinearLayout>
+
+        <TextView
             android:layout_width="200dip"
             android:layout_height="28.0dip"
             android:background="#ff313131"
@@ -88,21 +196,34 @@
             android:text="点赞"
             android:textColor="#ff959595"
             android:textSize="14.0sp" />
-		<TextView
-		    android:id="@+id/tv_support"
-            android:layout_width="200dip"
-            android:layout_height="50.0dip"
-            android:background="#555A5C"
-            android:clickable="true"
-            android:drawableLeft="@drawable/ic_category_mark"
-            android:drawablePadding="1.0dip"
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
             android:gravity="center_vertical"
-            android:paddingLeft="15.0dip"
-            android:paddingRight="10.0dip"
-            android:text="我要点赞"
-            android:textColor="@color/layout_menu_color"
-            android:textSize="16.0sp" />
-		<TextView
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginLeft="15dp"
+                android:background="@drawable/icon_2px_thumsup" />
+
+            <TextView
+                android:id="@+id/tv_support"
+                android:layout_width="200dip"
+                android:layout_height="50.0dip"
+                android:clickable="true"
+                android:drawablePadding="1.0dip"
+                android:gravity="center_vertical"
+                android:paddingLeft="15.0dip"
+                android:paddingRight="10.0dip"
+                android:text="我要点赞"
+                android:textColor="@color/layout_menu_color"
+                android:textSize="16.0sp" />
+        </LinearLayout>
+
+        <TextView
             android:layout_width="200dip"
             android:layout_height="28.0dip"
             android:background="#ff313131"
@@ -111,21 +232,34 @@
             android:text="反馈"
             android:textColor="#ff959595"
             android:textSize="14.0sp" />
-		<TextView
-		    android:id="@+id/tv_contact_author"
-            android:layout_width="200dip"
-            android:layout_height="50.0dip"
-            android:background="#555A5C"
-            android:clickable="true"
-            android:drawableLeft="@drawable/ic_category_mark"
-            android:drawablePadding="1.0dip"
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
             android:gravity="center_vertical"
-            android:paddingLeft="15.0dip"
-            android:paddingRight="10.0dip"
-            android:text="联系作者"
-            android:textColor="@color/layout_menu_color"
-            android:textSize="16.0sp" />
-		<TextView
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginLeft="15dp"
+                android:background="@drawable/icon_2px_mail" />
+
+            <TextView
+                android:id="@+id/tv_contact_author"
+                android:layout_width="200dip"
+                android:layout_height="50.0dip"
+                android:clickable="true"
+                android:drawablePadding="1.0dip"
+                android:gravity="center_vertical"
+                android:paddingLeft="15.0dip"
+                android:paddingRight="10.0dip"
+                android:text="联系作者"
+                android:textColor="@color/layout_menu_color"
+                android:textSize="16.0sp" />
+        </LinearLayout>
+
+        <TextView
             android:layout_width="200dip"
             android:layout_height="28.0dip"
             android:background="#ff313131"
@@ -134,22 +268,34 @@
             android:text="关于"
             android:textColor="#ff959595"
             android:textSize="14.0sp" />
-		<TextView
-		    android:id="@+id/tv_about"
-            android:layout_width="200dip"
-            android:layout_height="50.0dip"
-            android:background="#555A5C"
-            android:clickable="true"
-            android:drawableLeft="@drawable/ic_category_mark"
-            android:drawablePadding="1.0dip"
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
             android:gravity="center_vertical"
-            android:paddingLeft="15.0dip"
-            android:paddingRight="10.0dip"
-            android:text="小黄鸡的由来"
-            android:textColor="@color/layout_menu_color"
-            android:textSize="16.0sp" />
-		
-        
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginLeft="15dp"
+                android:background="@drawable/icon_2px_info" />
+
+            <TextView
+                android:id="@+id/tv_about"
+                android:layout_width="200dip"
+                android:layout_height="50.0dip"
+                android:clickable="true"
+                android:drawablePadding="1.0dip"
+                android:gravity="center_vertical"
+                android:paddingLeft="15.0dip"
+                android:paddingRight="10.0dip"
+                android:text="萌宠背景"
+                android:textColor="@color/layout_menu_color"
+                android:textSize="16.0sp" />
+        </LinearLayout>
+
+
     </LinearLayout>
 
 </ScrollView>
