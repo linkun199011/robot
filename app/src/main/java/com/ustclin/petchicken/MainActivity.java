@@ -635,7 +635,7 @@ public class MainActivity extends Activity implements OnClickListener {
 
         if (relativeLayoutText.getVisibility() == View.VISIBLE) {
             btnChangeInput.setBackground(this.getResources().getDrawable(
-                    R.drawable.text3));
+                    R.drawable.icon_keyborad));
             // close soft input
             activeSoftInput(false);
             relativeLayoutText.setVisibility(View.GONE);
@@ -643,7 +643,7 @@ public class MainActivity extends Activity implements OnClickListener {
             return;
         } else {
             btnChangeInput.setBackground(this.getResources().getDrawable(
-                    R.drawable.voice3));
+                    R.drawable.icon_mic));
             // open soft input
             mMsg.requestFocus();
             activeSoftInput(true);
@@ -753,7 +753,7 @@ public class MainActivity extends Activity implements OnClickListener {
                         .show();
                 Uri uri = Uri.parse("market://details?id=" + getPackageName());
                 Intent intentSupport = new Intent(Intent.ACTION_VIEW, uri);
-                intentSupport.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intentSupport.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intentSupport);
                 break;
             case R.id.tv_contact_author:

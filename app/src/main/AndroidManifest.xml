@@ -6,7 +6,7 @@
     <supports-screens android:anyDensity="true" />
     <uses-sdk
         android:minSdkVersion="15"
-        android:targetSdkVersion="17" />
+        android:targetSdkVersion="23" />
 
 
     <!-- 万普配置信息 start -->

@@ -26,10 +26,10 @@
             android:orientation="horizontal">
 
             <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:layout_marginLeft="15dp"
-                android:background="@drawable/icon_2px_ability" />
+                android:background="@drawable/icon_72_ability" />
 
             <TextView
                 android:id="@+id/tv_abilities"
@@ -64,9 +64,9 @@
 
             <ImageView
                 android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_marginLeft="15dp"
-                android:background="@drawable/icon_2px_pet" />
+                android:layout_height="30dp"
+                android:layout_marginLeft="20dp"
+                android:background="@drawable/icon_72_pet" />
 
             <TextView
                 android:id="@+id/tv_pet_setting"
@@ -75,7 +75,7 @@
                 android:clickable="true"
                 android:drawablePadding="1.0dip"
                 android:gravity="center_vertical"
-                android:paddingLeft="15.0dip"
+                android:paddingLeft="20.0dip"
                 android:paddingRight="10.0dip"
                 android:text="萌宠"
                 android:textColor="@color/layout_menu_color"
@@ -96,10 +96,10 @@
             android:orientation="horizontal">
 
             <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:layout_marginLeft="15dp"
-                android:background="@drawable/icon_2px_master" />
+                android:background="@drawable/icon_72_master" />
 
             <TextView
                 android:id="@+id/tv_master_setting"
@@ -132,10 +132,10 @@
             android:orientation="horizontal">
 
             <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:layout_marginLeft="15dp"
-                android:background="@drawable/icon_2px_delete" />
+                android:background="@drawable/icon_72_delete" />
 
             <TextView
                 android:id="@+id/tv_delete"
@@ -168,10 +168,10 @@
             android:orientation="horizontal">
 
             <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:layout_marginLeft="15dp"
-                android:background="@drawable/icon_2px_custom" />
+                android:background="@drawable/icon_72_custom" />
 
             <TextView
                 android:id="@+id/tv_custom"
@@ -204,10 +204,10 @@
             android:orientation="horizontal">
 
             <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:layout_marginLeft="15dp"
-                android:background="@drawable/icon_2px_thumsup" />
+                android:background="@drawable/icon_72_thumsup" />
 
             <TextView
                 android:id="@+id/tv_support"
@@ -240,10 +240,10 @@
             android:orientation="horizontal">
 
             <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:layout_marginLeft="15dp"
-                android:background="@drawable/icon_2px_mail" />
+                android:background="@drawable/icon_72_mail" />
 
             <TextView
                 android:id="@+id/tv_contact_author"
@@ -276,10 +276,10 @@
             android:orientation="horizontal">
 
             <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:layout_marginLeft="15dp"
-                android:background="@drawable/icon_2px_info" />
+                android:background="@drawable/icon_72_info2" />
 
             <TextView
                 android:id="@+id/tv_about"
