@@ -786,9 +786,9 @@ public class MainActivity extends Activity implements OnClickListener {
             case R.id.tv_contact_author:
                 Intent intetEmail = new Intent(Intent.ACTION_SENDTO);
                 intetEmail.setData(Uri.parse("mailto:linkun199011@163.com"));
-                intetEmail.putExtra(Intent.EXTRA_SUBJECT, "关于“小黄鸡”应用的建议");
+                intetEmail.putExtra(Intent.EXTRA_SUBJECT, "关于“" + getString(R.string.app_name) + "”应用的建议");
                 intetEmail
-                        .putExtra(Intent.EXTRA_TEXT, "作者你好，以下是我关于“小黄鸡”应用的一些建议：\n");
+                        .putExtra(Intent.EXTRA_TEXT, "作者你好，以下是我关于“"+ getString(R.string.app_name) + "”应用的一些建议：\n");
                 startActivity(intetEmail);
                 break;
             case R.id.tv_about:

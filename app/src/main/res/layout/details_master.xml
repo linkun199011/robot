@@ -72,7 +72,7 @@
                     android:layout_marginLeft="20dp"
                     android:layout_marginTop="10dp"
                     android:text="昵称:"
-                    android:textSize="18dp" />
+                    android:textSize="18sp" />
 
                 <EditText
                     android:id="@+id/et_master_nick_name"
@@ -105,7 +105,7 @@
                     android:layout_marginLeft="20dp"
                     android:layout_marginTop="10dp"
                     android:text="性别:"
-                    android:textSize="18dp" />
+                    android:textSize="18sp" />
 
                 <RadioGroup
                     android:id="@+id/rg_master_sex"
@@ -121,7 +121,7 @@
                         android:layout_marginLeft="30dp"
                         android:layout_marginTop="10dp"
                         android:text="男"
-                        android:textSize="18dp" />
+                        android:textSize="18sp" />
 
                     <RadioButton
                         android:layout_width="wrap_content"
@@ -131,7 +131,7 @@
                         android:layout_marginTop="10dp"
                         android:text="女"
                         android:checked="true"
-                        android:textSize="18dp" />
+                        android:textSize="18sp" />
                 </RadioGroup>
 
             </RelativeLayout>
@@ -154,9 +154,8 @@
                     android:layout_marginBottom="10dp"
                     android:layout_marginLeft="20dp"
                     android:layout_marginTop="10dp"
-                    android:numeric="integer"
                     android:text="年龄:"
-                    android:textSize="18dp" />
+                    android:textSize="18sp" />
 
                 <EditText
                     android:id="@+id/et_master_age"
@@ -192,7 +191,7 @@
                     android:layout_marginTop="17dp"
                     android:numeric="integer"
                     android:text="语音开关:"
-                    android:textSize="18dp" />
+                    android:textSize="18sp" />
 
                 <Switch
                     android:id="@+id/master_switch"
@@ -223,9 +222,8 @@
                     android:layout_marginBottom="17dp"
                     android:layout_marginLeft="20dp"
                     android:layout_marginTop="17dp"
-                    android:numeric="integer"
                     android:text="语音人:"
-                    android:textSize="18dp" />
+                    android:textSize="18sp" />
 
                 <TextView
                     android:id="@+id/tv_master_voicer_value"
@@ -269,7 +267,7 @@
                     android:layout_marginLeft="20dp"
                     android:layout_marginTop="17dp"
                     android:text="发音:"
-                    android:textSize="18dp" />
+                    android:textSize="18sp" />
 
                 <RadioButton
                     android:layout_width="wrap_content"
@@ -281,7 +279,7 @@
                     android:layout_toRightOf="@+id/tv_voice_pronounce_type"
                     android:checked="true"
                     android:text="点击播放"
-                    android:textSize="18dp" />
+                    android:textSize="18sp" />
                 <!--<TextView-->
                 <!--android:id="@+id/tv_voice_pronounce_type_value"-->
                 <!--android:layout_width="wrap_content"-->

@@ -3,7 +3,6 @@ package com.ustclin.petchicken.utils;
 import android.app.Activity;
 import android.graphics.Color;
 import android.os.Build;
-import android.support.annotation.ColorInt;
 import android.view.Window;
 import android.view.WindowManager;
 

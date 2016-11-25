@@ -1,12 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.ustclin.robot"
-    android:versionCode="6"
-    android:versionName="6.0" >
+    >
     <supports-screens android:anyDensity="true" />
-    <uses-sdk
-        android:minSdkVersion="15"
-        android:targetSdkVersion="23" />
 
 
     <!-- 万普配置信息 start -->

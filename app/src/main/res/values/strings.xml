@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">小黄鸡</string>
+    <string name="app_name">萌宠</string>
     <string name="pet_name">萌宠</string>
     <string name="pet_sex">女</string>
     <string name="pet_age">3</string>
@@ -9,9 +9,9 @@
     <string name="master_sex">女</string>
     <string name="master_age">18</string>
     <string name="action_settings">Settings</string>
-    <string name="tv_about_intro1">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;2012年12月31日，“小黄鸡”在人人网开设公共主页，迅速火爆网络。“小黄鸡”，是一款趣味的自动聊天机器人。</string>
-    <string name="tv_about_intro2">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;该软件并非人人网的自动聊天机器人，特别感谢“图灵机器人”提供的免费API调用接口。</string>
-    <string name="tv_about_intro3">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;经过定制后，让其表现得像当年的“小黄鸡”般可爱，呆萌。也同时向人人网的“小黄鸡”致敬！</string>
+    <string name="tv_about_intro1">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;2012年12月31日，“小黄鸡”在人人网开设公共主页，迅速火爆网络。“小黄鸡”是一款趣味的自动聊天机器人。</string>
+    <string name="tv_about_intro2">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;该软件并非人人网的自动聊天机器人，特别感谢“图灵机器人”提供的免费API调用接口，以及科大讯飞免费提供的语音听写、语音合成SDK。</string>
+    <string name="tv_about_intro3">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;经过定制后，让“萌宠”表现得像当年的“小黄鸡”般可爱，呆萌。也同时向人人网的“小黄鸡”致敬！</string>
     <string name="tv_about_intro4">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;软件功能尚处在完善阶段，如果有好的意见或建议欢迎大家通过邮件联系作者。</string>
     <string name="tv_about_intro5">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;最后，祝大家玩得开心！也衷心希望在“图灵机器人”的带领下，未来的人工智能可以越做越好！</string>
 

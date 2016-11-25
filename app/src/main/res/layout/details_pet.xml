@@ -72,7 +72,7 @@
                     android:layout_marginLeft="20dp"
                     android:layout_marginTop="10dp"
                     android:text="昵称:"
-                    android:textSize="18dp" />
+                    android:textSize="18sp" />
 
                 <EditText
                     android:id="@+id/et_pet_nick_name"
@@ -82,7 +82,7 @@
                     android:layout_marginLeft="30dp"
                     android:layout_marginTop="10dp"
                     android:layout_toRightOf="@+id/name"
-                    android:text="小黄鸡" />
+                    android:text="@string/app_name" />
             </RelativeLayout>
 
             <View
@@ -105,7 +105,7 @@
                     android:layout_marginLeft="20dp"
                     android:layout_marginTop="10dp"
                     android:text="性别:"
-                    android:textSize="18dp" />
+                    android:textSize="18sp" />
 
                 <EditText
                     android:id="@+id/et_pet_sex"
@@ -140,7 +140,7 @@
                     android:layout_marginTop="10dp"
                     android:numeric="integer"
                     android:text="年龄:"
-                    android:textSize="18dp" />
+                    android:textSize="18sp" />
 
                 <EditText
                     android:id="@+id/et_pet_age"
@@ -174,7 +174,7 @@
                     android:layout_marginTop="17dp"
                     android:numeric="integer"
                     android:text="语音开关:"
-                    android:textSize="18dp" />
+                    android:textSize="18sp" />
 
                 <Switch
                     android:id="@+id/pet_switch"
@@ -207,7 +207,7 @@
                     android:layout_marginTop="17dp"
                     android:numeric="integer"
                     android:text="语音人:"
-                    android:textSize="18dp" />
+                    android:textSize="18sp" />
 
                 <TextView
                     android:id="@+id/tv_pet_voicer_value"
@@ -252,7 +252,7 @@
                     android:layout_marginTop="17dp"
                     android:numeric="integer"
                     android:text="发音:"
-                    android:textSize="18dp" />
+                    android:textSize="18sp" />
 
                 <RadioGroup
                     android:id="@+id/rg_pet_voice_type"
@@ -270,7 +270,7 @@
                         android:layout_marginTop="10dp"
                         android:text="点击播放"
                         android:enabled="false"
-                        android:textSize="17dp" />
+                        android:textSize="17sp" />
 
                     <RadioButton
                         android:layout_width="wrap_content"
@@ -280,7 +280,7 @@
                         android:layout_marginTop="10dp"
                         android:text="自动播放"
                         android:enabled="false"
-                        android:textSize="17dp" />
+                        android:textSize="17sp" />
                 </RadioGroup>
             </RelativeLayout>
 

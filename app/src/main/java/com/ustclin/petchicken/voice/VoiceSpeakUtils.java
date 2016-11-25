@@ -5,6 +5,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
+import android.view.View;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
@@ -120,6 +121,9 @@ public class VoiceSpeakUtils {
 
     private void showTip(final String str) {
         mToast.setText(str);
+        View view = mToast.getView();
+        view.setAlpha(0.7f);
+        mToast.setView(view);
         mToast.show();
     }
 
