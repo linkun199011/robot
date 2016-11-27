@@ -71,4 +71,5 @@ dependencies {
     compile files('libs/AppOffer_2.4.6.jar')
     compile files('libs/Msc.jar')
     compile files('libs/Sunflower.jar')
+    compile files('libs/libammsdk.jar')
 }

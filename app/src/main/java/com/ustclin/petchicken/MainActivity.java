@@ -6,6 +6,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -36,6 +38,12 @@ import android.widget.Toast;
 import com.iflytek.cloud.RecognizerResult;
 import com.iflytek.cloud.SpeechError;
 import com.iflytek.cloud.ui.RecognizerDialogListener;
+import com.tencent.mm.sdk.modelmsg.SendMessageToWX;
+import com.tencent.mm.sdk.modelmsg.WXMediaMessage;
+import com.tencent.mm.sdk.modelmsg.WXTextObject;
+import com.tencent.mm.sdk.modelmsg.WXWebpageObject;
+import com.tencent.mm.sdk.openapi.IWXAPI;
+import com.tencent.mm.sdk.openapi.WXAPIFactory;
 import com.ustclin.petchicken.about.AboutActivity;
 import com.ustclin.petchicken.bean.ChatMessage;
 import com.ustclin.petchicken.db.ChatDAO;
@@ -124,6 +132,8 @@ public class MainActivity extends Activity implements OnClickListener {
     private TextView mTextViewAbout;
     private TextView mTextViewPetSetting;
     private TextView mTextViewMasterSetting;
+    private TextView mTextViewDeleteHis;
+    private TextView mTextViewShare;
 
     private Button mSend;
     // add voice
@@ -192,6 +202,7 @@ public class MainActivity extends Activity implements OnClickListener {
         mContext = this;
         isFirstSP = this.getSharedPreferences("isFirst", Context.MODE_PRIVATE);
         initDatabase(); // 初始化数据库
+        initLib();
         // 第一次启动
         if (!isFirstSP.contains("isFirst")) {
             getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
@@ -202,6 +213,16 @@ public class MainActivity extends Activity implements OnClickListener {
         } else {
             mainPage();
         }
+    }
+
+    //---------------------- 微信分享 初始化
+    private IWXAPI wxApi;
+//    String WX_APP_ID = "wx0455a8eedb2a8159"; // our
+    String WX_APP_ID = "wxd930ea5d5a258f4f"; // demo
+    private void initLib() {
+        //实例化
+        wxApi = WXAPIFactory.createWXAPI(this, WX_APP_ID, true);
+        wxApi.registerApp(WX_APP_ID);
     }
 
     /**
@@ -378,6 +399,12 @@ public class MainActivity extends Activity implements OnClickListener {
 
         mTextViewMasterSetting = (TextView) findViewById(R.id.tv_master_setting);
         mTextViewMasterSetting.setOnClickListener(this);
+
+        mTextViewDeleteHis = (TextView) findViewById(R.id.tv_delete);
+        mTextViewDeleteHis.setOnClickListener(this);
+
+        mTextViewShare = (TextView) findViewById(R.id.tv_share);
+        mTextViewShare.setOnClickListener(this);
 
         mDatas.add(new ChatMessage(ChatMessage.MESSAGE_IN, MyDateUtils
                 .getDate(), "我是小黄鸡，很高兴为主人服务"));
@@ -779,6 +806,13 @@ public class MainActivity extends Activity implements OnClickListener {
                 intentMasterSetting.setClass(this, MasterDetailActivity.class);
                 startActivity(intentMasterSetting);
                 break;
+            case R.id.tv_delete:
+                break;
+            case R.id.tv_share:
+                //在需要分享的地方添加代码：
+//                wechatShare(0);//分享到微信好友
+                wechatShare(1);//分享到微信朋友圈
+                break;
         }
     }
 
@@ -863,6 +897,30 @@ public class MainActivity extends Activity implements OnClickListener {
         bundle.putString("type", XUN_FEI);
         mHandler.obtainMessage(MESSAGE_RECOGNIZE, bundle).sendToTarget();
 
+    }
+
+    /**
+     * 微信分享 （这里仅提供一个分享网页的示例，其它请参看官网示例代码）
+     * @param flag (0:分享到微信好友，1：分享到微信朋友圈)
+     */
+    private void wechatShare(int flag){
+//        WXWebpageObject webpage = new WXWebpageObject();
+//        webpage.webpageUrl = "这里填写链接url";
+        WXTextObject textObj = new WXTextObject();
+        textObj.text = "XiaoHuangJ";
+
+        WXMediaMessage msg = new WXMediaMessage(textObj);
+        msg.title = "这里填写标题";
+        msg.description = "这里填写内容";
+        //这里替换一张自己工程里的图片资源
+        Bitmap thumb = BitmapFactory.decodeResource(getResources(), R.drawable.icon);
+        msg.setThumbImage(thumb);
+
+        SendMessageToWX.Req req = new SendMessageToWX.Req();
+        req.transaction = String.valueOf(System.currentTimeMillis());
+        req.message = msg;
+        req.scene = flag==0?SendMessageToWX.Req.WXSceneSession: SendMessageToWX.Req.WXSceneTimeline;
+        wxApi.sendReq(req);
     }
 
 }

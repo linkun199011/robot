@@ -193,6 +193,42 @@
             android:background="#ff313131"
             android:gravity="center_vertical"
             android:paddingLeft="15.0dip"
+            android:text="分享"
+            android:textColor="#ff959595"
+            android:textSize="14.0sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginLeft="15dp"
+                android:background="@drawable/icon_72_share" />
+
+            <TextView
+                android:id="@+id/tv_share"
+                android:layout_width="200dip"
+                android:layout_height="50.0dip"
+                android:clickable="true"
+                android:drawablePadding="1.0dip"
+                android:gravity="center_vertical"
+                android:paddingLeft="15.0dip"
+                android:paddingRight="10.0dip"
+                android:text="分享微信"
+                android:textColor="@color/layout_menu_color"
+                android:textSize="16.0sp" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="200dip"
+            android:layout_height="28.0dip"
+            android:background="#ff313131"
+            android:gravity="center_vertical"
+            android:paddingLeft="15.0dip"
             android:text="点赞"
             android:textColor="#ff959595"
             android:textSize="14.0sp" />
