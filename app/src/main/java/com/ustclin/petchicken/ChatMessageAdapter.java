@@ -2,6 +2,8 @@ package com.ustclin.petchicken;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +17,7 @@ import com.ustclin.petchicken.bean.ChatMessage;
 import com.ustclin.petchicken.detail.MasterDetailActivity;
 import com.ustclin.petchicken.detail.PetDetailActivity;
 import com.ustclin.petchicken.utils.MyDateUtils;
+import com.ustclin.petchicken.utils.PhotoUtil;
 import com.ustclin.petchicken.voice.VoiceSpeakUtils;
 import com.ustclin.robot.R;
 
@@ -56,6 +59,11 @@ public class ChatMessageAdapter extends BaseAdapter
 		mInflater = LayoutInflater.from(context);
 		mDatas = datas;
 	}
+
+    public void swapDatas(List<ChatMessage> datas) {
+        this.mDatas = datas;
+        notifyDataSetChanged();
+    }
 
     public void setPetVoice(VoiceSpeakUtils voicePet) {
         this.voicePet = voicePet;
@@ -164,6 +172,11 @@ public class ChatMessageAdapter extends BaseAdapter
 						mContext.startActivity(intent);
 					}
 				});
+				// custom header
+				if (PhotoUtil.isPetHeaderExists(mContext) && PhotoUtil.getPetHeaderPath(mContext)!=null) {
+					Bitmap bitmap = BitmapFactory.decodeFile(PhotoUtil.getPetHeaderPath(mContext));
+					viewHolder.icon.setImageBitmap(bitmap);
+				}
 				convertView.setTag(viewHolder);
 				break;
 			case TYPE_2:
@@ -183,6 +196,11 @@ public class ChatMessageAdapter extends BaseAdapter
 						mContext.startActivity(intent);
 					}
 				});
+                // custom header
+                if (PhotoUtil.isPetHeaderExists(mContext) && PhotoUtil.getPetHeaderPath(mContext)!=null) {
+                    Bitmap bitmap = BitmapFactory.decodeFile(PhotoUtil.getPetHeaderPath(mContext));
+                    viewHolder.icon.setImageBitmap(bitmap);
+                }
 				convertView.setTag(viewHolder);
 				break;
 			case TYPE_3:

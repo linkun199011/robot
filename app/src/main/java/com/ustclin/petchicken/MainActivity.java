@@ -472,8 +472,6 @@ public class MainActivity extends Activity implements OnClickListener {
                 mHandler.sendMessage(message);
                 voicePet.play(from.getMsg());
             }
-
-            ;
         }.start();
 
     }
@@ -820,6 +818,12 @@ public class MainActivity extends Activity implements OnClickListener {
     protected void onResume() {
         super.onResume();
         // reload voice param
+        // header
+//        mDatas.clear();
+//        mDatas = mChatDAO.find20();
+//        mAdapter.swapDatas(mDatas);
+//        mAdapter.notifyDataSetChanged();
+
     }
 
     @Override

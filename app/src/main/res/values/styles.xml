@@ -37,4 +37,9 @@
         <item name="android:backgroundDimEnabled">true</item>
         <item name="android:backgroundDimAmount">0.6</item>
     </style>
+
+    <style name="bottomStyle">
+        <item name="android:windowEnterAnimation">@anim/bottom_pup_anim_out</item>
+        <item name="android:windowExitAnimation">@anim/bottom_pup_anim_in</item>
+    </style>
 </resources>

@@ -15,6 +15,7 @@
     <string name="tv_about_intro4">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;软件功能尚处在完善阶段，如果有好的意见或建议欢迎大家通过邮件联系作者。</string>
     <string name="tv_about_intro5">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;最后，祝大家玩得开心！也衷心希望在“图灵机器人”的带领下，未来的人工智能可以越做越好！</string>
 
+    <string name="photoPickerNotFoundText">手机中无可用的图片</string>
 
     <!-- 请替换成在语音云官网申请的appid -->
     <string name="app_id">580dbf7a</string>

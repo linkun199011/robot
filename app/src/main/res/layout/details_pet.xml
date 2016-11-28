@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/mainLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#44aaaaaa"
@@ -138,7 +139,6 @@
                     android:layout_marginBottom="10dp"
                     android:layout_marginLeft="20dp"
                     android:layout_marginTop="10dp"
-                    android:numeric="integer"
                     android:text="年龄:"
                     android:textSize="18sp" />
 
@@ -172,7 +172,6 @@
                     android:layout_marginBottom="17dp"
                     android:layout_marginLeft="20dp"
                     android:layout_marginTop="17dp"
-                    android:numeric="integer"
                     android:text="语音开关:"
                     android:textSize="18sp" />
 
@@ -205,7 +204,6 @@
                     android:layout_marginBottom="17dp"
                     android:layout_marginLeft="20dp"
                     android:layout_marginTop="17dp"
-                    android:numeric="integer"
                     android:text="语音人:"
                     android:textSize="18sp" />
 
@@ -250,7 +248,6 @@
                     android:layout_marginBottom="17dp"
                     android:layout_marginLeft="20dp"
                     android:layout_marginTop="17dp"
-                    android:numeric="integer"
                     android:text="发音:"
                     android:textSize="18sp" />
 
