@@ -16,7 +16,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:background="#44aaaaaa"
             android:focusable="true"
             android:focusableInTouchMode="true"
@@ -33,14 +33,14 @@
                 android:layout_height="wrap_content"
                 android:background="#ffffff">
 
-                <ImageView
+                <com.ustclin.petchicken.customview.RectangleView
                     android:id="@+id/pet_header"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
                     android:layout_marginBottom="10dp"
                     android:layout_marginLeft="20dp"
                     android:layout_marginTop="10dp"
-                    android:background="@drawable/icon" />
+                    />
 
                 <Button
                     android:id="@+id/change_pet_header"
@@ -165,38 +165,6 @@
                 android:background="#ffffff">
 
                 <TextView
-                    android:id="@+id/tv_pet_voice"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginBottom="17dp"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginTop="17dp"
-                    android:text="语音开关:"
-                    android:textSize="18sp" />
-
-                <Switch
-                    android:id="@+id/pet_switch"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="17dp"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginTop="17dp"
-                    android:checked="true"
-                    android:layout_toRightOf="@+id/tv_pet_voice" />
-            </RelativeLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="15dp"
-                android:background="#55aaaaaa" />
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="#ffffff">
-
-                <TextView
                     android:id="@+id/tv_pet_voicer"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -280,25 +248,24 @@
                         android:textSize="17sp" />
                 </RadioGroup>
             </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginBottom="10dp"
-                android:layout_marginTop="10dp"
-                android:gravity="bottom"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp">
-
-                <Button
-                    android:id="@+id/save_pet_detail"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/send_button"
-                    android:text="保存"
-                    android:textColor="#ffffff" />
-            </RelativeLayout>
-
         </LinearLayout>
     </ScrollView>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
+        android:gravity="bottom"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp">
+
+        <Button
+            android:id="@+id/save_pet_detail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/send_button"
+            android:text="保存"
+            android:textColor="#ffffff" />
+    </RelativeLayout>
 </LinearLayout>

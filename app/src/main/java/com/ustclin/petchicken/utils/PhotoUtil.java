@@ -14,6 +14,9 @@ import android.provider.MediaStore;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.ustclin.petchicken.customview.RectangleView;
+import com.ustclin.robot.R;
+
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -34,12 +37,49 @@ public class PhotoUtil {
     public static final String FOLDER_IMAGES_THUMBNAILS = "/Yun/Images/Thumbnails/";//聊天收到的缩略图
     public static final String FOLDER_IMAGES_ORIGINAL = "/Yun/Images/Original/";//聊天收到的原图
 
+    public static void setPetRecHeader(Context context, RectangleView rectangleView) {
+        // custom header
+        if (PhotoUtil.isPetHeaderExists(context) && PhotoUtil.getPetHeaderPath(context)!=null) {
+            Bitmap bitmap = BitmapFactory.decodeFile(PhotoUtil.getPetHeaderPath(context));
+            rectangleView.setImageBitmap(bitmap);
+        } else {
+            Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.icon);
+            rectangleView.setImageBitmap(bitmap);
+        }
+    }
+
+    public static void setMasterRecHeader(Context context, RectangleView rectangleView) {
+        // custom header
+        if (PhotoUtil.isMasterHeaderExists(context) && PhotoUtil.getMasterHeaderPath(context)!=null) {
+            Bitmap bitmap = BitmapFactory.decodeFile(PhotoUtil.getMasterHeaderPath(context));
+            rectangleView.setImageBitmap(bitmap);
+        } else {
+            Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.my);
+            rectangleView.setImageBitmap(bitmap);
+        }
+    }
+
     public static boolean isPetHeaderExists(Context activity) {
         if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
             File sdcardRootPath = Environment.getExternalStorageDirectory();
             String packageName = activity.getPackageName();
             String headerRootPath = sdcardRootPath.getPath() + File.separator + packageName;
             String petHeaderPath = headerRootPath + File.separator + "petHeader.jpg";
+            File petHeaderFile = new File(petHeaderPath);
+            if (petHeaderFile.exists()) {
+                return true;
+            }
+
+        }
+        return false;
+    }
+
+    public static boolean isMasterHeaderExists(Context activity) {
+        if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
+            File sdcardRootPath = Environment.getExternalStorageDirectory();
+            String packageName = activity.getPackageName();
+            String headerRootPath = sdcardRootPath.getPath() + File.separator + packageName;
+            String petHeaderPath = headerRootPath + File.separator + "masterHeader.jpg";
             File petHeaderFile = new File(petHeaderPath);
             if (petHeaderFile.exists()) {
                 return true;
@@ -56,6 +96,17 @@ public class PhotoUtil {
             String packageName = context.getPackageName();
             String headerRootPath = sdcardRootPath.getPath() + File.separator + packageName;
             headerPath = headerRootPath + File.separator + "petHeader.jpg";
+        }
+        return headerPath;
+    }
+
+    public static String getMasterHeaderPath(Context context) {
+        String headerPath = null;
+        if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
+            File sdcardRootPath = Environment.getExternalStorageDirectory();
+            String packageName = context.getPackageName();
+            String headerRootPath = sdcardRootPath.getPath() + File.separator + packageName;
+            headerPath = headerRootPath + File.separator + "masterHeader.jpg";
         }
         return headerPath;
     }

@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.ustclin.petchicken.bean.ChatMessage;
+import com.ustclin.petchicken.customview.RectangleView;
 import com.ustclin.petchicken.detail.MasterDetailActivity;
 import com.ustclin.petchicken.detail.PetDetailActivity;
 import com.ustclin.petchicken.utils.MyDateUtils;
@@ -163,7 +164,7 @@ public class ChatMessageAdapter extends BaseAdapter
 				viewHolder.content = (Button) convertView
 						.findViewById(R.id.chat_from_content);
 				setOnClickListener(viewHolder);
-				viewHolder.icon = (ImageView) convertView.findViewById(R.id.chat_from_icon);
+				viewHolder.icon = (RectangleView) convertView.findViewById(R.id.chat_from_icon);
 				viewHolder.icon.setOnClickListener(new View.OnClickListener() {
 					@Override
 					public void onClick(View v) {
@@ -173,10 +174,7 @@ public class ChatMessageAdapter extends BaseAdapter
 					}
 				});
 				// custom header
-				if (PhotoUtil.isPetHeaderExists(mContext) && PhotoUtil.getPetHeaderPath(mContext)!=null) {
-					Bitmap bitmap = BitmapFactory.decodeFile(PhotoUtil.getPetHeaderPath(mContext));
-					viewHolder.icon.setImageBitmap(bitmap);
-				}
+                PhotoUtil.setPetRecHeader(mContext, viewHolder.icon);
 				convertView.setTag(viewHolder);
 				break;
 			case TYPE_2:
@@ -187,7 +185,7 @@ public class ChatMessageAdapter extends BaseAdapter
 				viewHolder.content = (Button) convertView
 						.findViewById(R.id.chat_from_content);
 				setOnClickListener(viewHolder);
-				viewHolder.icon = (ImageView) convertView.findViewById(R.id.chat_from_icon);
+				viewHolder.icon = (RectangleView) convertView.findViewById(R.id.chat_from_icon);
 				viewHolder.icon.setOnClickListener(new View.OnClickListener() {
 					@Override
 					public void onClick(View v) {
@@ -196,11 +194,8 @@ public class ChatMessageAdapter extends BaseAdapter
 						mContext.startActivity(intent);
 					}
 				});
-                // custom header
-                if (PhotoUtil.isPetHeaderExists(mContext) && PhotoUtil.getPetHeaderPath(mContext)!=null) {
-                    Bitmap bitmap = BitmapFactory.decodeFile(PhotoUtil.getPetHeaderPath(mContext));
-                    viewHolder.icon.setImageBitmap(bitmap);
-                }
+				// custom header
+                PhotoUtil.setPetRecHeader(mContext, viewHolder.icon);
 				convertView.setTag(viewHolder);
 				break;
 			case TYPE_3:
@@ -214,7 +209,7 @@ public class ChatMessageAdapter extends BaseAdapter
 				viewHolder.content = (Button) convertView
 						.findViewById(R.id.chat_send_content);
 				setOnClickListener(viewHolder);
-				viewHolder.icon = (ImageView) convertView.findViewById(R.id.chat_send_icon);
+				viewHolder.icon = (RectangleView) convertView.findViewById(R.id.chat_send_icon);
 				viewHolder.icon.setOnClickListener(new View.OnClickListener() {
 					@Override
 					public void onClick(View v) {
@@ -223,6 +218,8 @@ public class ChatMessageAdapter extends BaseAdapter
 						mContext.startActivity(intent);
 					}
 				});
+				// custom header
+                PhotoUtil.setMasterRecHeader(mContext, viewHolder.icon);
 				convertView.setTag(viewHolder);
 				break;
 			case TYPE_4:
@@ -233,7 +230,7 @@ public class ChatMessageAdapter extends BaseAdapter
 				viewHolder.content = (Button) convertView
 						.findViewById(R.id.chat_send_content);
 				setOnClickListener(viewHolder);
-				viewHolder.icon = (ImageView) convertView.findViewById(R.id.chat_send_icon);
+				viewHolder.icon = (RectangleView) convertView.findViewById(R.id.chat_send_icon);
 				viewHolder.icon.setOnClickListener(new View.OnClickListener() {
 					@Override
 					public void onClick(View v) {
@@ -242,6 +239,8 @@ public class ChatMessageAdapter extends BaseAdapter
 						mContext.startActivity(intent);
 					}
 				});
+				// custom header
+                PhotoUtil.setMasterRecHeader(mContext, viewHolder.icon);
 				convertView.setTag(viewHolder);
 				break;
 			}
@@ -295,7 +294,7 @@ public class ChatMessageAdapter extends BaseAdapter
 		public TextView createDate;
 		public TextView name;
 		public Button content;
-		public ImageView icon;
+		public RectangleView icon;
 	}
 
 	public enum Type {

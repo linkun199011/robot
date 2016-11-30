@@ -40,7 +40,7 @@ public class MasterDetailActivity extends Activity {
     // age
     private EditText mAge;
     // switch
-    private Switch mVoiceSwitch;
+//    private Switch mVoiceSwitch;
     // change voicer
     private Button mChangeVoicer;
     // save
@@ -79,7 +79,7 @@ public class MasterDetailActivity extends Activity {
         mNickName = (EditText) findViewById(R.id.et_master_nick_name);
         mRadioGroupMasterSex = (RadioGroup) findViewById(R.id.rg_master_sex);
         mAge = (EditText) findViewById(R.id.et_master_age);
-        mVoiceSwitch = (Switch) findViewById(R.id.master_switch);
+//        mVoiceSwitch = (Switch) findViewById(R.id.master_switch);
         mChangeVoicer = (Button) findViewById(R.id.change_master_voicer);
         mSave = (Button) findViewById(R.id.save_master_detail);
     }

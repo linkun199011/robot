@@ -61,7 +61,7 @@ public class PetDetailActivity extends Activity implements View.OnClickListener{
     private EditText mNickName;
 
     // switch
-    private Switch mVoiceSwitch;
+//    private Switch mVoiceSwitch;
     // change voicer
     private Button mChangeVoicer;
     // save
@@ -119,7 +119,7 @@ public class PetDetailActivity extends Activity implements View.OnClickListener{
         mBtnChangeHeader.setOnClickListener(this);
         mNickName = (EditText) findViewById(R.id.et_pet_nick_name);
 
-        mVoiceSwitch = (Switch) findViewById(R.id.pet_switch);
+//        mVoiceSwitch = (Switch) findViewById(R.id.pet_switch);
         mChangeVoicer = (Button) findViewById(R.id.change_pet_voicer);
         mChangeVoicer.setOnClickListener(this);
         mSave = (Button) findViewById(R.id.save_pet_detail);
