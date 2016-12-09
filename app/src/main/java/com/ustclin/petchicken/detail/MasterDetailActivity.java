@@ -64,7 +64,9 @@ public class MasterDetailActivity extends Activity {
     private void initView() {
         // 公共view 初始化
         mTitleBarBtn = (ImageView) findViewById(R.id.title_bar_menu_btn);
-        mTitleBarBtn.setBackgroundResource(R.drawable.ic_actionbar_back_normal);
+//        mTitleBarBtn.setBackgroundResource(R.drawable.ic_actionbar_back_normal);
+        mTitleBarBtn.setImageResource(R.drawable.ic_actionbar_back_normal);
+        mTitleBarBtn.setPadding(20, 10, 20, 10);
         mTitleBarBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

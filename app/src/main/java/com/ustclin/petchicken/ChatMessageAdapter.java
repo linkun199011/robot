@@ -15,8 +15,10 @@ import android.widget.TextView;
 
 import com.ustclin.petchicken.bean.ChatMessage;
 import com.ustclin.petchicken.customview.RectangleView;
+import com.ustclin.petchicken.detail.DetailActivity;
 import com.ustclin.petchicken.detail.MasterDetailActivity;
 import com.ustclin.petchicken.detail.PetDetailActivity;
+import com.ustclin.petchicken.utils.Constant;
 import com.ustclin.petchicken.utils.MyDateUtils;
 import com.ustclin.petchicken.utils.PhotoUtil;
 import com.ustclin.petchicken.voice.VoiceSpeakUtils;
@@ -169,7 +171,8 @@ public class ChatMessageAdapter extends BaseAdapter
 					@Override
 					public void onClick(View v) {
 						Intent intent = new Intent();
-						intent.setClass(mContext, PetDetailActivity.class);
+						intent.putExtra("type", Constant.TYPE.PET.ordinal());
+						intent.setClass(mContext, DetailActivity.class);
 						mContext.startActivity(intent);
 					}
 				});
@@ -190,7 +193,8 @@ public class ChatMessageAdapter extends BaseAdapter
 					@Override
 					public void onClick(View v) {
 						Intent intent = new Intent();
-						intent.setClass(mContext, PetDetailActivity.class);
+						intent.putExtra("type", Constant.TYPE.PET.ordinal());
+						intent.setClass(mContext, DetailActivity.class);
 						mContext.startActivity(intent);
 					}
 				});
@@ -214,7 +218,8 @@ public class ChatMessageAdapter extends BaseAdapter
 					@Override
 					public void onClick(View v) {
 						Intent intent = new Intent();
-						intent.setClass(mContext, MasterDetailActivity.class);
+						intent.putExtra("type", Constant.TYPE.MASTER.ordinal());
+						intent.setClass(mContext, DetailActivity.class);
 						mContext.startActivity(intent);
 					}
 				});
@@ -235,7 +240,8 @@ public class ChatMessageAdapter extends BaseAdapter
 					@Override
 					public void onClick(View v) {
 						Intent intent = new Intent();
-						intent.setClass(mContext, MasterDetailActivity.class);
+						intent.putExtra("type", Constant.TYPE.MASTER.ordinal());
+						intent.setClass(mContext, DetailActivity.class);
 						mContext.startActivity(intent);
 					}
 				});

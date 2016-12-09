@@ -200,11 +200,11 @@ public class MainActivity extends Activity implements OnClickListener {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);// 取消标题栏
         mContext = this;
-        isFirstSP = this.getSharedPreferences("isFirst", Context.MODE_PRIVATE);
+        isFirstSP = this.getSharedPreferences(SharedPreferencesUtils.IS_FIRST_SETTING, Context.MODE_PRIVATE);
         initDatabase(); // 初始化数据库
         initLib();
         // 第一次启动
-        if (!isFirstSP.contains("isFirst")) {
+        if (!isFirstSP.contains(SharedPreferencesUtils.IS_FIRST_START_APP)) {
             getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                     WindowManager.LayoutParams.FLAG_FULLSCREEN);// 全屏
             SharedPreferencesUtils.setFirstSharedPreferences(isFirstSP);
@@ -685,12 +685,17 @@ public class MainActivity extends Activity implements OnClickListener {
     public void activeSoftInput(boolean isActive) {
         if (isActive) {
             // open
-            imm.showSoftInput(mMsg, InputMethodManager.SHOW_FORCED);
-            isSoftInputActive = true;
+            if (imm != null) {
+                imm.showSoftInput(mMsg, InputMethodManager.SHOW_FORCED);
+                isSoftInputActive = true;
+            }
         } else {
             // close
-            imm.hideSoftInputFromWindow(mMsg.getWindowToken(), 0); // 强制隐藏键盘
-            isSoftInputActive = false;
+            if (imm != null) {
+                imm.hideSoftInputFromWindow(mMsg.getWindowToken(), 0); // 强制隐藏键盘
+                isSoftInputActive = false;
+            }
+
         }
     }
 
@@ -776,7 +781,7 @@ public class MainActivity extends Activity implements OnClickListener {
             case R.id.tv_support:
                 Toast.makeText(MainActivity.this, "我来点个赞！", Toast.LENGTH_SHORT)
                         .show();
-                Uri uri = Uri.parse("market://details?id=" + getPackageName());
+                Uri uri = Uri.parse("market://details.xml?id=" + getPackageName());
                 Intent intentSupport = new Intent(Intent.ACTION_VIEW, uri);
                 intentSupport.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intentSupport);

@@ -20,14 +20,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
-import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.ustclin.petchicken.utils.Constant;
 import com.ustclin.petchicken.utils.PhotoUtil;
 import com.ustclin.petchicken.utils.SharedPreferencesUtils;
 import com.ustclin.petchicken.utils.StatusBarUtils;
@@ -45,10 +44,11 @@ import java.io.IOException;
  * created on: 2016/11/20:02:13
  * description
  */
-public class PetDetailActivity extends Activity implements View.OnClickListener{
-    private static final String TAG = PetDetailActivity.class.getName();
+public class DetailActivity extends Activity implements View.OnClickListener{
+    private static final String TAG = DetailActivity.class.getName();
+    private int mType = Constant.TYPE.PET.ordinal(); // 0: pet , 1: master; default is 0
     private Context mContext;
-    private SharedPreferences petSP;
+    private SharedPreferences detailSP;
     // title 左上角按键
     private ImageView mTitleBarBtn;
     // title name
@@ -60,8 +60,6 @@ public class PetDetailActivity extends Activity implements View.OnClickListener{
     // nickName
     private EditText mNickName;
 
-    // switch
-//    private Switch mVoiceSwitch;
     // change voicer
     private Button mChangeVoicer;
     // save
@@ -78,31 +76,52 @@ public class PetDetailActivity extends Activity implements View.OnClickListener{
     private Bitmap imageBitmap;
     private String mHeaderPath;
     private File mCurrentPhotoFile;
-//    private ImageView mImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mContext = this;
-        setContentView(R.layout.details_pet);
+        setContentView(R.layout.details);
         StatusBarUtils.setMainChatActivityStatusBarColor(this);
+        initSharedPreference();
         initData();
         initView();
-        initSharedPreference();
     }
 
-    private void initSharedPreference() {
-        petSP = mContext.getSharedPreferences("petSetting", Context.MODE_PRIVATE);
-        SharedPreferencesUtils.setDefaultPetSharedPreferences(mContext, petSP);
+    /**
+     * 初始化数据
+     */
+    private void initData() {
+        mType = getIntent().getIntExtra("type", 0);
+
+        mHeaderPath = null;
+        if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
+            File sdcardRootPath = Environment.getExternalStorageDirectory();
+            String packageName = getPackageName();
+            String headerRootPath = sdcardRootPath.getPath() + File.separator + packageName;
+            if (mType == Constant.TYPE.PET.ordinal()) {
+                mHeaderPath = headerRootPath + File.separator + "petHeader.jpg";
+            } else {
+                mHeaderPath = headerRootPath + File.separator + "masterHeader.jpg";
+            }
+            File headerRootPathFile = new File(headerRootPath);
+            if (!headerRootPathFile.exists()) {
+                if (headerRootPathFile.mkdirs()) {
+                    Log.i(TAG, "header root dir created!");
+                }
+            }
+        }
     }
 
+    /**
+     * 初始化视图
+     */
     private void initView() {
-        mMainView = (LinearLayout) findViewById(R.id.mainLayout);
+        mMainView = (LinearLayout) findViewById(R.id.detailLayout);
         // 公共view 初始化
         mTitleBarBtn = (ImageView) findViewById(R.id.title_bar_menu_btn);
-//        mTitleBarBtn.setBackgroundResource(R.drawable.ic_actionbar_back_normal);
         mTitleBarBtn.setImageResource(R.drawable.ic_actionbar_back_normal);
-        mTitleBarBtn.setPadding(20,10,20,10);
+        mTitleBarBtn.setPadding(20, 10, 20, 10);
         mTitleBarBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -110,39 +129,47 @@ public class PetDetailActivity extends Activity implements View.OnClickListener{
             }
         });
         mTitleName = (TextView) findViewById(R.id.title_bar_name);
-        mTitleName.setText(R.string.pet_name);
 
-        mImageViewHeader = (ImageView) findViewById(R.id.pet_header);
+        mImageViewHeader = (ImageView) findViewById(R.id.header);
         if (mHeaderPath != null && new File(mHeaderPath).exists()) {
             Bitmap bitmap = BitmapFactory.decodeFile(mHeaderPath);
             mImageViewHeader.setImageBitmap(bitmap);
         }
-        mBtnChangeHeader = (Button) findViewById(R.id.change_pet_header);
-        mBtnChangeHeader.setOnClickListener(this);
-        mNickName = (EditText) findViewById(R.id.et_pet_nick_name);
 
-//        mVoiceSwitch = (Switch) findViewById(R.id.pet_switch);
-        mChangeVoicer = (Button) findViewById(R.id.change_pet_voicer);
+        mBtnChangeHeader = (Button) findViewById(R.id.change_header);
+        mBtnChangeHeader.setOnClickListener(this);
+        mNickName = (EditText) findViewById(R.id.et_nick_name);
+        mNickName.setText(detailSP.getString("Name", getPackageName()));
+        mChangeVoicer = (Button) findViewById(R.id.change_voicer);
         mChangeVoicer.setOnClickListener(this);
         mSave = (Button) findViewById(R.id.save_pet_detail);
 
+        if (mType == Constant.TYPE.PET.ordinal()) {
+            mTitleName.setText(R.string.pet_name);
+        } else {
+            mTitleName.setText(R.string.master_name);
+        }
     }
 
-    private void initData() {
-        if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
-            File sdcardRootPath = Environment.getExternalStorageDirectory();
-            String packageName = getPackageName();
-            String headerRootPath = sdcardRootPath.getPath() + File.separator + packageName;
-            mHeaderPath = headerRootPath + File.separator + "petHeader.jpg";
-            File headerRootPathFile = new File(headerRootPath);
-            if (!headerRootPathFile.exists()) {
-                if (headerRootPathFile.mkdirs()) {
-                    Log.i(TAG, "header root dir created!");
-                }
+    /**
+     * 初始化sharedPreference
+     */
+    private void initSharedPreference() {
+        SharedPreferences isFirstSP = this.getSharedPreferences(SharedPreferencesUtils.IS_FIRST_SETTING, Context.MODE_PRIVATE);
+        if (mType == Constant.TYPE.PET.ordinal()) {
+            detailSP = mContext.getSharedPreferences(SharedPreferencesUtils.PET_SETTING, Context.MODE_PRIVATE);
+            if (!isFirstSP.contains(SharedPreferencesUtils.IS_FIRST_ENTER_PET_DETAIL)) {
+                SharedPreferencesUtils.setFirstPetDetail(isFirstSP);
+                SharedPreferencesUtils.setDefaultPetSharedPreferences(mContext, detailSP);
             }
-            return;
+        } else {
+            detailSP = mContext.getSharedPreferences(SharedPreferencesUtils.MASTER_SETTING, Context.MODE_PRIVATE);
+            if (!isFirstSP.contains(SharedPreferencesUtils.IS_FIRST_ENTER_MASTER_DETAIL)) {
+                SharedPreferencesUtils.setFirstMasterDetail(isFirstSP);
+                SharedPreferencesUtils.setDefaultMasterSharedPreferences(mContext, detailSP);
+            }
         }
-        mHeaderPath = null;
+
     }
 
 
@@ -154,7 +181,7 @@ public class PetDetailActivity extends Activity implements View.OnClickListener{
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.change_pet_header:
+            case R.id.change_header:
                 showPop();
                 break;
         }
@@ -183,8 +210,8 @@ public class PetDetailActivity extends Activity implements View.OnClickListener{
                 doPickPhotoFromGallery();
             }
         });
-        Button btnCancle = (Button) mainView.findViewById(R.id.btn_cancel);
-        btnCancle.setOnClickListener(new View.OnClickListener() {
+        Button btnCancel = (Button) mainView.findViewById(R.id.btn_cancel);
+        btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mSetPhotoPop.dismiss();
@@ -283,7 +310,7 @@ public class PetDetailActivity extends Activity implements View.OnClickListener{
      * 获取调用相册的Intent
      */
     public static Intent getPhotoPickIntent() {
-        Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         return intent;
     }
 

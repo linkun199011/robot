@@ -35,7 +35,6 @@
 
         <activity
             android:name="com.ustclin.petchicken.MainActivity"
-            android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize|stateHidden" >
             <intent-filter>
@@ -45,22 +44,22 @@
         </activity>
         <activity
             android:name="com.ustclin.petchicken.about.AboutActivity"
-            android:label="@string/app_name"
             android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name="com.ustclin.petchicken.functiondisplay.AbilitiesActivity"
-            android:label="@string/app_name"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="com.ustclin.petchicken.detail.DetailActivity"
             android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name="com.ustclin.petchicken.detail.PetDetailActivity"
-            android:label="@string/app_name"
             android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name="com.ustclin.petchicken.detail.MasterDetailActivity"
-            android:label="@string/app_name"
             android:screenOrientation="portrait" >
         </activity>
         <activity android:name="com.ustclin.petchicken.wxapi.WXEntryActivity"
