@@ -1,8 +1,10 @@
 package com.ustclin.petchicken.detail;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
@@ -23,9 +25,13 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.iflytek.cloud.SpeechConstant;
+import com.iflytek.cloud.SpeechUtility;
 import com.ustclin.petchicken.utils.Constant;
 import com.ustclin.petchicken.utils.PhotoUtil;
 import com.ustclin.petchicken.utils.SharedPreferencesUtils;
@@ -36,6 +42,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.logging.Logger;
 
 /**
  * 详情页面
@@ -44,7 +51,7 @@ import java.io.IOException;
  * created on: 2016/11/20:02:13
  * description
  */
-public class DetailActivity extends Activity implements View.OnClickListener{
+public class DetailActivity extends Activity implements View.OnClickListener {
     private static final String TAG = DetailActivity.class.getName();
     private int mType = Constant.TYPE.PET.ordinal(); // 0: pet , 1: master; default is 0
     private Context mContext;
@@ -59,9 +66,29 @@ public class DetailActivity extends Activity implements View.OnClickListener{
     private Button mBtnChangeHeader;
     // nickName
     private EditText mNickName;
+    // sex
+    private EditText mPetSex;
+    private RadioGroup mMasterSex;
+    private RadioButton mMasterMale;
+    private RadioButton mMasterFemale;
+
+    // age
+    private EditText mAge;
+    // voicer
+    private TextView mVoicer;
+    // play
+    private RadioGroup mPetVoiceType;
+    private RadioButton mPetAuto;
+    private RadioButton mPetManual;
+    private RadioButton mMasterVoiceType;
 
     // change voicer
     private Button mChangeVoicer;
+    private String[] mCloudVoicersEntries;
+    private String[] mCloudVoicersValue;
+    private int selectedNum = 0;
+    // 默认发音人
+    private String voicer = "xiaowanzi";
     // save
     private Button mSave;
 
@@ -83,6 +110,7 @@ public class DetailActivity extends Activity implements View.OnClickListener{
         mContext = this;
         setContentView(R.layout.details);
         StatusBarUtils.setMainChatActivityStatusBarColor(this);
+        mType = getIntent().getIntExtra("type", 0);
         initSharedPreference();
         initData();
         initView();
@@ -92,8 +120,6 @@ public class DetailActivity extends Activity implements View.OnClickListener{
      * 初始化数据
      */
     private void initData() {
-        mType = getIntent().getIntExtra("type", 0);
-
         mHeaderPath = null;
         if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
             File sdcardRootPath = Environment.getExternalStorageDirectory();
@@ -111,6 +137,10 @@ public class DetailActivity extends Activity implements View.OnClickListener{
                 }
             }
         }
+        // 云端发音人名称列表
+        mCloudVoicersEntries = getResources().getStringArray(R.array.voicer_cloud_entries);
+        mCloudVoicersValue = getResources().getStringArray(R.array.voicer_cloud_values);
+
     }
 
     /**
@@ -140,15 +170,65 @@ public class DetailActivity extends Activity implements View.OnClickListener{
         mBtnChangeHeader.setOnClickListener(this);
         mNickName = (EditText) findViewById(R.id.et_nick_name);
         mNickName.setText(detailSP.getString("Name", getPackageName()));
+        mPetSex = (EditText) findViewById(R.id.et_sex);
+        mMasterSex = (RadioGroup) findViewById(R.id.rg_master_sex);
+        mMasterMale = (RadioButton) findViewById(R.id.masterMale);
+        mMasterFemale = (RadioButton) findViewById(R.id.masterFemale);
+        mAge = (EditText) findViewById(R.id.et_age);
+        mVoicer = (TextView) findViewById(R.id.tv_voicer_value);
+        mPetVoiceType = (RadioGroup) findViewById(R.id.rg_pet_voice_type);
+        mPetAuto = (RadioButton) findViewById(R.id.rb_pet_auto);
+        mPetManual = (RadioButton) findViewById(R.id.rb_pet_manual);
+        mMasterVoiceType = (RadioButton) findViewById(R.id.rg_master_voice_type);
         mChangeVoicer = (Button) findViewById(R.id.change_voicer);
         mChangeVoicer.setOnClickListener(this);
-        mSave = (Button) findViewById(R.id.save_pet_detail);
+        mSave = (Button) findViewById(R.id.save_detail);
+        mSave.setOnClickListener(this);
 
         if (mType == Constant.TYPE.PET.ordinal()) {
             mTitleName.setText(R.string.pet_name);
+            mPetSex.setVisibility(View.VISIBLE);
+            mMasterSex.setVisibility(View.GONE);
+            mAge.setText(detailSP.getString("Age", "3"));
+            mAge.setEnabled(false);
+            mVoicer.setText(detailSP.getString("Voicer", "xiaowanzi"));
+            selectedNum = getIndexOfArray(mVoicer.getText().toString());
+            mPetVoiceType.setVisibility(View.VISIBLE);
+            mMasterVoiceType.setVisibility(View.GONE);
+            if (detailSP.getString("VoiceType", "auto").equals("auto")) {
+                mPetAuto.setChecked(true);
+            } else {
+                mPetManual.setChecked(true);
+            }
         } else {
             mTitleName.setText(R.string.master_name);
+            mPetSex.setVisibility(View.GONE);
+            mMasterSex.setVisibility(View.VISIBLE);
+            if (detailSP.getString("Sex", "女").equals("女")) {
+                mMasterFemale.setChecked(true);
+            } else {
+                mMasterMale.setChecked(true);
+            }
+            mAge.setText(detailSP.getString("Age", "18"));
+            mAge.setEnabled(true);
+            mVoicer.setText(detailSP.getString("Voicer", "xiaoxin"));
+            selectedNum = getIndexOfArray(mVoicer.getText().toString());
+            mPetVoiceType.setVisibility(View.GONE);
+            mMasterVoiceType.setVisibility(View.VISIBLE);
         }
+        // init voicer
+        voicer = mVoicer.getText().toString();
+    }
+
+    private int getIndexOfArray(String voicer) {
+        int index = 0;
+        for (String tempVoicer : mCloudVoicersValue) {
+            if (tempVoicer.equals(voicer)) {
+                return index;
+            }
+            index ++;
+        }
+        return 0;
     }
 
     /**
@@ -184,9 +264,73 @@ public class DetailActivity extends Activity implements View.OnClickListener{
             case R.id.change_header:
                 showPop();
                 break;
+            case R.id.change_voicer:
+                if (mType == Constant.TYPE.PET.ordinal()) {
+                    showPersonSelectDialog();
+                } else {
+                    showPersonSelectDialog();
+                }
+                break;
+            // Save
+            case R.id.save_detail:
+                String name = mNickName.getText().toString();
+                if (name.trim().length() == 0) {
+                    Toast.makeText(this, "昵称不能为空哦！", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if (mType == Constant.TYPE.PET.ordinal()) {
+                    String voiceType;
+                    if (mPetAuto.isChecked()) {
+                        voiceType = "auto";
+                    } else {
+                        voiceType = "manual";
+                    }
+                    SharedPreferencesUtils.setCustomPetSettings(this, name, voicer, voiceType, detailSP);
+                } else {
+                    if (mAge.getText().toString().trim().length() == 0) {
+                        Toast.makeText(this, "昵称不能为空哦！", Toast.LENGTH_SHORT).show();
+                    }
+                    String sex;
+                    if (mMasterMale.isChecked()) {
+                        sex = "男";
+                    } else {
+                        sex = "女";
+                    }
+                    SharedPreferencesUtils.setCustomMasterSettings(this, name, sex,
+                            mAge.getText().toString(), voicer, detailSP);
+
+                }
+                Toast.makeText(this, "保存成功！", Toast.LENGTH_SHORT).show();
+                finish();
+                break;
+
+            default:
+                break;
         }
     }
+
+    /**
+     * 发音人选择。
+     */
+    private void showPersonSelectDialog() {
+        // 选择在线合成
+        new AlertDialog.Builder(this)
+                .setTitle("在线合成发音人选项")
+                .setSingleChoiceItems(mCloudVoicersEntries, // 单选框有几项,各是什么名字
+                        selectedNum, // 默认的选项
+                        new DialogInterface.OnClickListener() { // 点击单选框后的处理
+                            public void onClick(DialogInterface dialog, int which) { // 点击了哪一项
+                                voicer = mCloudVoicersValue[which];
+                                selectedNum = which;
+                                mVoicer.setText(voicer);
+                                dialog.dismiss();
+                            }
+                        }).show();
+
+    }
+
 //--------------------------------------------header function----------------------------------
+
     /**
      * 弹出 popUpWindow
      */
@@ -396,4 +540,5 @@ public class DetailActivity extends Activity implements View.OnClickListener{
             }
         }
     }
+
 }

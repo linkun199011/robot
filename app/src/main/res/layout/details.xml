@@ -127,6 +127,7 @@
                     android:orientation="horizontal">
 
                     <RadioButton
+                        android:id="@+id/masterMale"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="10dp"
@@ -136,6 +137,7 @@
                         android:textSize="18sp" />
 
                     <RadioButton
+                        android:id="@+id/masterFemale"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="10dp"
@@ -177,6 +179,9 @@
                     android:layout_marginLeft="30dp"
                     android:layout_marginTop="10dp"
                     android:layout_toRightOf="@+id/age"
+                    android:digits="1234567890"
+                    android:inputType="number"
+                    android:maxLength="3"
                     android:enabled="false"
                     android:text="3" />
             </RelativeLayout>
@@ -250,28 +255,28 @@
                     android:id="@+id/rg_pet_voice_type"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:clickable="false"
                     android:layout_toRightOf="@id/tv_voice_pronounce_type"
                     android:orientation="horizontal">
 
                     <RadioButton
+                        android:id="@+id/rb_pet_manual"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="10dp"
                         android:layout_marginLeft="30dp"
                         android:layout_marginTop="10dp"
                         android:text="点击播放"
-                        android:enabled="false"
                         android:textSize="17sp" />
 
                     <RadioButton
+                        android:id="@+id/rb_pet_auto"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="10dp"
                         android:layout_marginLeft="30dp"
                         android:layout_marginTop="10dp"
                         android:text="自动播放"
-                        android:enabled="false"
+                        android:checked="true"
                         android:textSize="17sp" />
                 </RadioGroup>
 

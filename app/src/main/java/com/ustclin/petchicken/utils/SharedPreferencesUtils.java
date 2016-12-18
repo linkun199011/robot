@@ -84,6 +84,18 @@ public class SharedPreferencesUtils {
     }
 
     /**
+     * set custom pet settings
+     */
+    public static void setCustomPetSettings(Context context, String name, String voicer,
+                                            String voiceType, SharedPreferences petSp) {
+        SharedPreferences.Editor editor = petSp.edit();
+        editor.putString("Name", name);
+        editor.putString("Voicer", voicer);
+        editor.putString("VoiceType", voiceType);
+        editor.apply();
+    }
+
+    /**
      * set default master settings
      */
     public static void setDefaultMasterSharedPreferences(Context context, SharedPreferences defaultSP) {
@@ -103,6 +115,20 @@ public class SharedPreferencesUtils {
         if (!defaultSP.contains("VoiceType")) {
             editor.putString("VoiceType", "manual"); // auto / manual
         }
+        editor.apply();
+    }
+
+
+    /**
+     * set custom master settings
+     */
+    public static void setCustomMasterSettings(Context context, String name, String sex, String age,
+                                               String voicer, SharedPreferences masterSp) {
+        SharedPreferences.Editor editor = masterSp.edit();
+        editor.putString("Name", name);
+        editor.putString("Sex", sex);
+        editor.putString("Age", age);
+        editor.putString("Voicer", voicer);
         editor.apply();
     }
 
