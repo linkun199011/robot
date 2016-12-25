@@ -250,7 +250,7 @@ public class RefreshListView extends ListView implements OnScrollListener {
                          int visibleItemCount, int totalItemCount) {
         firstVisibleItemPosition = firstVisibleItem;
 
-        Log.i("RefreshListView", "onScroll: " + firstVisibleItem + ", " + visibleItemCount + ", " + totalItemCount);
+//        Log.i("RefreshListView", "onScroll: " + firstVisibleItem + ", " + visibleItemCount + ", " + totalItemCount);
 
         if ((firstVisibleItem + visibleItemCount) >= totalItemCount
                 && totalItemCount > 0) {

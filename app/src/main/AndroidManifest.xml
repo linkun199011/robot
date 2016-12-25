@@ -54,14 +54,6 @@
             android:name="com.ustclin.petchicken.detail.DetailActivity"
             android:screenOrientation="portrait" >
         </activity>
-        <activity
-            android:name="com.ustclin.petchicken.detail.PetDetailActivity"
-            android:screenOrientation="portrait" >
-        </activity>
-        <activity
-            android:name="com.ustclin.petchicken.detail.MasterDetailActivity"
-            android:screenOrientation="portrait" >
-        </activity>
         <activity android:name="com.ustclin.petchicken.wxapi.WXEntryActivity"
             android:exported="true"
             android:screenOrientation="portrait"

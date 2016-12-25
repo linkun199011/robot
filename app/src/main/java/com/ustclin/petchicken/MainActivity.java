@@ -41,7 +41,6 @@ import com.iflytek.cloud.ui.RecognizerDialogListener;
 import com.tencent.mm.sdk.modelmsg.SendMessageToWX;
 import com.tencent.mm.sdk.modelmsg.WXMediaMessage;
 import com.tencent.mm.sdk.modelmsg.WXTextObject;
-import com.tencent.mm.sdk.modelmsg.WXWebpageObject;
 import com.tencent.mm.sdk.openapi.IWXAPI;
 import com.tencent.mm.sdk.openapi.WXAPIFactory;
 import com.ustclin.petchicken.about.AboutActivity;
@@ -49,13 +48,13 @@ import com.ustclin.petchicken.bean.ChatMessage;
 import com.ustclin.petchicken.db.ChatDAO;
 import com.ustclin.petchicken.db.ImportDB;
 import com.ustclin.petchicken.db.SQLiteDBHelper;
-import com.ustclin.petchicken.detail.MasterDetailActivity;
-import com.ustclin.petchicken.detail.PetDetailActivity;
+import com.ustclin.petchicken.detail.DetailActivity;
 import com.ustclin.petchicken.functiondisplay.AbilitiesActivity;
 import com.ustclin.petchicken.listview.OnRefreshListener;
 import com.ustclin.petchicken.listview.RefreshListView;
 import com.ustclin.petchicken.slidemenu.SlideMenu;
 import com.ustclin.petchicken.utils.AdUtils;
+import com.ustclin.petchicken.utils.Constant;
 import com.ustclin.petchicken.utils.HttpUtils;
 import com.ustclin.petchicken.utils.MyDateUtils;
 import com.ustclin.petchicken.utils.SharedPreferencesUtils;
@@ -702,12 +701,7 @@ public class MainActivity extends Activity implements OnClickListener {
     public void pressToSpeek(View v) {
         VoiceListenUtils voiceListenUtils = new VoiceListenUtils(mContext);
         voiceListenUtils.listen(mRecognizerDialogListener);
-//        manager.showRecognizeDialog(new DialogRecognitionListener() {
-//            @Override
-//            public void onResults(Bundle result) {
-//                mHandler.obtainMessage(MESSAGE_RECOGNIZE, result).sendToTarget();
-//            }
-//        });
+
     }
 
     @Override
@@ -781,7 +775,7 @@ public class MainActivity extends Activity implements OnClickListener {
             case R.id.tv_support:
                 Toast.makeText(MainActivity.this, "我来点个赞！", Toast.LENGTH_SHORT)
                         .show();
-                Uri uri = Uri.parse("market://details.xml?id=" + getPackageName());
+                Uri uri = Uri.parse("market://details?id=" + getPackageName());
                 Intent intentSupport = new Intent(Intent.ACTION_VIEW, uri);
                 intentSupport.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intentSupport);
@@ -800,14 +794,17 @@ public class MainActivity extends Activity implements OnClickListener {
                 startActivity(intentAbout);
                 break;
             case R.id.tv_pet_setting:
-                Intent intentPetSetting = new Intent();
-                intentPetSetting.setClass(this, PetDetailActivity.class);
-                startActivity(intentPetSetting);
+                Intent intentPet = new Intent();
+                intentPet.putExtra("type", Constant.TYPE.PET.ordinal());
+                intentPet.setClass(mContext, DetailActivity.class);
+                mContext.startActivity(intentPet);
                 break;
             case R.id.tv_master_setting:
-                Intent intentMasterSetting = new Intent();
-                intentMasterSetting.setClass(this, MasterDetailActivity.class);
-                startActivity(intentMasterSetting);
+                Intent intentMaster = new Intent();
+                intentMaster.putExtra("type", Constant.TYPE.MASTER.ordinal());
+                intentMaster.setClass(mContext, DetailActivity.class);
+                mContext.startActivity(intentMaster);
+
                 break;
             case R.id.tv_delete:
                 break;
@@ -822,13 +819,20 @@ public class MainActivity extends Activity implements OnClickListener {
     @Override
     protected void onResume() {
         super.onResume();
-        // reload voice param
-        // header
-//        mDatas.clear();
-//        mDatas = mChatDAO.find20();
-//        mAdapter.swapDatas(mDatas);
-//        mAdapter.notifyDataSetChanged();
-
+        if (Constant.isNeedToReStart) {
+            Constant.isNeedToReStart = false;
+            // restart the app
+//            Intent i = getBaseContext().getPackageManager()
+//                    .getLaunchIntentForPackage(getBaseContext().getPackageName());
+//            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//            startActivity(i);
+            // restart activity
+            mAdapter.notifyDataSetChanged();
+//            finish();
+//            Intent intent = new Intent();
+//            intent.setClass(this, MainActivity.class);
+//            startActivity(intent);
+        }
     }
 
     @Override

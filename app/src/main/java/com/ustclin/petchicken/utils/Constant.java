@@ -7,8 +7,10 @@ package com.ustclin.petchicken.utils;
  * description
  */
 public class Constant {
-   public enum TYPE {
-       PET,
-       MASTER
-   }
+    public enum TYPE {
+        PET,
+        MASTER
+    }
+
+    public static boolean isNeedToReStart = false;
 }

@@ -32,6 +32,7 @@ import android.widget.Toast;
 
 import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.SpeechUtility;
+import com.ustclin.petchicken.customview.RectangleView;
 import com.ustclin.petchicken.utils.Constant;
 import com.ustclin.petchicken.utils.PhotoUtil;
 import com.ustclin.petchicken.utils.SharedPreferencesUtils;
@@ -62,7 +63,7 @@ public class DetailActivity extends Activity implements View.OnClickListener {
     private TextView mTitleName;
 
     // header
-    private ImageView mImageViewHeader;
+    private RectangleView mImageViewHeader;
     private Button mBtnChangeHeader;
     // nickName
     private EditText mNickName;
@@ -102,6 +103,7 @@ public class DetailActivity extends Activity implements View.OnClickListener {
     private static final int ICON_SIZE = 96;
     private Bitmap imageBitmap;
     private String mHeaderPath;
+    private String mHeaderRootPath;
     private File mCurrentPhotoFile;
 
     @Override
@@ -124,13 +126,13 @@ public class DetailActivity extends Activity implements View.OnClickListener {
         if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
             File sdcardRootPath = Environment.getExternalStorageDirectory();
             String packageName = getPackageName();
-            String headerRootPath = sdcardRootPath.getPath() + File.separator + packageName;
+            mHeaderRootPath = sdcardRootPath.getPath() + File.separator + packageName;
             if (mType == Constant.TYPE.PET.ordinal()) {
-                mHeaderPath = headerRootPath + File.separator + "petHeader.jpg";
+                mHeaderPath = mHeaderRootPath + File.separator + "petHeader.jpg";
             } else {
-                mHeaderPath = headerRootPath + File.separator + "masterHeader.jpg";
+                mHeaderPath = mHeaderRootPath + File.separator + "masterHeader.jpg";
             }
-            File headerRootPathFile = new File(headerRootPath);
+            File headerRootPathFile = new File(mHeaderRootPath);
             if (!headerRootPathFile.exists()) {
                 if (headerRootPathFile.mkdirs()) {
                     Log.i(TAG, "header root dir created!");
@@ -160,7 +162,7 @@ public class DetailActivity extends Activity implements View.OnClickListener {
         });
         mTitleName = (TextView) findViewById(R.id.title_bar_name);
 
-        mImageViewHeader = (ImageView) findViewById(R.id.header);
+        mImageViewHeader = (RectangleView) findViewById(R.id.header);
         if (mHeaderPath != null && new File(mHeaderPath).exists()) {
             Bitmap bitmap = BitmapFactory.decodeFile(mHeaderPath);
             mImageViewHeader.setImageBitmap(bitmap);
@@ -301,6 +303,7 @@ public class DetailActivity extends Activity implements View.OnClickListener {
 
                 }
                 Toast.makeText(this, "保存成功！", Toast.LENGTH_SHORT).show();
+                Constant.isNeedToReStart = true;
                 finish();
                 break;
 
@@ -487,8 +490,12 @@ public class DetailActivity extends Activity implements View.OnClickListener {
             if (mHeaderPath != null) {
                 File f = new File(mHeaderPath);
                 if (f.exists()) {
-                    if (f.delete()) {
-                        Log.i(TAG, "header.jpg exists, delete the old one!");
+                    String deleteFilePath = mHeaderRootPath + File.separator + "delete_" + System.currentTimeMillis();
+                    File deleteFile = new File(deleteFilePath);
+                    if (f.renameTo(deleteFile)) {
+                        Log.i(TAG, "header.jpg exists, rename it!");
+                    } else {
+                        Log.e(TAG, "header.jpg exists, rename fail, " + deleteFilePath);
                     }
                 }
                 try {
