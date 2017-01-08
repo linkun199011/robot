@@ -7,9 +7,11 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.os.Bundle;
@@ -30,8 +32,7 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.iflytek.cloud.SpeechConstant;
-import com.iflytek.cloud.SpeechUtility;
+import com.ustclin.petchicken.MainActivity;
 import com.ustclin.petchicken.customview.RectangleView;
 import com.ustclin.petchicken.utils.Constant;
 import com.ustclin.petchicken.utils.PhotoUtil;
@@ -43,7 +44,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.logging.Logger;
 
 /**
  * 详情页面
@@ -112,6 +112,7 @@ public class DetailActivity extends Activity implements View.OnClickListener {
         mContext = this;
         setContentView(R.layout.details);
         StatusBarUtils.setMainChatActivityStatusBarColor(this);
+        // 0 : pet ; 1 : master
         mType = getIntent().getIntExtra("type", 0);
         initSharedPreference();
         initData();
@@ -123,22 +124,28 @@ public class DetailActivity extends Activity implements View.OnClickListener {
      */
     private void initData() {
         mHeaderPath = null;
-        if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
-            File sdcardRootPath = Environment.getExternalStorageDirectory();
-            String packageName = getPackageName();
-            mHeaderRootPath = sdcardRootPath.getPath() + File.separator + packageName;
-            if (mType == Constant.TYPE.PET.ordinal()) {
-                mHeaderPath = mHeaderRootPath + File.separator + "petHeader.jpg";
-            } else {
-                mHeaderPath = mHeaderRootPath + File.separator + "masterHeader.jpg";
-            }
-            File headerRootPathFile = new File(mHeaderRootPath);
-            if (!headerRootPathFile.exists()) {
-                if (headerRootPathFile.mkdirs()) {
-                    Log.i(TAG, "header root dir created!");
-                }
-            }
+        mHeaderRootPath = getApplication().getFilesDir().getAbsolutePath();
+        if (mType == Constant.TYPE.PET.ordinal()) {
+            mHeaderPath = mHeaderRootPath + File.separator + "petHeader.jpg";
+        } else {
+            mHeaderPath = mHeaderRootPath + File.separator + "masterHeader.jpg";
         }
+//        if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
+//            File sdcardRootPath = Environment.getExternalStorageDirectory();
+//            String packageName = getPackageName();
+//            mHeaderRootPath = sdcardRootPath.getPath() + File.separator + packageName;
+//            if (mType == Constant.TYPE.PET.ordinal()) {
+//                mHeaderPath = mHeaderRootPath + File.separator + "petHeader.jpg";
+//            } else {
+//                mHeaderPath = mHeaderRootPath + File.separator + "masterHeader.jpg";
+//            }
+//            File headerRootPathFile = new File(mHeaderRootPath);
+//            if (!headerRootPathFile.exists()) {
+//                if (headerRootPathFile.mkdirs()) {
+//                    Log.i(TAG, "header root dir created!");
+//                }
+//            }
+//        }
         // 云端发音人名称列表
         mCloudVoicersEntries = getResources().getStringArray(R.array.voicer_cloud_entries);
         mCloudVoicersValue = getResources().getStringArray(R.array.voicer_cloud_values);
@@ -162,10 +169,20 @@ public class DetailActivity extends Activity implements View.OnClickListener {
         });
         mTitleName = (TextView) findViewById(R.id.title_bar_name);
 
+        // 设置头像，如果在data/data/files/ 下找不到头像，则采用默认头像
         mImageViewHeader = (RectangleView) findViewById(R.id.header);
         if (mHeaderPath != null && new File(mHeaderPath).exists()) {
             Bitmap bitmap = BitmapFactory.decodeFile(mHeaderPath);
             mImageViewHeader.setImageBitmap(bitmap);
+        } else {
+            Resources resources = mContext.getResources();
+            if (mType == Constant.TYPE.PET.ordinal()) {
+                Drawable drawable = resources.getDrawable(R.drawable.icon);
+                mImageViewHeader.setImageDrawable(drawable);
+            } else {
+                Drawable drawable = resources.getDrawable(R.drawable.my);
+                mImageViewHeader.setImageDrawable(drawable);
+            }
         }
 
         mBtnChangeHeader = (Button) findViewById(R.id.change_header);
@@ -258,6 +275,12 @@ public class DetailActivity extends Activity implements View.OnClickListener {
     @Override
     protected void onResume() {
         super.onResume();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        MainActivity.shouldListViewUpdate = true;
     }
 
     @Override
@@ -484,9 +507,7 @@ public class DetailActivity extends Activity implements View.OnClickListener {
      * 保存方法
      */
     public void saveBitmap(Bitmap bm) {
-        if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
-            System.out.println("sdcard mounted !");
-
+//        if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
             if (mHeaderPath != null) {
                 File f = new File(mHeaderPath);
                 if (f.exists()) {
@@ -509,7 +530,7 @@ public class DetailActivity extends Activity implements View.OnClickListener {
                 }
             }
 
-        }
+//        }
 
     }
 

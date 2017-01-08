@@ -48,6 +48,7 @@ import com.ustclin.petchicken.bean.ChatMessage;
 import com.ustclin.petchicken.db.ChatDAO;
 import com.ustclin.petchicken.db.ImportDB;
 import com.ustclin.petchicken.db.SQLiteDBHelper;
+import com.ustclin.petchicken.delete.DeleteActivity;
 import com.ustclin.petchicken.detail.DetailActivity;
 import com.ustclin.petchicken.functiondisplay.AbilitiesActivity;
 import com.ustclin.petchicken.listview.OnRefreshListener;
@@ -147,6 +148,9 @@ public class MainActivity extends Activity implements OnClickListener {
     // soft input
     InputMethodManager imm;
     public static boolean isSoftInputActive = false;
+
+    // ListView content should update
+    public static boolean shouldListViewUpdate = false;
 
     // 记录手势动作
     float mPosX = 0, mPosY = 0, mCurPosX = 0, mCurPosY = 0;
@@ -277,11 +281,17 @@ public class MainActivity extends Activity implements OnClickListener {
     }
 
     private void   initVoice() {
+        // should read SharedPre.
         voicePet = new VoiceSpeakUtils(mContext);
-        voicePet.setVoicer("xiaowanzi");
-
+        SharedPreferences petSP = this.getSharedPreferences(SharedPreferencesUtils.PET_SETTING, Context.MODE_PRIVATE);
+        if (petSP.contains("Voicer")) {
+            voicePet.setVoicer(petSP.getString("Voicer","xiaowanzi"));
+        }
         voiceMaster = new VoiceSpeakUtils(mContext);
-        voiceMaster.setVoicer("xiaoxin");
+        SharedPreferences masterSP = this.getSharedPreferences(SharedPreferencesUtils.MASTER_SETTING, Context.MODE_PRIVATE);
+        if (masterSP.contains("Voicer")) {
+            voiceMaster.setVoicer(masterSP.getString("Voicer", "xiaoxin"));
+        }
     }
 
     private void setListViewRefresh() {
@@ -629,7 +639,7 @@ public class MainActivity extends Activity implements OnClickListener {
             editor.putString("lastExit", df.format(new Date()).toString());
             editor.putString("API_KEY", HttpUtils.API_KEY);
             editor.putString("usedApiIndex", "0");
-            editor.commit();
+            editor.apply();
 
         }
         // 同一天启动应用
@@ -646,11 +656,11 @@ public class MainActivity extends Activity implements OnClickListener {
         else {
             Editor editor = sp.edit();
             editor.clear();
-            editor.commit();
+            editor.apply();
             editor.putString("lastExit", df.format(new Date()).toString());
             editor.putString("API_KEY", HttpUtils.API_KEY);
             editor.putString("usedApiIndex", "0");
-            editor.commit();
+            editor.apply();
         }
     }
 
@@ -715,7 +725,7 @@ public class MainActivity extends Activity implements OnClickListener {
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK
                 && event.getAction() == KeyEvent.ACTION_DOWN) {
-            if (isStartPage == true) {
+            if (isStartPage) {
                 Intent home = new Intent(Intent.ACTION_MAIN);
                 home.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 home.addCategory(Intent.CATEGORY_HOME);
@@ -739,7 +749,7 @@ public class MainActivity extends Activity implements OnClickListener {
             }
             return true;
         } else if (keyCode == KeyEvent.KEYCODE_MENU) {
-            if (isStartPage == true) {
+            if (isStartPage) {
                 Intent home = new Intent(Intent.ACTION_MAIN);
                 home.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 home.addCategory(Intent.CATEGORY_HOME);
@@ -807,6 +817,9 @@ public class MainActivity extends Activity implements OnClickListener {
 
                 break;
             case R.id.tv_delete:
+                Intent intentDelete = new Intent();
+                intentDelete.setClass(mContext, DeleteActivity.class);
+                mContext.startActivity(intentDelete);
                 break;
             case R.id.tv_share:
                 //在需要分享的地方添加代码：
@@ -816,22 +829,33 @@ public class MainActivity extends Activity implements OnClickListener {
         }
     }
 
+    private void resetListView() {
+        initVoice();
+        mDatas.clear();
+        mDatas = mChatDAO.find20();
+        // list 翻转
+        Collections.reverse(mDatas);
+        mDatas.add(new ChatMessage(ChatMessage.MESSAGE_IN, MyDateUtils
+                .getDate(), "我是小黄鸡，很高兴为主人服务"));
+
+        mAdapter = new ChatMessageAdapter(this, mDatas);
+        mAdapter.setPetVoice(voicePet);
+        mAdapter.setMasterVoice(voiceMaster);
+
+        mChatView.setAdapter(mAdapter);
+        mChatView.setSelection(mDatas.size() - 1);
+    }
+
     @Override
     protected void onResume() {
         super.onResume();
+        if (shouldListViewUpdate) {
+            resetListView();
+            shouldListViewUpdate = false;
+        }
         if (Constant.isNeedToReStart) {
             Constant.isNeedToReStart = false;
-            // restart the app
-//            Intent i = getBaseContext().getPackageManager()
-//                    .getLaunchIntentForPackage(getBaseContext().getPackageName());
-//            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//            startActivity(i);
-            // restart activity
             mAdapter.notifyDataSetChanged();
-//            finish();
-//            Intent intent = new Intent();
-//            intent.setClass(this, MainActivity.class);
-//            startActivity(intent);
         }
     }
 

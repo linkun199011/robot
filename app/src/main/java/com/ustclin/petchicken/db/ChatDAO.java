@@ -28,7 +28,13 @@ public class ChatDAO {
 		//System.out.println("getDate :" + cm.getDate().toString());
 		db.close();
 	}
-	
+
+	public void delete(ChatMessage cm) {
+		SQLiteDatabase db = helper.getWritableDatabase();
+		String delSql = "delete from chat where id = ?";
+		db.execSQL(delSql,new Object[] {cm.getId()});
+		db.close();
+	}
 	/**
 	 * 返回所有信息
 	 * @return

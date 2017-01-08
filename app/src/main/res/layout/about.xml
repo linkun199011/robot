@@ -120,7 +120,7 @@
             android:layout_height="wrap_content"
             android:layout_above="@+id/tv_allrights"
             android:layout_centerInParent="true"
-            android:text="Copyright © 2014-2016 UstcLin"
+            android:text="Copyright © 2014-2017 UstcLin"
             android:textColor="#ff959595"
             android:textSize="10sp" />
 
