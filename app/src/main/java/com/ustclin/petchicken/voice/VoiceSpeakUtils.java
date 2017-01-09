@@ -33,7 +33,7 @@ public class VoiceSpeakUtils {
     private SpeechSynthesizer mTts;
 
     // 默认发音人
-    private String voicer = "xiaoyan";
+    private String voicer = "xiaowanzi";
 
     private String[] mCloudVoicersEntries;
     private String[] mCloudVoicersValue ;

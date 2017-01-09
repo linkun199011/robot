@@ -58,6 +58,10 @@
             android:name="com.ustclin.petchicken.delete.DeleteActivity"
             android:screenOrientation="portrait" >
         </activity>
+        <activity
+            android:name="com.ustclin.petchicken.customconversation.CustomConversationActivity"
+            android:screenOrientation="portrait" >
+        </activity>
         <activity android:name="com.ustclin.petchicken.wxapi.WXEntryActivity"
             android:exported="true"
             android:screenOrientation="portrait"

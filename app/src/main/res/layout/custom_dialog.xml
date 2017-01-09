@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?><!-- 检查单位item布局 -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="250dp"
+    android:layout_height="wrap_content"
+    android:background="#FFFFFF"
+    android:gravity="center_vertical"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:background="#c0c0c0"
+        android:gravity="center"
+        android:text="自定义聊天" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="false"
+            android:padding="8dp"
+            android:text="主人:"
+            android:textColor="#770000FF"
+            android:textSize="17sp" />
+
+        <EditText
+            android:id="@+id/masterAsk"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:editable="true"
+            android:hint="你能告诉我你是谁吗?"
+            android:padding="8dp"
+            android:textColor="#606466"
+            android:textSize="17sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="false"
+            android:padding="8dp"
+            android:text="萌宠:"
+            android:textColor="#FFF265"
+            android:textSize="17sp" />
+
+        <EditText
+            android:id="@+id/petAnswer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="false"
+            android:editable="true"
+            android:hint="我是主人的萌宠呀!"
+            android:padding="8dp"
+            android:textColor="#606466"
+            android:textSize="17sp" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="0px"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:paddingLeft="8dp"
+            android:paddingRight="5dp">
+
+            <Button
+                android:id="@+id/addCustom"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:background="@drawable/btn_cancel"
+                android:paddingLeft="10dp"
+                android:paddingRight="5dp"
+                android:text="取消" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0px"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:paddingLeft="8dp"
+            android:paddingRight="5dp">
+
+            <Button
+                android:id="@+id/cancelCustom"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:background="@drawable/btn_ok"
+                android:paddingLeft="10dp"
+                android:paddingRight="5dp"
+                android:text="确认" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -45,6 +45,7 @@ import com.tencent.mm.sdk.openapi.IWXAPI;
 import com.tencent.mm.sdk.openapi.WXAPIFactory;
 import com.ustclin.petchicken.about.AboutActivity;
 import com.ustclin.petchicken.bean.ChatMessage;
+import com.ustclin.petchicken.customconversation.CustomConversationActivity;
 import com.ustclin.petchicken.db.ChatDAO;
 import com.ustclin.petchicken.db.ImportDB;
 import com.ustclin.petchicken.db.SQLiteDBHelper;
@@ -134,6 +135,7 @@ public class MainActivity extends Activity implements OnClickListener {
     private TextView mTextViewMasterSetting;
     private TextView mTextViewDeleteHis;
     private TextView mTextViewShare;
+    private TextView mTextViewCustomConver;
 
     private Button mSend;
     // add voice
@@ -286,11 +288,15 @@ public class MainActivity extends Activity implements OnClickListener {
         SharedPreferences petSP = this.getSharedPreferences(SharedPreferencesUtils.PET_SETTING, Context.MODE_PRIVATE);
         if (petSP.contains("Voicer")) {
             voicePet.setVoicer(petSP.getString("Voicer","xiaowanzi"));
+        } else {
+            voicePet.setVoicer("xiaowanzi");
         }
         voiceMaster = new VoiceSpeakUtils(mContext);
         SharedPreferences masterSP = this.getSharedPreferences(SharedPreferencesUtils.MASTER_SETTING, Context.MODE_PRIVATE);
         if (masterSP.contains("Voicer")) {
             voiceMaster.setVoicer(masterSP.getString("Voicer", "xiaoxin"));
+        } else {
+            voiceMaster.setVoicer("xiaoyan");
         }
     }
 
@@ -414,6 +420,9 @@ public class MainActivity extends Activity implements OnClickListener {
 
         mTextViewShare = (TextView) findViewById(R.id.tv_share);
         mTextViewShare.setOnClickListener(this);
+
+        mTextViewCustomConver = (TextView) findViewById(R.id.tv_custom);
+        mTextViewCustomConver.setOnClickListener(this);
 
         mDatas.add(new ChatMessage(ChatMessage.MESSAGE_IN, MyDateUtils
                 .getDate(), "我是小黄鸡，很高兴为主人服务"));
@@ -825,6 +834,13 @@ public class MainActivity extends Activity implements OnClickListener {
                 //在需要分享的地方添加代码：
 //                wechatShare(0);//分享到微信好友
                 wechatShare(1);//分享到微信朋友圈
+                break;
+            case R.id.tv_custom:
+                Intent intentCustom = new Intent();
+                intentCustom.setClass(mContext, CustomConversationActivity.class);
+                mContext.startActivity(intentCustom);
+                break;
+            default:
                 break;
         }
     }
