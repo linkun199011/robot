@@ -1,12 +1,16 @@
 package com.ustclin.petchicken.customconversation;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.ustclin.petchicken.MainActivity;
 import com.ustclin.petchicken.bean.CustomConverBean;
@@ -91,9 +95,31 @@ public class CustomConversationActivity extends Activity implements View.OnClick
                 break;
             case R.id.btnAdd:
                 // pop up dialog
+                final CustomDialog.Builder builder = new CustomDialog.Builder(this);
+                builder.setPositiveBtnListener(new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        // do my own thing
+                        Log.w("dialog", builder.getEtMaster().getText().toString());
+                        addCustomConver();
+                    }
+                });
+                builder.setNegativeBtnListener(new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        // do nothing
+                        Log.w("dialog", "cancel");
+                    }
+                });
+                builder.create().show();
                 break;
             default:
                 break;
         }
+    }
+
+    private void addCustomConver() {
     }
 }
