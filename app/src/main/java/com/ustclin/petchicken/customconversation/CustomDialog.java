@@ -42,6 +42,10 @@ public class CustomDialog extends Dialog {
             return etMaster;
         }
 
+        public EditText getEtPet() {
+            return etPet;
+        }
+
         public Builder setPositiveBtnListener(DialogInterface.OnClickListener pos) {
             this.positiveBtnListener = pos;
             return this;
@@ -61,14 +65,12 @@ public class CustomDialog extends Dialog {
             View layout = inflater.inflate(R.layout.custom_dialog, null);
             dialog.addContentView(layout, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
             etMaster = (EditText) layout.findViewById(R.id.masterAsk1);
-//            final EditText etPet = (EditText) layout.findViewById(R.id.petAnswer);
+            etPet = (EditText) layout.findViewById(R.id.petAnswer1);
 
             if (positiveBtnListener != null) {
                 layout.findViewById(R.id.addCustom).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-//                        addCustomConverToDB(etMaster.toString(), etPet.toString());
-                        Log.i("dialog", etMaster.getText().toString());
                         positiveBtnListener.onClick(dialog, DialogInterface.BUTTON_POSITIVE);
                     }
                 });
@@ -85,10 +87,6 @@ public class CustomDialog extends Dialog {
             dialog.setContentView(layout);
             dialog.setCancelable(true);
             return dialog;
-        }
-
-        private void addCustomConverToDB(String masterStr, String petStr) {
-            Toast.makeText(context, masterStr, Toast.LENGTH_SHORT).show();
         }
     }
 }

@@ -1,6 +1,7 @@
 package com.ustclin.petchicken.customconversation;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,7 @@ import com.ustclin.petchicken.delete.DeleteAdapter;
 import com.ustclin.robot.R;
 
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,9 +28,9 @@ import java.util.Map;
  * created on: 2017/1/9:22:08
  * description
  */
-public class CustomConversationAdapter extends BaseAdapter{
+public class CustomConversationAdapter extends BaseAdapter {
     private Context mContext;
-    private List<CustomConverBean> customConverBeans;
+    private List<CustomConverBean> customConverBeans = new ArrayList<>();
     private Map<Integer, Boolean> isCheckMap = new HashMap<>();
 
     public CustomConversationAdapter(Context context) {
@@ -45,6 +47,12 @@ public class CustomConversationAdapter extends BaseAdapter{
 
     public void remove(int position) {
         this.customConverBeans.remove(position);
+    }
+
+    public void addCustomConver(CustomConverBean bean) {
+        if (bean != null) {
+            customConverBeans.add(bean);
+        }
     }
 
     private List<CustomConverBean> getAllConverHistory() {
@@ -82,6 +90,7 @@ public class CustomConversationAdapter extends BaseAdapter{
 
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
+        Log.i("GET vIEW", "position = " + position) ;
         ViewGroup layout = null;
         if (convertView == null) {
             layout = (ViewGroup) LayoutInflater.from(mContext).inflate(R.layout.custom_conver_item_layout, parent, false);
@@ -92,6 +101,8 @@ public class CustomConversationAdapter extends BaseAdapter{
 
         TextView masterContent = (TextView) layout.findViewById(R.id.masterAsk);
         TextView petContent = (TextView) layout.findViewById(R.id.petAnswer);
+        masterContent.setText(bean.getMasterContent());
+        petContent.setText(bean.getPetContent());
 
         CheckBox cbCheck = (CheckBox) layout.findViewById(R.id.cbCheckBox);
         cbCheck.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -118,4 +129,6 @@ public class CustomConversationAdapter extends BaseAdapter{
         public TextView masterContent = null;
         public CheckBox cbCheckBox = null;
     }
+
+
 }

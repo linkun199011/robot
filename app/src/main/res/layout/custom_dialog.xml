@@ -54,7 +54,7 @@
             android:clickable="false"
             android:padding="8dp"
             android:text="萌宠:"
-            android:textColor="#FFF265"
+            android:textColor="#EEF38B"
             android:textSize="17sp" />
 
         <EditText

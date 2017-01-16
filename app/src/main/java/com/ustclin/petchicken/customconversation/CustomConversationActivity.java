@@ -1,6 +1,7 @@
 package com.ustclin.petchicken.customconversation;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
@@ -26,7 +27,8 @@ import java.util.Map;
  * created on: 2017/1/9:21:23
  * description
  */
-public class CustomConversationActivity extends Activity implements View.OnClickListener{
+public class CustomConversationActivity extends Activity implements View.OnClickListener {
+    private Context mContext;
     private ImageView mBack;
     private Button mBtnDelete;
     private Button mSelectAll;
@@ -37,6 +39,7 @@ public class CustomConversationActivity extends Activity implements View.OnClick
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mContext = this;
         setContentView(R.layout.custom_conversation);
         StatusBarUtils.setDeleteActivityStatusBarColor(this);
         initView();
@@ -99,18 +102,27 @@ public class CustomConversationActivity extends Activity implements View.OnClick
                 builder.setPositiveBtnListener(new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                        // do my own thing
-                        Log.w("dialog", builder.getEtMaster().getText().toString());
-                        addCustomConver();
+                        String masterAsk = builder.getEtMaster().getText().toString();
+                        String petAnswer = builder.getEtPet().getText().toString();
+                        Log.w("dialog - master", builder.getEtMaster().getText().toString());
+                        Log.w("dialog - pet", builder.getEtPet().getText().toString());
+                        if (masterAsk.trim().length() == 0 || petAnswer.trim().length() == 0) {
+                            Toast.makeText(mContext, "内容不能为空", Toast.LENGTH_SHORT).show();
+                        } else {
+                            // add custom conversation to DB
+                            CustomConverBean bean = new CustomConverBean(petAnswer, masterAsk);
+                            addCustomConver(bean);
+                            mConversationAdapter = new CustomConversationAdapter(mContext);
+                            mConversationListView.setAdapter(mConversationAdapter);
+                            Toast.makeText(mContext, "添加成功！", Toast.LENGTH_SHORT).show();
+                            dialog.dismiss();
+                        }
                     }
                 });
                 builder.setNegativeBtnListener(new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
-                        // do nothing
-                        Log.w("dialog", "cancel");
                     }
                 });
                 builder.create().show();
@@ -120,6 +132,19 @@ public class CustomConversationActivity extends Activity implements View.OnClick
         }
     }
 
-    private void addCustomConver() {
+    /**
+     * 将自定义的聊天内容加到DB中
+     */
+    private void addCustomConver(CustomConverBean bean) {
+        if (bean != null) {
+            CustomConverDAO dao = new CustomConverDAO(mContext);
+            dao.add(bean);
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.i("CustomConverActivity", "onResume");
     }
 }
