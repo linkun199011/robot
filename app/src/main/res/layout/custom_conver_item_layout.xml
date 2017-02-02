@@ -48,7 +48,7 @@
                 android:clickable="false"
                 android:padding="8dp"
                 android:text="萌宠:"
-                android:textColor="#EEF38B"
+                android:textColor="#808000"
                 android:textSize="17sp" />
             <TextView
                 android:id="@+id/petAnswer"

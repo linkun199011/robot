@@ -5,6 +5,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.RadioGroup;
 import android.widget.Toast;
@@ -87,16 +88,17 @@ public class VoiceSpeakUtils {
                                      String info) {
             // 合成进度
             mPercentForBuffering = percent;
-            showTip(String.format(mContext.getString(R.string.tts_toast_format),
-                    mPercentForBuffering, mPercentForPlaying));
+//            showTip(String.format(mContext.getString(R.string.tts_toast_format),
+//                    mPercentForBuffering, mPercentForPlaying));
         }
 
         @Override
         public void onSpeakProgress(int percent, int beginPos, int endPos) {
             // 播放进度
             mPercentForPlaying = percent;
-            showTip(String.format(mContext.getString(R.string.tts_toast_format),
-                    mPercentForBuffering, mPercentForPlaying));
+//            showTip(String.format(mContext.getString(R.string.tts_toast_format),
+//                    mPercentForBuffering, mPercentForPlaying));
+            showTip("播放" + mPercentForPlaying + "%");
         }
 
         @Override
@@ -122,8 +124,9 @@ public class VoiceSpeakUtils {
     private void showTip(final String str) {
         mToast.setText(str);
         View view = mToast.getView();
-        view.setAlpha(0.7f);
+        view.setAlpha(0.6f);
         mToast.setView(view);
+        mToast.setGravity(Gravity.TOP | Gravity.END, 0, 0);
         mToast.show();
     }
 

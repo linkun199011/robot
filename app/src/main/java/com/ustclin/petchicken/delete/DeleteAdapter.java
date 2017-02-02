@@ -73,7 +73,14 @@ public class DeleteAdapter extends BaseAdapter{
         ChatMessage bean = messages.get(position);
 
         TextView tvTitle = (TextView) layout.findViewById(R.id.tvTitle);
-        tvTitle.setText(bean.getMsg());
+        String chater;
+        if (bean.getType() != null && bean.getType().equals("in")) {
+            chater = mContext.getResources().getString(R.string.pet_name);
+        } else {
+            chater = mContext.getResources().getString(R.string.master_name);
+        }
+        String content = chater + ": " + bean.getMsg();
+        tvTitle.setText(content);
 
         CheckBox cbCheck = (CheckBox) layout.findViewById(R.id.cbCheckBox);
         cbCheck.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
