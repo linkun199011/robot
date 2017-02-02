@@ -17,6 +17,12 @@ public class CustomConverBean {
         this.masterContent = masterContent;
     }
 
+    public CustomConverBean(int id, String petContent, String masterContent) {
+        this.id = id;
+        this.petContent = petContent;
+        this.masterContent = masterContent;
+    }
+
 
     public int getId() {
         return id;

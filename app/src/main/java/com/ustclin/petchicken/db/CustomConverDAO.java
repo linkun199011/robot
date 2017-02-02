@@ -48,7 +48,7 @@ public class CustomConverDAO {
 			int id = cursor.getInt(cursor.getColumnIndex("id"));
 			String petContent = cursor.getString(cursor.getColumnIndex("pet_content"));
 			String masterContent = cursor.getString(cursor.getColumnIndex("master_content"));
-			CustomConverBean customConverBean = new CustomConverBean(petContent, masterContent );
+			CustomConverBean customConverBean = new CustomConverBean(id, petContent, masterContent );
 			cmList.add(customConverBean);
 		}
 		cursor.close();
