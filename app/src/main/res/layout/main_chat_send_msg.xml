@@ -55,6 +55,7 @@
             android:lineSpacingExtra="2dp"
             android:minHeight="50dp"
             android:text="Hi Little bird。。。"
+            android:textAllCaps="false"
             android:textColor="#000"
             android:textSize="18sp" />
     </RelativeLayout>

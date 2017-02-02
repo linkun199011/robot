@@ -1,31 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-     android:layout_width="fill_parent"
-     android:layout_height="fill_parent"
-     android:background="#00FFFFFF"
-     android:gravity="center|bottom"
-     android:orientation="vertical"
-  >
-  <TextView
-     android:id="@+id/text"
-     android:layout_width="wrap_content"
-     android:layout_height="wrap_content"
-     android:text="量身定制"
-     android:textSize="24sp"
-     android:layout_gravity="bottom|center"
-     android:textColor="#ffffff"
-     android:layout_marginBottom="60dip"
-      />
-  <Button
-     android:id="@+id/button"
-     android:layout_width="wrap_content"
-     android:layout_height="wrap_content"
-     android:text="开始聊天"
-     android:padding="8dip"
-     android:background="@drawable/begin_to_talk"
-     android:visibility="gone"
-     android:layout_marginBottom="50dip"
-     android:layout_gravity="bottom|center"
-   />
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#00FFFFFF"
+    android:gravity="center|bottom"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center"
+        android:layout_marginBottom="60dip"
+        android:text="量身定制"
+        android:textColor="#ffffff"
+        android:textSize="24sp" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center"
+        android:textColor="#ffffff"
+        android:layout_marginBottom="50dip"
+        android:textSize="18sp"
+        android:background="@drawable/begin_to_talk"
+        android:text="开始聊天"
+        android:visibility="gone" />
 
 </LinearLayout>
