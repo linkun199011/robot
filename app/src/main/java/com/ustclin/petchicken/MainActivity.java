@@ -224,15 +224,7 @@ public class MainActivity extends Activity implements OnClickListener {
         }
     }
 
-    //---------------------- 微信分享 初始化
-    private IWXAPI wxApi;
-//    String WX_APP_ID = "wx0455a8eedb2a8159"; // our
-    String WX_APP_ID = "wxd930ea5d5a258f4f"; // demo
-    private void initLib() {
-        //实例化
-        wxApi = WXAPIFactory.createWXAPI(this, WX_APP_ID, true);
-        wxApi.registerApp(WX_APP_ID);
-    }
+
 
     /**
      * 初始化数据库
@@ -978,11 +970,23 @@ public class MainActivity extends Activity implements OnClickListener {
 
     }
 
+    //---------------------- 微信分享 初始化
+    private IWXAPI wxApi;
+        String WX_APP_ID = "wx0455a8eedb2a8159"; // our
+//    String WX_APP_ID = "wxd930ea5d5a258f4f"; // demo
+
+    private void initLib() {
+        //实例化
+        wxApi = WXAPIFactory.createWXAPI(this, WX_APP_ID, true);
+        wxApi.registerApp(WX_APP_ID);
+    }
+
     /**
      * 微信分享 （这里仅提供一个分享网页的示例，其它请参看官网示例代码）
+     *
      * @param flag (0:分享到微信好友，1：分享到微信朋友圈)
      */
-    private void wechatShare(int flag){
+    private void wechatShare(int flag) {
 //        WXWebpageObject webpage = new WXWebpageObject();
 //        webpage.webpageUrl = "这里填写链接url";
         WXTextObject textObj = new WXTextObject();
@@ -992,13 +996,13 @@ public class MainActivity extends Activity implements OnClickListener {
         msg.title = "这里填写标题";
         msg.description = "这里填写内容";
         //这里替换一张自己工程里的图片资源
-        Bitmap thumb = BitmapFactory.decodeResource(getResources(), R.drawable.icon);
+        Bitmap thumb = BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher);
         msg.setThumbImage(thumb);
 
         SendMessageToWX.Req req = new SendMessageToWX.Req();
         req.transaction = String.valueOf(System.currentTimeMillis());
         req.message = msg;
-        req.scene = flag==0?SendMessageToWX.Req.WXSceneSession: SendMessageToWX.Req.WXSceneTimeline;
+        req.scene = flag == 0 ? SendMessageToWX.Req.WXSceneSession : SendMessageToWX.Req.WXSceneTimeline;
         wxApi.sendReq(req);
     }
 
