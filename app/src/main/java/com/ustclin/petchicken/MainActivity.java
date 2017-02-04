@@ -136,6 +136,8 @@ public class MainActivity extends Activity implements OnClickListener {
     private TextView mTextViewDeleteHis;
     private TextView mTextViewShare;
     private TextView mTextViewCustomConver;
+    // header
+    private TextView mTextViewToolBarHeader;
 
     private Button mSend;
     // add voice
@@ -423,6 +425,10 @@ public class MainActivity extends Activity implements OnClickListener {
 
         mTextViewCustomConver = (TextView) findViewById(R.id.tv_custom);
         mTextViewCustomConver.setOnClickListener(this);
+
+        // set header
+        mTextViewToolBarHeader = (TextView) findViewById(R.id.title_bar_name);
+        mTextViewToolBarHeader.setText(RobotApp.gPetName);
 
         mDatas.add(new ChatMessage(ChatMessage.MESSAGE_IN, MyDateUtils
                 .getDate(), "我是小黄鸡，很高兴为主人服务"));
@@ -867,12 +873,17 @@ public class MainActivity extends Activity implements OnClickListener {
         super.onResume();
         if (shouldListViewUpdate) {
             resetListView();
+            resetHeader();
             shouldListViewUpdate = false;
         }
         if (Constant.isNeedToReStart) {
             Constant.isNeedToReStart = false;
             mAdapter.notifyDataSetChanged();
         }
+    }
+
+    private void resetHeader() {
+        mTextViewToolBarHeader.setText(RobotApp.gPetName);
     }
 
     @Override

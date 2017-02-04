@@ -33,6 +33,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ustclin.petchicken.MainActivity;
+import com.ustclin.petchicken.RobotApp;
 import com.ustclin.petchicken.customview.RectangleView;
 import com.ustclin.petchicken.utils.Constant;
 import com.ustclin.petchicken.utils.PhotoUtil;
@@ -310,6 +311,7 @@ public class DetailActivity extends Activity implements View.OnClickListener {
                     } else {
                         voiceType = "manual";
                     }
+                    RobotApp.gPetName = name;
                     SharedPreferencesUtils.setCustomPetSettings(this, name, voicer, voiceType, detailSP);
                 } else {
                     if (mAge.getText().toString().trim().length() == 0) {
@@ -321,6 +323,7 @@ public class DetailActivity extends Activity implements View.OnClickListener {
                     } else {
                         sex = "女";
                     }
+                    RobotApp.gMasterName = name;
                     SharedPreferencesUtils.setCustomMasterSettings(this, name, sex,
                             mAge.getText().toString(), voicer, detailSP);
 
