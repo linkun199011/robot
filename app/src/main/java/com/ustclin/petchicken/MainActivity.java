@@ -47,6 +47,7 @@ import com.ustclin.petchicken.about.AboutActivity;
 import com.ustclin.petchicken.bean.ChatMessage;
 import com.ustclin.petchicken.customconversation.CustomConversationActivity;
 import com.ustclin.petchicken.db.ChatDAO;
+import com.ustclin.petchicken.db.CustomConverDAO;
 import com.ustclin.petchicken.db.ImportDB;
 import com.ustclin.petchicken.db.SQLiteDBHelper;
 import com.ustclin.petchicken.delete.DeleteActivity;
@@ -138,6 +139,7 @@ public class MainActivity extends Activity implements OnClickListener {
     private TextView mTextViewCustomConver;
     // header
     private TextView mTextViewToolBarHeader;
+    private String greetings; // 问候语
 
     private Button mSend;
     // add voice
@@ -430,8 +432,10 @@ public class MainActivity extends Activity implements OnClickListener {
         mTextViewToolBarHeader = (TextView) findViewById(R.id.title_bar_name);
         mTextViewToolBarHeader.setText(RobotApp.gPetName);
 
+        resetGreetings();
+
         mDatas.add(new ChatMessage(ChatMessage.MESSAGE_IN, MyDateUtils
-                .getDate(), "我是小黄鸡，很高兴为主人服务"));
+                .getDate(), greetings));
 
         mAdapter = new ChatMessageAdapter(this, mDatas);
         mAdapter.setPetVoice(voicePet);
@@ -444,7 +448,7 @@ public class MainActivity extends Activity implements OnClickListener {
 
     public void sendMessageString(final String msg) {
         if (TextUtils.isEmpty(msg)) {
-            Toast.makeText(this, "主人，你想说啥？", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, RobotApp.gMasterName + "，你想说啥？", Toast.LENGTH_SHORT).show();
             return;
         }
         // 构造函数，创建对象
@@ -462,7 +466,12 @@ public class MainActivity extends Activity implements OnClickListener {
             public void run() {
                 ChatMessage from = null;
                 try {
-                    from = HttpUtils.sendMsg(msg);
+                    // 用户发出一句话时，先从DB中查找，如果有，则直接回复！
+                    CustomConverDAO customConverDAO = new CustomConverDAO(mContext);
+                    from = customConverDAO.findMsg(msg);
+                    if (from == null) {
+                        from = HttpUtils.sendMsg(msg);
+                    }
                     // 加入数据库
                     mChatDAO.add(from);
                 } catch (Exception e) {
@@ -858,7 +867,7 @@ public class MainActivity extends Activity implements OnClickListener {
         // list 翻转
         Collections.reverse(mDatas);
         mDatas.add(new ChatMessage(ChatMessage.MESSAGE_IN, MyDateUtils
-                .getDate(), "我是小黄鸡，很高兴为主人服务"));
+                .getDate(), greetings));
 
         mAdapter = new ChatMessageAdapter(this, mDatas);
         mAdapter.setPetVoice(voicePet);
@@ -872,6 +881,7 @@ public class MainActivity extends Activity implements OnClickListener {
     protected void onResume() {
         super.onResume();
         if (shouldListViewUpdate) {
+            resetGreetings();
             resetListView();
             resetHeader();
             shouldListViewUpdate = false;
@@ -880,6 +890,11 @@ public class MainActivity extends Activity implements OnClickListener {
             Constant.isNeedToReStart = false;
             mAdapter.notifyDataSetChanged();
         }
+    }
+
+    // 问候语
+    private void resetGreetings() {
+        greetings = "我是" + RobotApp.gPetName + "，很高兴为" + RobotApp.gMasterName + "服务";
     }
 
     private void resetHeader() {

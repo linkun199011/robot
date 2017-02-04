@@ -13,4 +13,6 @@ public class Constant {
     }
 
     public static boolean isNeedToReStart = false;
+
+    public final static String XHJ = "小黄鸡";
 }

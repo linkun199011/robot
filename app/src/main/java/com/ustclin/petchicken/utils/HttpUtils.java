@@ -1,6 +1,7 @@
 package com.ustclin.petchicken.utils;
 
 import com.google.gson.Gson;
+import com.ustclin.petchicken.RobotApp;
 import com.ustclin.petchicken.bean.ChatMessage;
 import com.ustclin.petchicken.bean.CommonException;
 import com.ustclin.petchicken.bean.Result;
@@ -34,8 +35,8 @@ public class HttpUtils {
                 || result.getText().trim().equals("")) {
             message.setMsg("主人，我的爸爸还没有开发出这个功能呢，你问我，我也很为难呢。。");
         } else {
-            message.setMsg(result.getText());
-            //
+            String responseStr = result.getText().replace(Constant.XHJ, RobotApp.gPetName);
+            message.setMsg(responseStr);
         }
         message.setType(ChatMessage.MESSAGE_IN);
         message.setDate(MyDateUtils.getDate());

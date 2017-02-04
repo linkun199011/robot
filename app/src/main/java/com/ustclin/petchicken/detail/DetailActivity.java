@@ -281,7 +281,6 @@ public class DetailActivity extends Activity implements View.OnClickListener {
     @Override
     protected void onStop() {
         super.onStop();
-        MainActivity.shouldListViewUpdate = true;
     }
 
     @Override
@@ -330,6 +329,7 @@ public class DetailActivity extends Activity implements View.OnClickListener {
                 }
                 Toast.makeText(this, "保存成功！", Toast.LENGTH_SHORT).show();
                 Constant.isNeedToReStart = true;
+                MainActivity.shouldListViewUpdate = true;
                 finish();
                 break;
 
