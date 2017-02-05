@@ -290,7 +290,7 @@ public class MainActivity extends Activity implements OnClickListener {
         voiceMaster = new VoiceSpeakUtils(mContext);
         SharedPreferences masterSP = this.getSharedPreferences(SharedPreferencesUtils.MASTER_SETTING, Context.MODE_PRIVATE);
         if (masterSP.contains("Voicer")) {
-            voiceMaster.setVoicer(masterSP.getString("Voicer", "xiaoxin"));
+            voiceMaster.setVoicer(masterSP.getString("Voicer", "xiaoyan"));
         } else {
             voiceMaster.setVoicer("xiaoyan");
         }

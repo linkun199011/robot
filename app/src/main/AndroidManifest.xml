@@ -36,6 +36,7 @@
         <activity
             android:name="com.ustclin.petchicken.MainActivity"
             android:screenOrientation="portrait"
+            android:launchMode="singleInstance"
             android:windowSoftInputMode="adjustResize|stateHidden" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

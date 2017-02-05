@@ -231,7 +231,7 @@ public class DetailActivity extends Activity implements View.OnClickListener {
             }
             mAge.setText(detailSP.getString("Age", "18"));
             mAge.setEnabled(true);
-            mVoicer.setText(detailSP.getString("Voicer", "xiaoxin"));
+            mVoicer.setText(detailSP.getString("Voicer", "xiaoyan"));
             selectedNum = getIndexOfArray(mVoicer.getText().toString());
             mPetVoiceType.setVisibility(View.GONE);
             mMasterVoiceType.setVisibility(View.VISIBLE);

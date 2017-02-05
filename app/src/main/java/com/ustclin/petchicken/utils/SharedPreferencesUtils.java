@@ -110,7 +110,7 @@ public class SharedPreferencesUtils {
             editor.putString("Age", context.getString(R.string.master_age));
         }
         if (!defaultSP.contains("Voicer")) {
-            editor.putString("Voicer", "xiaoxin");
+            editor.putString("Voicer", "xiaoyan");
         }
         if (!defaultSP.contains("VoiceType")) {
             editor.putString("VoiceType", "manual"); // auto / manual
