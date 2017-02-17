@@ -803,7 +803,7 @@ public class MainActivity extends Activity implements OnClickListener {
                         .show();
                 Uri uri = Uri.parse("market://details?id=" + getPackageName());
                 Intent intentSupport = new Intent(Intent.ACTION_VIEW, uri);
-                intentSupport.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                intentSupport.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intentSupport);
                 break;
             case R.id.tv_contact_author:
@@ -812,6 +812,7 @@ public class MainActivity extends Activity implements OnClickListener {
                 intetEmail.putExtra(Intent.EXTRA_SUBJECT, "关于“" + getString(R.string.app_name) + "”应用的建议");
                 intetEmail
                         .putExtra(Intent.EXTRA_TEXT, "作者你好，以下是我关于“"+ getString(R.string.app_name) + "”应用的一些建议：\n");
+                intetEmail.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intetEmail);
                 break;
             case R.id.tv_about:
