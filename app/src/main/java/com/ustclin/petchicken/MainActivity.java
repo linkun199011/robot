@@ -40,7 +40,7 @@ import com.iflytek.cloud.SpeechError;
 import com.iflytek.cloud.ui.RecognizerDialogListener;
 import com.tencent.mm.sdk.modelmsg.SendMessageToWX;
 import com.tencent.mm.sdk.modelmsg.WXMediaMessage;
-import com.tencent.mm.sdk.modelmsg.WXTextObject;
+import com.tencent.mm.sdk.modelmsg.WXWebpageObject;
 import com.tencent.mm.sdk.openapi.IWXAPI;
 import com.tencent.mm.sdk.openapi.WXAPIFactory;
 import com.ustclin.petchicken.about.AboutActivity;
@@ -136,6 +136,7 @@ public class MainActivity extends Activity implements OnClickListener {
     private TextView mTextViewMasterSetting;
     private TextView mTextViewDeleteHis;
     private TextView mTextViewShare;
+    private TextView mTextViewShare2;
     private TextView mTextViewCustomConver;
     // header
     private TextView mTextViewToolBarHeader;
@@ -417,6 +418,9 @@ public class MainActivity extends Activity implements OnClickListener {
         mTextViewShare = (TextView) findViewById(R.id.tv_share);
         mTextViewShare.setOnClickListener(this);
 
+        mTextViewShare2 = (TextView) findViewById(R.id.tv_share2);
+        mTextViewShare2.setOnClickListener(this);
+
         mTextViewCustomConver = (TextView) findViewById(R.id.tv_custom);
         mTextViewCustomConver.setOnClickListener(this);
 
@@ -500,7 +504,6 @@ public class MainActivity extends Activity implements OnClickListener {
         }.start();
 
     }
-
     /**
      * 由于一个账号已经达到API调用上限，所以及时更改API_KEY,通过第三方广告平台的配置项来更改，比较稳定
      */
@@ -538,7 +541,7 @@ public class MainActivity extends Activity implements OnClickListener {
                 System.err.println("随机查到的数为：" + randNum);
                 Editor editor2 = sp.edit();
                 editor2.putString("usedApiIndex", usedApiIndex + "_" + randNum);
-                editor2.commit();
+                editor2.apply();
                 indexNumber = randNum;
                 isAvailable = true;
             }
@@ -552,7 +555,7 @@ public class MainActivity extends Activity implements OnClickListener {
                 "xiao" + indexNumber, "a32e0e48a053066bf4831ebd5fb0b2eb");
         Editor editor1 = sp.edit();
         editor1.putString("API_KEY", apiKey);
-        editor1.commit();
+        editor1.apply();
         HttpUtils.API_KEY = apiKey;
 
     }
@@ -839,9 +842,10 @@ public class MainActivity extends Activity implements OnClickListener {
                 mContext.startActivity(intentDelete);
                 break;
             case R.id.tv_share:
-                //在需要分享的地方添加代码：
-//                wechatShare(0);//分享到微信好友
-                wechatShare(1);//分享到微信朋友圈
+                weChatShare(1);//分享到微信朋友圈
+                break;
+            case R.id.tv_share2:
+                weChatShare(0);//分享到微信好友
                 break;
             case R.id.tv_custom:
                 Intent intentCustom = new Intent();
@@ -973,8 +977,7 @@ public class MainActivity extends Activity implements OnClickListener {
 
     //---------------------- 微信分享 初始化
     private IWXAPI wxApi;
-        String WX_APP_ID = "wx0455a8eedb2a8159"; // our
-//    String WX_APP_ID = "wxd930ea5d5a258f4f"; // demo
+    String WX_APP_ID = "wx0455a8eedb2a8159"; // our
 
     private void initLib() {
         //实例化
@@ -987,15 +990,13 @@ public class MainActivity extends Activity implements OnClickListener {
      *
      * @param flag (0:分享到微信好友，1：分享到微信朋友圈)
      */
-    private void wechatShare(int flag) {
-//        WXWebpageObject webpage = new WXWebpageObject();
-//        webpage.webpageUrl = "这里填写链接url";
-        WXTextObject textObj = new WXTextObject();
-        textObj.text = "XiaoHuangJ";
+    private void weChatShare(int flag) {
+        WXWebpageObject webPage = new WXWebpageObject();
+        webPage.webpageUrl = "https://www.zybuluo.com/linkun199011/note/622446";
 
-        WXMediaMessage msg = new WXMediaMessage(textObj);
-        msg.title = "这里填写标题";
-        msg.description = "这里填写内容";
+        WXMediaMessage msg = new WXMediaMessage(webPage);
+        msg.title = "萌宠";
+        msg.description = "我是一只可以说话的“萌宠”,可以陪主人唠嗑,讲笑话...\n更多功能等待主人的发现哦^_^";
         //这里替换一张自己工程里的图片资源
         Bitmap thumb = BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher);
         msg.setThumbImage(thumb);

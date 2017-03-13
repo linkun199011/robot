@@ -219,7 +219,39 @@
                 android:gravity="center_vertical"
                 android:paddingLeft="15.0dip"
                 android:paddingRight="10.0dip"
-                android:text="分享微信"
+                android:text="微信朋友圈"
+                android:textColor="@color/layout_menu_color"
+                android:textSize="16.0sp" />
+        </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:background="#ff313131" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginLeft="15dp"
+                android:background="@drawable/icon_72_share" />
+
+            <TextView
+                android:id="@+id/tv_share2"
+                android:layout_width="200dip"
+                android:layout_height="50.0dip"
+                android:clickable="true"
+                android:drawablePadding="1.0dip"
+                android:gravity="center_vertical"
+                android:paddingLeft="15.0dip"
+                android:paddingRight="10.0dip"
+                android:text="微信好友"
                 android:textColor="@color/layout_menu_color"
                 android:textSize="16.0sp" />
         </LinearLayout>
