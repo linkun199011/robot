@@ -17,6 +17,7 @@ public class SharedPreferencesUtils {
     public static final String IS_FIRST_START_APP = "isFirstStartApp";
     public static final String IS_FIRST_ENTER_PET_DETAIL = "isFirstEnterPetDetail";
     public static final String IS_FIRST_ENTER_MASTER_DETAIL = "isFirstEnterMasterDetail";
+    public static final String IS_BUY_APP = "isBuyApp";
 
     // ---------------- petSetting.xml  ----------------
     public static final String PET_SETTING = "petSetting";

@@ -131,22 +131,6 @@ public class DetailActivity extends Activity implements View.OnClickListener {
         } else {
             mHeaderPath = mHeaderRootPath + File.separator + "masterHeader.jpg";
         }
-//        if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
-//            File sdcardRootPath = Environment.getExternalStorageDirectory();
-//            String packageName = getPackageName();
-//            mHeaderRootPath = sdcardRootPath.getPath() + File.separator + packageName;
-//            if (mType == Constant.TYPE.PET.ordinal()) {
-//                mHeaderPath = mHeaderRootPath + File.separator + "petHeader.jpg";
-//            } else {
-//                mHeaderPath = mHeaderRootPath + File.separator + "masterHeader.jpg";
-//            }
-//            File headerRootPathFile = new File(mHeaderRootPath);
-//            if (!headerRootPathFile.exists()) {
-//                if (headerRootPathFile.mkdirs()) {
-//                    Log.i(TAG, "header root dir created!");
-//                }
-//            }
-//        }
         // 云端发音人名称列表
         mCloudVoicersEntries = getResources().getStringArray(R.array.voicer_cloud_entries);
         mCloudVoicersValue = getResources().getStringArray(R.array.voicer_cloud_values);
@@ -290,6 +274,18 @@ public class DetailActivity extends Activity implements View.OnClickListener {
                 showPop();
                 break;
             case R.id.change_voicer:
+                SharedPreferences isFirstSP = this.getSharedPreferences(SharedPreferencesUtils.IS_FIRST_SETTING, Context.MODE_PRIVATE);
+                boolean isBuy;
+                if (isFirstSP.contains(SharedPreferencesUtils.IS_BUY_APP)) {
+                    isBuy = true;
+                } else {
+                    isBuy = false;
+                }
+                if (!isBuy) {
+                    // 弹窗
+                    break;
+                }
+
                 if (mType == Constant.TYPE.PET.ordinal()) {
                     showPersonSelectDialog();
                 } else {

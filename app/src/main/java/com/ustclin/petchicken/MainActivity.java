@@ -572,8 +572,8 @@ public class MainActivity extends Activity implements OnClickListener {
         mPager = (ViewPager) findViewById(R.id.pager);
         mFramePager = (ViewPager) findViewById(R.id.main_scrolllayout);
 
-        mPageViews = new ArrayList<View>();
-        mFramePageViews = new ArrayList<View>();
+        mPageViews = new ArrayList<>();
+        mFramePageViews = new ArrayList<>();
 
         LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
@@ -630,7 +630,6 @@ public class MainActivity extends Activity implements OnClickListener {
         mPageAdapter = new MyPagerAdapter(mPageViews);
         mPager.setAdapter(mPageAdapter);
         mPager.setFollowViewPager(mFramePager);
-        // mPager.setOnPageChangeListener();
 
     }
 
