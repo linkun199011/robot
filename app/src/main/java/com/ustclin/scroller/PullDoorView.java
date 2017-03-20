@@ -86,18 +86,14 @@ public class PullDoorView extends RelativeLayout {
 		switch (action) {
 		case MotionEvent.ACTION_DOWN:
 			mLastDownY = (int) event.getY();
-			System.err.println("ACTION_DOWN=" + mLastDownY);
 			return true;
 		case MotionEvent.ACTION_MOVE:
 			mCurryY = (int) event.getY();
-			System.err.println("ACTION_MOVE=" + mCurryY);
 			mDelY = mCurryY - mLastDownY;
 			// 只准上滑有效
 			if (mDelY < 0) {
 				scrollTo(0, -mDelY);
 			}
-			System.err.println("-------------  " + mDelY);
-
 			break;
 		case MotionEvent.ACTION_UP:
 			mCurryY = (int) event.getY();

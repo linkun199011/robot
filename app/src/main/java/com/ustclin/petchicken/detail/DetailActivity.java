@@ -32,6 +32,9 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.appindexing.Action;
+import com.google.android.gms.appindexing.AppIndex;
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.ustclin.petchicken.MainActivity;
 import com.ustclin.petchicken.RobotApp;
 import com.ustclin.petchicken.customview.RectangleView;
@@ -106,6 +109,11 @@ public class DetailActivity extends Activity implements View.OnClickListener {
     private String mHeaderPath;
     private String mHeaderRootPath;
     private File mCurrentPhotoFile;
+    /**
+     * ATTENTION: This was auto-generated to implement the App Indexing API.
+     * See https://g.co/AppIndexing/AndroidStudio for more information.
+     */
+    private GoogleApiClient client;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -118,6 +126,9 @@ public class DetailActivity extends Activity implements View.OnClickListener {
         initSharedPreference();
         initData();
         initView();
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
 
     /**
@@ -230,7 +241,7 @@ public class DetailActivity extends Activity implements View.OnClickListener {
             if (tempVoicer.equals(voicer)) {
                 return index;
             }
-            index ++;
+            index++;
         }
         return 0;
     }
@@ -263,11 +274,6 @@ public class DetailActivity extends Activity implements View.OnClickListener {
     }
 
     @Override
-    protected void onStop() {
-        super.onStop();
-    }
-
-    @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.change_header:
@@ -283,6 +289,7 @@ public class DetailActivity extends Activity implements View.OnClickListener {
                 }
                 if (!isBuy) {
                     // 弹窗
+                    showBuyDialog();
                     break;
                 }
 
@@ -332,6 +339,39 @@ public class DetailActivity extends Activity implements View.OnClickListener {
             default:
                 break;
         }
+    }
+
+    private void showBuyDialog() {
+        AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+        dialog.setTitle("升级VIP");
+        String content = "升级VIP获取可全部高级功能和去广告:\n";
+        content = content + "1. 积分购买(需要使用100积分)\n";
+        content = content + "2. 充值购买(需要花费1元)\n";
+        content = content + "谢谢您对个人开发者的支持！";
+        dialog.setMessage(content);
+        dialog.setPositiveButton("积分购买", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                //
+                Toast.makeText(mContext, "积分购买", Toast.LENGTH_SHORT).show();
+            }
+        });
+        dialog.setNeutralButton("充值购买", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                //
+                Toast.makeText(mContext, "充值购买", Toast.LENGTH_SHORT).show();
+            }
+        });
+        dialog.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                //
+                Toast.makeText(mContext, "取消", Toast.LENGTH_SHORT).show();
+            }
+        });
+        dialog.setCancelable(false);
+        dialog.show();
     }
 
     /**
@@ -507,27 +547,27 @@ public class DetailActivity extends Activity implements View.OnClickListener {
      */
     public void saveBitmap(Bitmap bm) {
 //        if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
-            if (mHeaderPath != null) {
-                File f = new File(mHeaderPath);
-                if (f.exists()) {
-                    String deleteFilePath = mHeaderRootPath + File.separator + "delete_" + System.currentTimeMillis();
-                    File deleteFile = new File(deleteFilePath);
-                    if (f.renameTo(deleteFile)) {
-                        Log.i(TAG, "header.jpg exists, rename it!");
-                    } else {
-                        Log.e(TAG, "header.jpg exists, rename fail, " + deleteFilePath);
-                    }
-                }
-                try {
-                    FileOutputStream out = new FileOutputStream(f);
-                    bm.compress(Bitmap.CompressFormat.PNG, 90, out);
-                    out.flush();
-                    out.close();
-                    Log.w(TAG, "已经保存");
-                } catch (IOException e) {
-                    Log.e(TAG, "header image save failed! " + e.getMessage());
+        if (mHeaderPath != null) {
+            File f = new File(mHeaderPath);
+            if (f.exists()) {
+                String deleteFilePath = mHeaderRootPath + File.separator + "delete_" + System.currentTimeMillis();
+                File deleteFile = new File(deleteFilePath);
+                if (f.renameTo(deleteFile)) {
+                    Log.i(TAG, "header.jpg exists, rename it!");
+                } else {
+                    Log.e(TAG, "header.jpg exists, rename fail, " + deleteFilePath);
                 }
             }
+            try {
+                FileOutputStream out = new FileOutputStream(f);
+                bm.compress(Bitmap.CompressFormat.PNG, 90, out);
+                out.flush();
+                out.close();
+                Log.w(TAG, "已经保存");
+            } catch (IOException e) {
+                Log.e(TAG, "header image save failed! " + e.getMessage());
+            }
+        }
 
 //        }
 
@@ -567,5 +607,4 @@ public class DetailActivity extends Activity implements View.OnClickListener {
             }
         }
     }
-
 }

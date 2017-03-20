@@ -1527,7 +1527,7 @@ public class ViewPager extends ViewGroup {
             }
             return false;
         }
-        Log.i("jianghejie","xpos = "+ xpos);
+//        Log.i("jianghejie","xpos = "+ xpos);
         final ItemInfo ii = infoForCurrentScrollPosition();
         final int width = getWidth();
         final int widthWithMargin = width + mPageMargin;

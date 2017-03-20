@@ -48,7 +48,6 @@ import com.ustclin.petchicken.bean.ChatMessage;
 import com.ustclin.petchicken.customconversation.CustomConversationActivity;
 import com.ustclin.petchicken.db.ChatDAO;
 import com.ustclin.petchicken.db.CustomConverDAO;
-import com.ustclin.petchicken.db.ImportDB;
 import com.ustclin.petchicken.db.SQLiteDBHelper;
 import com.ustclin.petchicken.delete.DeleteActivity;
 import com.ustclin.petchicken.detail.DetailActivity;
@@ -234,8 +233,8 @@ public class MainActivity extends Activity implements OnClickListener {
         // 初始化 database
         SQLiteDBHelper helper = new SQLiteDBHelper(this);
         helper.getReadableDatabase();
-        ImportDB importDB = new ImportDB(this);
-        importDB.copyDatabase();
+//        ImportDB importDB = new ImportDB(this);
+//        importDB.copyDatabase();
         mChatDAO = new ChatDAO(this);
         mDatas = mChatDAO.find20();
         // list 翻转

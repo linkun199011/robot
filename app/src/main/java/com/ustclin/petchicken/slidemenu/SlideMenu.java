@@ -165,7 +165,6 @@ public class SlideMenu extends ViewGroup {
 			mLastMotionX = x;
 			mLastMotionY = y;
 			mAllowLongPress = true;
-			System.out.println(">>>>>onInterceptTouchEvent mLastMotionX is "+mLastMotionX);
 			mTouchState = mScroller.isFinished() ? TOUCH_STATE_REST
 					: TOUCH_STATE_SCROLLING;
 
@@ -229,7 +228,6 @@ public class SlideMenu extends ViewGroup {
 
 			// Remember where the motion event started
 			mLastMotionX = x;
-			System.out.println(">>>>>mLastMotionX is "+mLastMotionX);
 			break;
 		case MotionEvent.ACTION_MOVE:
 			if (mTouchState == TOUCH_STATE_SCROLLING) {

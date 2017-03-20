@@ -70,6 +70,11 @@
         <!-- 万普配置信息 start -->
         <meta-data android:name="APP_ID" android:value="d2241b3659b7bc59e37e1a0c26ee090b" />
         <meta-data android:name="APP_PID" android:value="${CHANNEL_NAME}" />
+        <!-- ATTENTION: This was auto-generated to add Google Play services to your project for
+             App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information. -->
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
         <!-- 万普配置信息 end -->
 
     </application>
