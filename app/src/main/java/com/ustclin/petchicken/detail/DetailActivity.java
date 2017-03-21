@@ -49,6 +49,9 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
+import cn.waps.AppConnect;
+import cn.waps.UpdatePointsListener;
+
 /**
  * 详情页面
  * author: LinKun
@@ -56,7 +59,7 @@ import java.io.IOException;
  * created on: 2016/11/20:02:13
  * description
  */
-public class DetailActivity extends Activity implements View.OnClickListener {
+public class DetailActivity extends Activity implements View.OnClickListener, UpdatePointsListener {
     private static final String TAG = DetailActivity.class.getName();
     private int mType = Constant.TYPE.PET.ordinal(); // 0: pet , 1: master; default is 0
     private Context mContext;
@@ -109,6 +112,9 @@ public class DetailActivity extends Activity implements View.OnClickListener {
     private String mHeaderPath;
     private String mHeaderRootPath;
     private File mCurrentPhotoFile;
+    private SharedPreferences isFirstSP ;
+    // ads
+    private int mPointTotal = 0;
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -250,7 +256,7 @@ public class DetailActivity extends Activity implements View.OnClickListener {
      * 初始化sharedPreference
      */
     private void initSharedPreference() {
-        SharedPreferences isFirstSP = this.getSharedPreferences(SharedPreferencesUtils.IS_FIRST_SETTING, Context.MODE_PRIVATE);
+        isFirstSP = this.getSharedPreferences(SharedPreferencesUtils.IS_FIRST_SETTING, Context.MODE_PRIVATE);
         if (mType == Constant.TYPE.PET.ordinal()) {
             detailSP = mContext.getSharedPreferences(SharedPreferencesUtils.PET_SETTING, Context.MODE_PRIVATE);
             if (!isFirstSP.contains(SharedPreferencesUtils.IS_FIRST_ENTER_PET_DETAIL)) {
@@ -270,8 +276,12 @@ public class DetailActivity extends Activity implements View.OnClickListener {
 
     @Override
     protected void onResume() {
+        // 从服务器端获取当前用户的虚拟货币.
+        // 返回结果在回调函数getUpdatePoints(...)中处理
+        AppConnect.getInstance(this).getPoints(this);
         super.onResume();
     }
+
 
     @Override
     public void onClick(View v) {
@@ -280,7 +290,7 @@ public class DetailActivity extends Activity implements View.OnClickListener {
                 showPop();
                 break;
             case R.id.change_voicer:
-                SharedPreferences isFirstSP = this.getSharedPreferences(SharedPreferencesUtils.IS_FIRST_SETTING, Context.MODE_PRIVATE);
+                isFirstSP = this.getSharedPreferences(SharedPreferencesUtils.IS_FIRST_SETTING, Context.MODE_PRIVATE);
                 boolean isBuy;
                 if (isFirstSP.contains(SharedPreferencesUtils.IS_BUY_APP)) {
                     isBuy = true;
@@ -345,15 +355,23 @@ public class DetailActivity extends Activity implements View.OnClickListener {
         AlertDialog.Builder dialog = new AlertDialog.Builder(this);
         dialog.setTitle("升级VIP");
         String content = "升级VIP获取可全部高级功能和去广告:\n";
-        content = content + "1. 积分购买(需要使用100积分)\n";
+        content = content + "1. 积分购买(需要使用50积分)\n";
         content = content + "2. 充值购买(需要花费1元)\n";
         content = content + "谢谢您对个人开发者的支持！";
         dialog.setMessage(content);
         dialog.setPositiveButton("积分购买", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                //
-                Toast.makeText(mContext, "积分购买", Toast.LENGTH_SHORT).show();
+                Log.e(TAG, "积分：" + mPointTotal);
+                if (mPointTotal > 50) {
+                    AppConnect.getInstance(mContext).spendPoints(50, DetailActivity.this);
+                    SharedPreferencesUtils.setVIP(isFirstSP);
+                    Toast.makeText(mContext, "购买成功,恭喜您成为VIP !", Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(mContext, "积分不足, 下载软件获取积分!", Toast.LENGTH_LONG).show();
+                    // 显示推荐列表（综合）
+                    AppConnect.getInstance(mContext).showOffers(mContext);
+                }
             }
         });
         dialog.setNeutralButton("充值购买", new DialogInterface.OnClickListener() {
@@ -607,4 +625,28 @@ public class DetailActivity extends Activity implements View.OnClickListener {
             }
         }
     }
+
+
+    /**
+	 * AppConnect.getPoints()方法的实现，必须实现
+	 *
+	 * @param currencyName
+	 *            虚拟货币名称.
+	 * @param pointTotal
+	 *            虚拟货币余额.
+	 */
+	public void getUpdatePoints(String currencyName, int pointTotal) {
+        mPointTotal = pointTotal;
+	}
+
+	/**
+	 * AppConnect.getPoints() 方法的实现，必须实现
+	 *
+	 * @param error
+	 *            请求失败的错误信息
+	 */
+	public void getUpdatePointsFailed(String error) {
+        mPointTotal = 0;
+	}
+
 }

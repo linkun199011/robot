@@ -149,6 +149,7 @@ public class MainActivity extends Activity implements OnClickListener {
     // XUN FEI voice
     private static String XUN_FEI = "XunFei";
     VoiceSpeakUtils voicePet ;
+    private boolean shouldSpeak = true;
     VoiceSpeakUtils voiceMaster ;
 
     // soft input
@@ -278,7 +279,7 @@ public class MainActivity extends Activity implements OnClickListener {
         t.start();
     }
 
-    private void   initVoice() {
+    private void initVoice() {
         // should read SharedPre.
         voicePet = new VoiceSpeakUtils(mContext);
         SharedPreferences petSP = this.getSharedPreferences(SharedPreferencesUtils.PET_SETTING, Context.MODE_PRIVATE);
@@ -286,6 +287,13 @@ public class MainActivity extends Activity implements OnClickListener {
             voicePet.setVoicer(petSP.getString("Voicer","xiaowanzi"));
         } else {
             voicePet.setVoicer("xiaowanzi");
+        }
+        if (petSP.contains("VoiceType")) {
+            if (petSP.getString("VoiceType", "auto").equals("auto")) {
+                shouldSpeak = true;
+            } else {
+                shouldSpeak = false;
+            }
         }
         voiceMaster = new VoiceSpeakUtils(mContext);
         SharedPreferences masterSP = this.getSharedPreferences(SharedPreferencesUtils.MASTER_SETTING, Context.MODE_PRIVATE);
@@ -498,7 +506,9 @@ public class MainActivity extends Activity implements OnClickListener {
                 Message message = Message.obtain();
                 message.obj = from;
                 mHandler.sendMessage(message);
-                voicePet.play(from.getMsg());
+                if (shouldSpeak) {
+                    voicePet.play(from.getMsg());
+                }
             }
         }.start();
 

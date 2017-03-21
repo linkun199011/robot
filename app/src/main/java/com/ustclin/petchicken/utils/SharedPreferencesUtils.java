@@ -38,6 +38,18 @@ public class SharedPreferencesUtils {
     }
 
     /**
+     * set first sharedPreferences
+     */
+    public static void setVIP(SharedPreferences isFirstSP) {
+        if (!isFirstSP.contains(IS_BUY_APP)) {
+            // 用户第一次启动该运用,会有引导页
+            SharedPreferences.Editor editor = isFirstSP.edit();
+            editor.putBoolean(IS_BUY_APP, true);
+            editor.apply();
+        }
+    }
+
+    /**
      * set first pet detail
      */
     public static void setFirstPetDetail(SharedPreferences isFirstSP) {
