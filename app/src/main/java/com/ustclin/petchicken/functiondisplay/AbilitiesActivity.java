@@ -54,11 +54,11 @@ public class AbilitiesActivity extends AppCompatActivity {
         View view3 = layout.inflate(R.layout.function_activity, null);
         initView(view3, "joke");
         View view4 = layout.inflate(R.layout.function_activity, null);
-        initView(view4, "lyrics");
+        initView(view4, "answer");
         View view5 = layout.inflate(R.layout.function_activity, null);
         initView(view5, "poem");
         View view6 = layout.inflate(R.layout.function_activity, null);
-        initView(view6, "translation");
+        initView(view6, "story");
         View view7 = layout.inflate(R.layout.function_activity, null);
         initView(view7, "weather");
 
@@ -91,14 +91,14 @@ public class AbilitiesActivity extends AppCompatActivity {
             case "joke":
                 setValue(view, R.drawable.function_joke1, R.drawable.function_joke2, "讲笑话");
                 break;
-            case "lyrics":
-                setValue(view, R.drawable.function_lyrics1, R.drawable.function_lyrics2, "查歌词");
+            case "answer":
+                setValue(view, R.drawable.function_answer1, R.drawable.function_answer2, "知天下");
                 break;
             case "poem":
                 setValue(view, R.drawable.function_poem1, R.drawable.function_poem2, "背诗词");
                 break;
-            case "translation":
-                setValue(view, R.drawable.function_translation1, R.drawable.function_translation2, "让翻译");
+            case "story":
+                setValue(view, R.drawable.function_story1, R.drawable.function_story2, "讲故事");
                 break;
             case "weather":
                 setValue(view, R.drawable.function_weather1, R.drawable.function_weather2, "问天气");
