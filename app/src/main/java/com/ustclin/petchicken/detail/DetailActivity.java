@@ -290,18 +290,18 @@ public class DetailActivity extends Activity implements View.OnClickListener, Up
                 showPop();
                 break;
             case R.id.change_voicer:
-                isFirstSP = this.getSharedPreferences(SharedPreferencesUtils.IS_FIRST_SETTING, Context.MODE_PRIVATE);
-                boolean isBuy;
-                if (isFirstSP.contains(SharedPreferencesUtils.IS_BUY_APP)) {
-                    isBuy = true;
-                } else {
-                    isBuy = false;
-                }
-                if (!isBuy) {
-                    // 弹窗
-                    showBuyDialog();
-                    break;
-                }
+//                isFirstSP = this.getSharedPreferences(SharedPreferencesUtils.IS_FIRST_SETTING, Context.MODE_PRIVATE);
+//                boolean isBuy;
+//                if (isFirstSP.contains(SharedPreferencesUtils.IS_BUY_APP)) {
+//                    isBuy = true;
+//                } else {
+//                    isBuy = false;
+//                }
+//                if (!isBuy) {
+//                    // 弹窗
+//                    showBuyDialog();
+//                    break;
+//                }
 
                 if (mType == Constant.TYPE.PET.ordinal()) {
                     showPersonSelectDialog();
