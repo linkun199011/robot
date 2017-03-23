@@ -25,42 +25,42 @@ android {
         wanpu {
             manifestPlaceholders = [ CHANNEL_NAME:"default"]
         }
-//        xiaomi {
-//            manifestPlaceholders = [ CHANNEL_NAME:"xiaomi" ]
-//        }
-//        lenovo {
-//            manifestPlaceholders = [ CHANNEL_NAME:"lenovo" ]
-//        }
-//        mumayi {
-//            manifestPlaceholders = [ CHANNEL_NAME:"mumayi" ]
-//        }
-//        // 安卓市场
-//        hiapk {
-//            manifestPlaceholders = [ CHANNEL_NAME:"hiapk" ]
-//        }
-//        // 掌上应用汇
-//        appChina {
-//            manifestPlaceholders = [ CHANNEL_NAME:"appChina" ]
-//        }
-//        // 安智市场
-//        goapk {
-//            manifestPlaceholders = [ CHANNEL_NAME:"goapk" ]
-//        }
-//        baidu {
-//            manifestPlaceholders = [ CHANNEL_NAME:"baidu" ]
-//        }
-//        wandoujia {
-//            manifestPlaceholders = [ CHANNEL_NAME:"wandoujia" ]
-//        }
-//        QQ {
-//            manifestPlaceholders = [ CHANNEL_NAME:"QQ" ]
-//        }
-//        _360 {
-//            manifestPlaceholders = [ CHANNEL_NAME:"360" ]
-//        }
-//        google {
-//            manifestPlaceholders = [ CHANNEL_NAME:"google" ]
-//        }
+        xiaomi {
+            manifestPlaceholders = [ CHANNEL_NAME:"xiaomi" ]
+        }
+        lenovo {
+            manifestPlaceholders = [ CHANNEL_NAME:"lenovo" ]
+        }
+        mumayi {
+            manifestPlaceholders = [ CHANNEL_NAME:"mumayi" ]
+        }
+        // 安卓市场
+        hiapk {
+            manifestPlaceholders = [ CHANNEL_NAME:"hiapk" ]
+        }
+        // 掌上应用汇
+        appChina {
+            manifestPlaceholders = [ CHANNEL_NAME:"appChina" ]
+        }
+        // 安智市场
+        goapk {
+            manifestPlaceholders = [ CHANNEL_NAME:"goapk" ]
+        }
+        baidu {
+            manifestPlaceholders = [ CHANNEL_NAME:"baidu" ]
+        }
+        wandoujia {
+            manifestPlaceholders = [ CHANNEL_NAME:"wandoujia" ]
+        }
+        QQ {
+            manifestPlaceholders = [ CHANNEL_NAME:"QQ" ]
+        }
+        _360 {
+            manifestPlaceholders = [ CHANNEL_NAME:"360" ]
+        }
+        google {
+            manifestPlaceholders = [ CHANNEL_NAME:"google" ]
+        }
     }
 }
 
