@@ -58,6 +58,9 @@ android {
 //        _360 {
 //            manifestPlaceholders = [ CHANNEL_NAME:"360" ]
 //        }
+//        google {
+//            manifestPlaceholders = [ CHANNEL_NAME:"google" ]
+//        }
     }
 }
 
