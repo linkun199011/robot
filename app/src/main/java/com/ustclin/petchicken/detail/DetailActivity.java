@@ -38,6 +38,7 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.ustclin.petchicken.MainActivity;
 import com.ustclin.petchicken.RobotApp;
 import com.ustclin.petchicken.customview.RectangleView;
+import com.ustclin.petchicken.utils.AdUtils;
 import com.ustclin.petchicken.utils.Constant;
 import com.ustclin.petchicken.utils.PhotoUtil;
 import com.ustclin.petchicken.utils.SharedPreferencesUtils;
@@ -290,17 +291,19 @@ public class DetailActivity extends Activity implements View.OnClickListener, Up
                 showPop();
                 break;
             case R.id.change_voicer:
-                isFirstSP = this.getSharedPreferences(SharedPreferencesUtils.IS_FIRST_SETTING, Context.MODE_PRIVATE);
-                boolean isBuy;
-                if (isFirstSP.contains(SharedPreferencesUtils.IS_BUY_APP)) {
-                    isBuy = true;
-                } else {
-                    isBuy = false;
-                }
-                if (!isBuy) {
-                    // 弹窗
-                    showBuyDialog();
-                    break;
+                if (AdUtils.showPurchaseDialog(mContext)) {
+                    isFirstSP = this.getSharedPreferences(SharedPreferencesUtils.IS_FIRST_SETTING, Context.MODE_PRIVATE);
+                    boolean isBuy;
+                    if (isFirstSP.contains(SharedPreferencesUtils.IS_BUY_APP)) {
+                        isBuy = true;
+                    } else {
+                        isBuy = false;
+                    }
+                    if (!isBuy) {
+                        // 弹窗
+                        showBuyDialog();
+                        break;
+                    }
                 }
 
                 if (mType == Constant.TYPE.PET.ordinal()) {
@@ -356,7 +359,7 @@ public class DetailActivity extends Activity implements View.OnClickListener, Up
         dialog.setTitle("升级VIP");
         String content = "升级VIP获取可全部高级功能和去广告:\n";
         content = content + "1. 积分购买(需要使用50积分)\n";
-        content = content + "2. 充值购买(需要花费1元)\n";
+//        content = content + "2. 充值购买(需要花费1元)\n";
         content = content + "谢谢您对个人开发者的支持！";
         dialog.setMessage(content);
         dialog.setPositiveButton("积分购买", new DialogInterface.OnClickListener() {
@@ -374,13 +377,13 @@ public class DetailActivity extends Activity implements View.OnClickListener, Up
                 }
             }
         });
-        dialog.setNeutralButton("充值购买", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                //
-                Toast.makeText(mContext, "充值购买", Toast.LENGTH_SHORT).show();
-            }
-        });
+//        dialog.setNeutralButton("充值购买", new DialogInterface.OnClickListener() {
+//            @Override
+//            public void onClick(DialogInterface dialog, int which) {
+//                //
+//                Toast.makeText(mContext, "充值购买", Toast.LENGTH_SHORT).show();
+//            }
+//        });
         dialog.setNegativeButton("取消", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {

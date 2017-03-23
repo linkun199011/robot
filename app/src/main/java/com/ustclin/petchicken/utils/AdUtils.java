@@ -53,4 +53,15 @@ public class AdUtils {
             return false;
         }
     }
+
+    /**
+     * 是否显示购买对话框
+     */
+    public static boolean showPurchaseDialog(Context context) {
+        String purchaseStr = AppConnect.getInstance(context).getConfig("showPurchaseDialog", "no");
+        if (purchaseStr.equals("yes")) {
+            return true;
+        }
+        return false;
+    }
 }

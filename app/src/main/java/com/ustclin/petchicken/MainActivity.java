@@ -1000,7 +1000,8 @@ public class MainActivity extends Activity implements OnClickListener {
      */
     private void weChatShare(int flag) {
         WXWebpageObject webPage = new WXWebpageObject();
-        webPage.webpageUrl = "https://www.zybuluo.com/linkun199011/note/622446";
+        String shareUrl = AppConnect.getInstance(mContext).getConfig("shareUrl", "https://www.zybuluo.com/linkun199011/note/622446");
+        webPage.webpageUrl = shareUrl;
 
         WXMediaMessage msg = new WXMediaMessage(webPage);
         msg.title = "萌宠";
