@@ -9,7 +9,7 @@ import java.util.logging.Logger;
 
 public class SQLiteDBHelper extends SQLiteOpenHelper {
     private static final String DBFILENAME = "chat.db";
-    private static int db_version = 2;
+    private static int db_version = 3;
     private final String CHAT = "chat";// 聊天记录
     private final String CUSTOM_CONVERSATION = "custom_conversation";// 自定义聊天
 
