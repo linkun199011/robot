@@ -1007,7 +1007,7 @@ public class MainActivity extends Activity implements OnClickListener {
         msg.title = "萌宠";
         msg.description = "我是一只可以说话的“萌宠”,可以陪主人唠嗑,讲笑话...\n更多功能等待主人的发现哦^_^";
         //这里替换一张自己工程里的图片资源
-        Bitmap thumb = BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher);
+        Bitmap thumb = BitmapFactory.decodeResource(getResources(), R.drawable.weixin_icon);
         msg.setThumbImage(thumb);
 
         SendMessageToWX.Req req = new SendMessageToWX.Req();
