@@ -115,8 +115,13 @@
 #-keep class m.framework.**{*;}
 ########################------------------科大讯飞 --------------------
 -keep class com.iflytek.**{*;}
-#############################---------WANPU--------------------
--keep public class cn.waps.** {*;}
--keep public interface cn.waps.** {*;}
+#############################---------W-A-N-P-U--------------------
+#-keep public class cn.w a p s.** {*;}
+#-keep public interface cn.w a p s.** {*;}
 #//对亍使用 4.0.3 以上 android-sdk 进行顷目编译时产生异常癿情况时,加入以下内容:
--dontwarn cn.waps.**
+#-dontwarn cn.w a p s.**
+############################### -------- 自定义ads过滤
+-keep public class com.ustclin.ads.** {*;}
+-keep public interface com.ustclin.ads.** {*;}
+#//对亍使用 4.0.3 以上 android-sdk 进行顷目编译时产生异常癿情况时,加入以下内容:
+-dontwarn com.ustclin.ads.**

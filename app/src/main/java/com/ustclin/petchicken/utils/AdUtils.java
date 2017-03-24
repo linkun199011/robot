@@ -4,8 +4,8 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
 
-import cn.waps.AppConnect;
-import cn.waps.AppListener;
+import com.ustclin.ads.AppConnect;
+import com.ustclin.ads.AppListener;
 
 /**
  * author: LinKun EmployeeID:151750

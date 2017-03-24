@@ -35,6 +35,8 @@ import android.widget.Toast;
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.ustclin.ads.AppConnect;
+import com.ustclin.ads.UpdatePointsListener;
 import com.ustclin.petchicken.MainActivity;
 import com.ustclin.petchicken.RobotApp;
 import com.ustclin.petchicken.customview.RectangleView;
@@ -49,9 +51,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-
-import cn.waps.AppConnect;
-import cn.waps.UpdatePointsListener;
 
 /**
  * 详情页面

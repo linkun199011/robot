@@ -43,6 +43,7 @@ import com.tencent.mm.sdk.modelmsg.WXMediaMessage;
 import com.tencent.mm.sdk.modelmsg.WXWebpageObject;
 import com.tencent.mm.sdk.openapi.IWXAPI;
 import com.tencent.mm.sdk.openapi.WXAPIFactory;
+import com.ustclin.ads.AppConnect;
 import com.ustclin.petchicken.about.AboutActivity;
 import com.ustclin.petchicken.bean.ChatMessage;
 import com.ustclin.petchicken.customconversation.CustomConversationActivity;
@@ -80,8 +81,6 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Random;
-
-import cn.waps.AppConnect;
 
 
 public class MainActivity extends Activity implements OnClickListener {
