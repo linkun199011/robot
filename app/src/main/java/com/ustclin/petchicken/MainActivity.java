@@ -984,7 +984,8 @@ public class MainActivity extends Activity implements OnClickListener {
 
     //---------------------- 微信分享 初始化
     private IWXAPI wxApi;
-    String WX_APP_ID = "wx0455a8eedb2a8159"; // our
+    String WX_APP_ID = "wx0455a8eedb2a8159"; // com.ustclin.robot
+    //String WX_APP_ID = "wx0455a8eedb2a8159"; // com.ustclin.newrobot
 
     private void initLib() {
         //实例化
