@@ -23,7 +23,7 @@ android {
     }
 
     productFlavors {
-        wanpu {
+        w_a_n_p_u {
             manifestPlaceholders = [ CHANNEL_NAME:"default"]
         }
         xiaomi {
@@ -78,6 +78,5 @@ dependencies {
     compile files('libs/Msc.jar')
     compile files('libs/Sunflower.jar')
     compile files('libs/libammsdk.jar')
-    compile 'com.google.android.gms:play-services-appindexing:8.1.0'
     compile files('libs/myAd.jar')
 }

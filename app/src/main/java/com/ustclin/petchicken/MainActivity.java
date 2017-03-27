@@ -259,7 +259,7 @@ public class MainActivity extends Activity implements OnClickListener {
         // 给listView加载：下拉，异步刷新功能
         setListViewRefresh();
 //        setListViewScroll();
-        // 广告线程
+        // ads线程
         Runnable r = new Runnable() {
             @Override
             public void run() {
@@ -513,7 +513,7 @@ public class MainActivity extends Activity implements OnClickListener {
 
     }
     /**
-     * 由于一个账号已经达到API调用上限，所以及时更改API_KEY,通过第三方广告平台的配置项来更改，比较稳定
+     * 由于一个账号已经达到API调用上限，所以及时更改API_KEY,通过第三方平台的配置项来更改，比较稳定
      */
     protected void changeAPI_KEY() {
         // 获取API个数

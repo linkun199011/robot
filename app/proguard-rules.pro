@@ -105,21 +105,8 @@
 ##############################--------以上是Android基本配置----------##############################
 
 # 实体类不混淆（自己项目实体类不被混淆，因为Gson中用到了反射）
-#-keep class com.xxxx.model.** { *; }
-
-## for sharedSDK
-#-keep class android.net.http.SslError
-#-keep class android.webkit.**{*;}
-#-keep class cn.sharesdk.**{*;}
-#-keep class com.sina.**{*;}
-#-keep class m.framework.**{*;}
 ########################------------------科大讯飞 --------------------
 -keep class com.iflytek.**{*;}
-#############################---------W-A-N-P-U--------------------
-#-keep public class cn.w a p s.** {*;}
-#-keep public interface cn.w a p s.** {*;}
-#//对亍使用 4.0.3 以上 android-sdk 进行顷目编译时产生异常癿情况时,加入以下内容:
-#-dontwarn cn.w a p s.**
 ############################### -------- 自定义ads过滤
 -keep public class com.ustclin.ads.** {*;}
 -keep public interface com.ustclin.ads.** {*;}
