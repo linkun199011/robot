@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.ustclin.petchicken.bean.ChatMessage;
 import com.ustclin.petchicken.customview.RectangleView;
 import com.ustclin.petchicken.detail.DetailActivity;
+import com.ustclin.petchicken.utils.AdUtils;
 import com.ustclin.petchicken.utils.Constant;
 import com.ustclin.petchicken.utils.MyDateUtils;
 import com.ustclin.petchicken.utils.PhotoUtil;
@@ -151,15 +152,17 @@ public class ChatMessageAdapter extends BaseAdapter {
                     viewHolder.name = (TextView) convertView.findViewById(R.id.chat_from_name);
                     viewHolder.name.setText(RobotApp.gPetName);
                     viewHolder.icon = (RectangleView) convertView.findViewById(R.id.chat_from_icon);
-                    viewHolder.icon.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            Intent intent = new Intent();
-                            intent.putExtra("type", Constant.TYPE.PET.ordinal());
-                            intent.setClass(mContext, DetailActivity.class);
-                            mContext.startActivity(intent);
-                        }
-                    });
+                    if (AdUtils.getInstance().shouldConnect(mContext)) {
+                        viewHolder.icon.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Intent intent = new Intent();
+                                intent.putExtra("type", Constant.TYPE.PET.ordinal());
+                                intent.setClass(mContext, DetailActivity.class);
+                                mContext.startActivity(intent);
+                            }
+                        });
+                    }
                     // custom header
                     PhotoUtil.setPetRecHeader(mContext, viewHolder.icon);
                     convertView.setTag(viewHolder);
@@ -175,15 +178,17 @@ public class ChatMessageAdapter extends BaseAdapter {
                     viewHolder.name = (TextView) convertView.findViewById(R.id.chat_from_name);
                     viewHolder.name.setText(RobotApp.gPetName);
                     viewHolder.icon = (RectangleView) convertView.findViewById(R.id.chat_from_icon);
-                    viewHolder.icon.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            Intent intent = new Intent();
-                            intent.putExtra("type", Constant.TYPE.PET.ordinal());
-                            intent.setClass(mContext, DetailActivity.class);
-                            mContext.startActivity(intent);
-                        }
-                    });
+                    if (AdUtils.getInstance().shouldConnect(mContext)) {
+                        viewHolder.icon.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Intent intent = new Intent();
+                                intent.putExtra("type", Constant.TYPE.PET.ordinal());
+                                intent.setClass(mContext, DetailActivity.class);
+                                mContext.startActivity(intent);
+                            }
+                        });
+                    }
                     // custom header
                     PhotoUtil.setPetRecHeader(mContext, viewHolder.icon);
                     convertView.setTag(viewHolder);
@@ -202,15 +207,17 @@ public class ChatMessageAdapter extends BaseAdapter {
                     viewHolder.name = (TextView) convertView.findViewById(R.id.chat_send_name);
                     viewHolder.name.setText(RobotApp.gMasterName);
                     viewHolder.icon = (RectangleView) convertView.findViewById(R.id.chat_send_icon);
-                    viewHolder.icon.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            Intent intent = new Intent();
-                            intent.putExtra("type", Constant.TYPE.MASTER.ordinal());
-                            intent.setClass(mContext, DetailActivity.class);
-                            mContext.startActivity(intent);
-                        }
-                    });
+                    if (AdUtils.getInstance().shouldConnect(mContext)) {
+                        viewHolder.icon.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Intent intent = new Intent();
+                                intent.putExtra("type", Constant.TYPE.MASTER.ordinal());
+                                intent.setClass(mContext, DetailActivity.class);
+                                mContext.startActivity(intent);
+                            }
+                        });
+                    }
                     // custom header
                     PhotoUtil.setMasterRecHeader(mContext, viewHolder.icon);
                     convertView.setTag(viewHolder);
@@ -226,15 +233,17 @@ public class ChatMessageAdapter extends BaseAdapter {
                     viewHolder.name = (TextView) convertView.findViewById(R.id.chat_send_name);
                     viewHolder.name.setText(RobotApp.gMasterName);
                     viewHolder.icon = (RectangleView) convertView.findViewById(R.id.chat_send_icon);
-                    viewHolder.icon.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            Intent intent = new Intent();
-                            intent.putExtra("type", Constant.TYPE.MASTER.ordinal());
-                            intent.setClass(mContext, DetailActivity.class);
-                            mContext.startActivity(intent);
-                        }
-                    });
+                    if (AdUtils.getInstance().shouldConnect(mContext)) {
+                        viewHolder.icon.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Intent intent = new Intent();
+                                intent.putExtra("type", Constant.TYPE.MASTER.ordinal());
+                                intent.setClass(mContext, DetailActivity.class);
+                                mContext.startActivity(intent);
+                            }
+                        });
+                    }
                     // custom header
                     PhotoUtil.setMasterRecHeader(mContext, viewHolder.icon);
                     convertView.setTag(viewHolder);

@@ -267,7 +267,9 @@ public class DetailActivity extends Activity implements View.OnClickListener, Up
     protected void onResume() {
         // 从服务器端获取当前用户的虚拟货币.
         // 返回结果在回调函数getUpdatePoints(...)中处理
-        AppConnect.getInstance(this).getPoints(this);
+        if (AdUtils.getInstance().shouldConnect(mContext)) {
+            AppConnect.getInstance(this).getPoints(this);
+        }
         super.onResume();
     }
 
@@ -279,7 +281,7 @@ public class DetailActivity extends Activity implements View.OnClickListener, Up
                 showPop();
                 break;
             case R.id.change_voicer:
-                if (AdUtils.showPurchaseDialog(mContext)) {
+                if (AdUtils.getInstance().showPurchaseDialog(mContext)) {
                     isFirstSP = this.getSharedPreferences(SharedPreferencesUtils.IS_FIRST_SETTING, Context.MODE_PRIVATE);
                     boolean isBuy;
                     if (isFirstSP.contains(SharedPreferencesUtils.IS_BUY_APP)) {

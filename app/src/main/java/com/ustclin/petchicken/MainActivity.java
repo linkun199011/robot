@@ -147,9 +147,9 @@ public class MainActivity extends Activity implements OnClickListener {
     private Button btnChangeInput;
     // XUN FEI voice
     private static String XUN_FEI = "XunFei";
-    VoiceSpeakUtils voicePet ;
+    VoiceSpeakUtils voicePet;
     private boolean shouldSpeak = true;
-    VoiceSpeakUtils voiceMaster ;
+    VoiceSpeakUtils voiceMaster;
 
     // soft input
     InputMethodManager imm;
@@ -179,7 +179,7 @@ public class MainActivity extends Activity implements OnClickListener {
                     mChatView.setSelection(tmpList.size());
                     break;
                 case SHOW_AD:
-                    isHaveAD = AdUtils.showAd(mContext);
+                    isHaveAD = AdUtils.getInstance().showAd(mContext);
                     break;
                 case MESSAGE_RECOGNIZE:
                     Bundle result = (Bundle) msg.obj;
@@ -223,7 +223,6 @@ public class MainActivity extends Activity implements OnClickListener {
             mainPage();
         }
     }
-
 
 
     /**
@@ -283,7 +282,7 @@ public class MainActivity extends Activity implements OnClickListener {
         voicePet = new VoiceSpeakUtils(mContext);
         SharedPreferences petSP = this.getSharedPreferences(SharedPreferencesUtils.PET_SETTING, Context.MODE_PRIVATE);
         if (petSP.contains("Voicer")) {
-            voicePet.setVoicer(petSP.getString("Voicer","xiaowanzi"));
+            voicePet.setVoicer(petSP.getString("Voicer", "xiaowanzi"));
         } else {
             voicePet.setVoicer("xiaowanzi");
         }
@@ -512,17 +511,20 @@ public class MainActivity extends Activity implements OnClickListener {
         }.start();
 
     }
+
     /**
      * 由于一个账号已经达到API调用上限，所以及时更改API_KEY,通过第三方平台的配置项来更改，比较稳定
      */
     protected void changeAPI_KEY() {
         // 获取API个数
-        String countStr = AppConnect.getInstance(this).getConfig("API_NUMBER",
-                "1");
+        String countStr = "1";
+        if (AdUtils.getInstance().shouldConnect(mContext)) {
+            countStr = AppConnect.getInstance(this).getConfig("API_NUMBER", "1");
+        }
         API_NUMBER = Integer.parseInt(countStr);
         Editor editor = sp.edit();
         editor.putString("API_NUMBER", API_NUMBER + "");
-        editor.commit();
+        editor.apply();
 
         // 顺序递增查询没有用到的API_KEY ， 但是，更好的做法应该是随机数（去掉已经知道调用完的那些数）
         String usedApiIndex = sp.getString("usedApiIndex", "0");
@@ -559,8 +561,11 @@ public class MainActivity extends Activity implements OnClickListener {
                 System.err.println("-_-");
             }
         }
-        String apiKey = AppConnect.getInstance(this).getConfig(
-                "xiao" + indexNumber, "a32e0e48a053066bf4831ebd5fb0b2eb");
+        String apiKey = "a32e0e48a053066bf4831ebd5fb0b2eb";
+        if (AdUtils.getInstance().shouldConnect(mContext)) {
+            apiKey = AppConnect.getInstance(this).getConfig("xiao" + indexNumber,
+                    "a32e0e48a053066bf4831ebd5fb0b2eb");
+        }
         Editor editor1 = sp.edit();
         editor1.putString("API_KEY", apiKey);
         editor1.apply();
@@ -715,6 +720,7 @@ public class MainActivity extends Activity implements OnClickListener {
 
     /**
      * 开启 、 关闭 软键盘
+     *
      * @param isActive true : 开启软件盘； false： 关闭软键盘
      */
     public void activeSoftInput(boolean isActive) {
@@ -743,7 +749,9 @@ public class MainActivity extends Activity implements OnClickListener {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        AppConnect.getInstance(this).close();
+        if (AdUtils.getInstance().shouldConnect(mContext)) {
+            AppConnect.getInstance(this).close();
+        }
     }
 
     // 连续按两次后退键，退出程序
@@ -821,7 +829,7 @@ public class MainActivity extends Activity implements OnClickListener {
                 intetEmail.setData(Uri.parse("mailto:linkun199011@163.com"));
                 intetEmail.putExtra(Intent.EXTRA_SUBJECT, "关于“" + getString(R.string.app_name) + "”应用的建议");
                 intetEmail
-                        .putExtra(Intent.EXTRA_TEXT, "作者你好，以下是我关于“"+ getString(R.string.app_name) + "”应用的一些建议：\n");
+                        .putExtra(Intent.EXTRA_TEXT, "作者你好，以下是我关于“" + getString(R.string.app_name) + "”应用的一些建议：\n");
                 intetEmail.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intetEmail);
                 break;
@@ -831,17 +839,20 @@ public class MainActivity extends Activity implements OnClickListener {
                 startActivity(intentAbout);
                 break;
             case R.id.tv_pet_setting:
-                Intent intentPet = new Intent();
-                intentPet.putExtra("type", Constant.TYPE.PET.ordinal());
-                intentPet.setClass(mContext, DetailActivity.class);
-                mContext.startActivity(intentPet);
+                if (AdUtils.getInstance().shouldConnect(mContext)) {
+                    Intent intentPet = new Intent();
+                    intentPet.putExtra("type", Constant.TYPE.PET.ordinal());
+                    intentPet.setClass(mContext, DetailActivity.class);
+                    mContext.startActivity(intentPet);
+                }
                 break;
             case R.id.tv_master_setting:
-                Intent intentMaster = new Intent();
-                intentMaster.putExtra("type", Constant.TYPE.MASTER.ordinal());
-                intentMaster.setClass(mContext, DetailActivity.class);
-                mContext.startActivity(intentMaster);
-
+                if (AdUtils.getInstance().shouldConnect(mContext)) {
+                    Intent intentMaster = new Intent();
+                    intentMaster.putExtra("type", Constant.TYPE.MASTER.ordinal());
+                    intentMaster.setClass(mContext, DetailActivity.class);
+                    mContext.startActivity(intentMaster);
+                }
                 break;
             case R.id.tv_delete:
                 Intent intentDelete = new Intent();
@@ -955,6 +966,7 @@ public class MainActivity extends Activity implements OnClickListener {
     };
 
     HashMap<String, String> mIatResults = new LinkedHashMap<String, String>();
+
     private void collectMessage(RecognizerResult results) {
         String text = JsonParser.parseIatResult(results.getResultString());
 
@@ -1000,7 +1012,10 @@ public class MainActivity extends Activity implements OnClickListener {
      */
     private void weChatShare(int flag) {
         WXWebpageObject webPage = new WXWebpageObject();
-        String shareUrl = AppConnect.getInstance(mContext).getConfig("shareUrl", "https://www.zybuluo.com/linkun199011/note/622446");
+        String shareUrl = "https://www.zybuluo.com/linkun199011/note/622446";
+        if (AdUtils.getInstance().shouldConnect(mContext)) {
+            shareUrl = AppConnect.getInstance(mContext).getConfig("shareUrl", "https://www.zybuluo.com/linkun199011/note/622446");
+        }
         webPage.webpageUrl = shareUrl;
 
         WXMediaMessage msg = new WXMediaMessage(webPage);
