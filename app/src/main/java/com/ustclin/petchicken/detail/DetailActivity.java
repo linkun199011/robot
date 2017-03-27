@@ -32,9 +32,6 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.appindexing.Action;
-import com.google.android.gms.appindexing.AppIndex;
-import com.google.android.gms.common.api.GoogleApiClient;
 import com.ustclin.ads.AppConnect;
 import com.ustclin.ads.UpdatePointsListener;
 import com.ustclin.petchicken.MainActivity;
@@ -115,11 +112,6 @@ public class DetailActivity extends Activity implements View.OnClickListener, Up
     private SharedPreferences isFirstSP ;
     // ads
     private int mPointTotal = 0;
-    /**
-     * ATTENTION: This was auto-generated to implement the App Indexing API.
-     * See https://g.co/AppIndexing/AndroidStudio for more information.
-     */
-    private GoogleApiClient client;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -132,9 +124,6 @@ public class DetailActivity extends Activity implements View.OnClickListener, Up
         initSharedPreference();
         initData();
         initView();
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
 
     /**
