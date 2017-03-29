@@ -56,7 +56,7 @@ android {
         QQ {
             manifestPlaceholders = [ CHANNEL_NAME:"QQ" ]
         }
-        _360 {
+        three60 {
             manifestPlaceholders = [ CHANNEL_NAME:"360" ]
         }
         google {
@@ -73,10 +73,12 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:23.3.0'
     compile 'com.android.support:design:23.3.0'
+//    compile 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:1.0.2'
     compile files('libs/gson-2.2.4.jar')
     compile files('libs/nineoldandroids-2.4.0.jar')
     compile files('libs/Msc.jar')
     compile files('libs/Sunflower.jar')
-    compile files('libs/libammsdk.jar')
     compile files('libs/myAd.jar')
+    // 腾讯api
+    compile files('libs/wechat-sdk-android-with-mta-1.0.2.jar')
 }

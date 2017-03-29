@@ -109,8 +109,13 @@ public class AdUtils {
         if (appInfo == null) {
             return false;
         }
-        String msg = appInfo.metaData.getString("APP_PID");
-        if (msg != null && msg.equals("baidu")) {
+        String msg = appInfo.metaData.getString("APP_PID", "360");
+        if (msg != null && ( msg.equals("baidu")
+                || msg.equals("QQ")
+                || msg.equals("360")
+                || msg.equals("xiaomi")
+                || msg.equals("huawei")
+                || msg.equals("wandoujia"))) {
             Log.i(TAG, " msg == " + msg);
             return true;
         }
@@ -122,7 +127,7 @@ public class AdUtils {
      * 是否是敏感时间
      */
     private boolean isSensitiveTime() {
-        long sensitiveTime = 1491350400000l; // 2017-04-05
+        long sensitiveTime = 1492214400000l; // 2017-04-15
         long currentTime = System.currentTimeMillis();
         if (currentTime < sensitiveTime) {
             Log.i(TAG, "is SensitiveTime");
